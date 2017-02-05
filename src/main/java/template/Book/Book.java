@@ -40,7 +40,7 @@ public class Book {
     @Size(min=32, max=32)
     private String seller;
 
-    Book(String id, String title, String author, String code, double price, String description, String seller) {
+    public Book(String id, String title, String author, String code, double price, String description, String seller) {
         this.id = id;
         this.title = title;
         this.author = author;

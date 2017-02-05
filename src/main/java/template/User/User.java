@@ -26,7 +26,7 @@ public class User {
     @Size(min = 1, max = 32)
     private String name;
 
-    User(String id, String email, String password, String name) {
+    public User(String id, String email, String password, String name) {
         this.id = id;
         this.email = email;
         this.password = password;
