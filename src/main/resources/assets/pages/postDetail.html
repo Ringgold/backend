@@ -5,6 +5,11 @@
     <title>Book Trader</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/w3.css">
+
+    <!-- library -->
+    <script src="../js/main.js"></script>
+    <script src="../js/jquery.js"></script>
+
 </head>
 <body class="w3-light-grey">
 <header>
@@ -21,29 +26,43 @@
     </div>
 
     <div class="w3-half">
-        <h1>Book Title</h1>
+        <h1 id="title"><!-- book title --></h1>
         <table class="w3-table-all w3-hoverable" style="width:auto">
             <tr>
                 <td>Author</td>
-                <td><!-- author name --></td>
+                <td id="author"><!-- author name --></td>
             </tr>
             <tr>
                 <td>Price</td>
-                <td><!-- $$$ --></td>
+                <td id="price"><!-- $$$ --></td>
             </tr>
             <tr>
                 <td>ISBN</td>
-                <td><!-- ISBN code --></td>
+                <td id="isbn"><!-- ISBN code --></td>
             </tr>
         </table>
         <p>
-            Posted by <a href="/" target="_blank">[seller's username]</a>
+            Posted by <a id="seller" href="/" target="_blank"> [seller's username] </a>
         </p>
         <h4> Description </h4>
-        <p>
+        <p id="description">
             <!-- Description of the book (written by seller) -->
         </p>
     </div>
+    <script>
+        var idToLookFor = window.locolStorage.getItem('id');
+        $.get("/api/book/all", function(items) {
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].id == idToLookFor) {
+                    document.getElementById("title").innerHTML = items[i].title;
+                    document.getElementById("author").innerHTML = items[i].author;
+                    document.getElementById("price").innerHTML = items[i].price;
+                    document.getElementById("isbn").innerHTML = items[i].isbn;
+                    document.getElementById("description").innerHTML = items[i].description;
+                }
+            }
+        });
+    </script>
 </div>
 </body>
 </html>
