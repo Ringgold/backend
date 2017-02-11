@@ -50,17 +50,22 @@
         </p>
     </div>
     <script>
-        var idToLookFor = window.locolStorage.getItem('id');
-        $.get("/api/book/all", function(items) {
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].id == idToLookFor) {
-                    document.getElementById("title").innerHTML = items[i].title;
-                    document.getElementById("author").innerHTML = items[i].author;
-                    document.getElementById("price").innerHTML = items[i].price;
-                    document.getElementById("isbn").innerHTML = items[i].isbn;
-                    document.getElementById("description").innerHTML = items[i].description;
-                }
+        var idToLookFor = sessionStorage.getItem('book_id');
+        $.get("/api/book/detail/" + idToLookFor, function(response) {
+            if (response === 'FAIL') {
+                alert("failed");
+                return;
             }
+            var book = JSON.parse(response);
+            $('#title').html(book.title);
+            $('#author').html(book.author);
+            $('#price').html(book.price);
+            $('#isbn').html(book.code);
+            $('#description').html(book.description);
+            $.get("/api/user/get_user/" + book.seller, function(response) {
+                var user = JSON.parse(response);
+                $('#seller').html(user.name);
+            })
         });
     </script>
 </div>

@@ -1,5 +1,5 @@
 <%_.each(books, function (book) {%>
-<div data-id="<%=book.id%>" class="w3-card-4 w3-margin-top">
+<div class="w3-card-4 w3-margin-top">
     <header>
         <ul class="w3-navbar w3-border w3-blue-gray w3-large" style="text-transform: uppercase;">
             <li>
@@ -22,6 +22,8 @@
                 $('#contact_<%=book.id%>').hide();
             }
         </script>
+    <header class="w3-container w3-blue-gray">
+        <h3 onclick="window.location.href = '/book_detail'; sessionStorage.setItem('book_id', '<%=book.id%>')">Book Title: <%=book.title%></h3>
     </header>
     <div class="w3-container w3-white">
         <p>Author: <%=book.author%></p>
