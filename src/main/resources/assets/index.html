@@ -30,6 +30,9 @@
         <div class="w3-third">
             <button id="post" class="w3-btn w3-green w3-round w3-margin-top w3-small" onclick="window.location.href = '/post';">Post</button>
         </div>
+        <div class="w3-third">
+            <button id="logout" class="w3-btn w3-green w3-round w3-margin-top w3-small" onclick="sessionStorage.clear(); window.location.reload();">Logout</button>
+        </div>
     </div>
     <script>
         if (sessionStorage.getItem('id')) {
@@ -40,6 +43,7 @@
             $('#welcome').hide();
             $('#welcome_pre').hide();
             $('#post').hide();
+            $('#logout').hide();
         }
     </script>
 </header>
