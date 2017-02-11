@@ -27,6 +27,7 @@ public class SendMessage(){
 
     
    @Path("/send_email/{user_id}{sender_email}{content}")
+   @GET
    public  void send_email(@PathParam("user_id") String userId, @PathParam("sender_email") String senderEmail, @PathParam("content")String content) {
         String from = this.from;
         String pass = this.password;
