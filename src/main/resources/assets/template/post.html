@@ -24,7 +24,7 @@
                     data = JSON.stringify(data);
                     $.post("/api/book/delete/"+ sessionStorage.getItem('id') + "/" + "<%=book.id>", data, function(result) {    //not sure if "<%=book.id>" is correct ?
                         if (result === 'SUCCESS') {
-                            window.location.href = '../';
+                            window.location.reload();
                         } else {
                             alert("please try again");
                         }
