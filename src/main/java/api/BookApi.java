@@ -118,7 +118,7 @@ public class BookApi {
 
             oldBook = bookDao.getBookById(book.getId());
             if (oldBook == null) {
-                return "Book id: " + book.getId();
+                throw new NullPointerException();
             }
 
             // Verify user

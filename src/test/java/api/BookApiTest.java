@@ -142,6 +142,58 @@ public class BookApiTest {
         assertEquals(Constant.SUCCESS, testWorks);
     }
 
+    @Test
+    public void updateBookPrice() {
+        // Create test book
+        Book testBook = new Book("Test_ID_For_Price","Test_Title", "Test_Author", "Test_Code", 1, "Test_Desc", userID);
+        String jsonString = gson.toJson(testBook, Book.class);
+        String ret = api.postBook(jsonString);
+        assertEquals(ret, Constant.SUCCESS);
+
+        // Get the test book's ID and set it to previously created book
+        jsonString = api.getAllBooks();
+        List<Book> list = gson.fromJson(jsonString, new TypeToken<List<Book>>() {}.getType());
+        String testBookId = list.get(0).getId();
+        testBook.setId(testBookId);
+
+        // Update book price and verify return value
+        testBook.setPrice(2.0);
+        jsonString = gson.toJson(testBook, Book.class);
+        ret = api.updateBook(jsonString);
+        assertEquals(Constant.SUCCESS, ret);
+
+        // Verify book price
+        String bookString = api.getBook(testBookId);
+        Book bookPriceChanged = gson.fromJson(bookString, new TypeToken<Book>(){}.getType());
+        assertTrue(bookPriceChanged.getPrice() == 2.0);
+    }
+
+    @Test
+    public void updateBookDescription() {
+        // Create test book
+        Book testBook = new Book("Test_ID_For_Price","Test_Title", "Test_Author", "Test_Code", 1, "Test_Desc", userID);
+        String jsonString = gson.toJson(testBook, Book.class);
+        String ret = api.postBook(jsonString);
+        assertEquals(ret, Constant.SUCCESS);
+
+        // Get the test book's ID and set it to previously created book
+        jsonString = api.getAllBooks();
+        List<Book> list = gson.fromJson(jsonString, new TypeToken<List<Book>>() {}.getType());
+        String testBookId = list.get(0).getId();
+        testBook.setId(testBookId);
+
+        // Update book price and verify return value
+        testBook.setDescription("Description has been changed.");
+        jsonString = gson.toJson(testBook, Book.class);
+        ret = api.updateBook(jsonString);
+        assertEquals(Constant.SUCCESS, ret);
+
+        // Verify book price
+        String bookString = api.getBook(testBookId);
+        Book bookPriceChanged = gson.fromJson(bookString, new TypeToken<Book>(){}.getType());
+        assertTrue(bookPriceChanged.getDescription().equals("Description has been changed."));
+    }
+
     private void addBooks(int count) {
         for(int i=0;i<count;i++){
             Book test = new Book("Test_ID"+i,"Test_Title"+i, "Test_Author"+i, "Test_Code"+i, i+1, "Test_Desc"+i, userID);
