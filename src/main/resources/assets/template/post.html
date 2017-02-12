@@ -8,13 +8,19 @@
             <li id="delete_<%=book.id%>" class="w3-right">
                 <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" href="" onclick="delete_post('<%=book.id%>');">Delete</a>
             </li>
-            <li class="w3-right">
+            <li id="contact_<%=book.id%>" class="w3-right">
                 <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" href="">Contact Seller</a>
             </li>
         </ul>
         <script>
-            if (!sessionStorage.getItem('id')) $('#delete_<%=book.id%>').hide();
-            if (sessionStorage.getItem('id') !== '<%=book.seller%>') $('#delete_<%=book.id%>').hide();
+            if (!sessionStorage.getItem('id')) {
+                $('#delete_<%=book.id%>').hide();
+            }
+            if (sessionStorage.getItem('id') !== '<%=book.seller%>') {
+                $('#delete_<%=book.id%>').hide();
+            } else {
+                $('#contact_<%=book.id%>').hide();
+            }
         </script>
     </header>
     <div class="w3-container w3-white">

@@ -14,15 +14,19 @@ __p += '\r\n<div data-id="' +
 ((__t = (book.title)) == null ? '' : __t) +
 '</a>\r\n            </li>\r\n            <li id="delete_' +
 ((__t = (book.id)) == null ? '' : __t) +
-'" class="w3-right">\r\n                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" onclick="delete_post(\'' +
+'" class="w3-right">\r\n                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" href="" onclick="delete_post(\'' +
 ((__t = (book.id)) == null ? '' : __t) +
-'\');">Delete</a>\r\n            </li>\r\n            <li class="w3-right">\r\n                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme">Contact Seller</a>\r\n            </li>\r\n        </ul>\r\n        <script>\r\n            if (!sessionStorage.getItem(\'id\')) $(\'#delete_' +
+'\');">Delete</a>\r\n            </li>\r\n            <li id="contact_' +
 ((__t = (book.id)) == null ? '' : __t) +
-'\').hide();\r\n            if (sessionStorage.getItem(\'id\') !== \'' +
+'" class="w3-right">\r\n                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" href="">Contact Seller</a>\r\n            </li>\r\n        </ul>\r\n        <script>\r\n            if (!sessionStorage.getItem(\'id\')) {\r\n                $(\'#delete_' +
+((__t = (book.id)) == null ? '' : __t) +
+'\').hide();\r\n            }\r\n            if (sessionStorage.getItem(\'id\') !== \'' +
 ((__t = (book.seller)) == null ? '' : __t) +
-'\') $(\'#delete_' +
+'\') {\r\n                $(\'#delete_' +
 ((__t = (book.id)) == null ? '' : __t) +
-'\').hide();\r\n        </script>\r\n    </header>\r\n    <div class="w3-container w3-white">\r\n        <p>Author: ' +
+'\').hide();\r\n            } else {\r\n                $(\'#contact_' +
+((__t = (book.id)) == null ? '' : __t) +
+'\').hide();\r\n            }\r\n        </script>\r\n    </header>\r\n    <div class="w3-container w3-white">\r\n        <p>Author: ' +
 ((__t = (book.author)) == null ? '' : __t) +
 '</p>\r\n        <p>Price: ' +
 ((__t = (book.price)) == null ? '' : __t) +
