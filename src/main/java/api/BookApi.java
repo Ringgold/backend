@@ -103,6 +103,46 @@ public class BookApi {
         return Constant.SUCCESS;
     }
 
+    @Path("/update")
+    @POST
+    public String updateBook(String request) {
+        Book book;
+        Book oldBook;
+        Gson gson = new Gson();
+
+        try {
+            book = gson.fromJson(request, Book.class);
+            if (book == null) {
+                throw new NullPointerException();
+            }
+
+            oldBook = bookDao.getBookById(book.getId());
+            if (oldBook == null) {
+                return "Book id: " + book.getId();
+            }
+
+            // Verify user
+            if (!oldBook.getSeller().equals(book.getSeller())) {
+                return Constant.FAIL;
+            }
+
+            // Update description if changed
+            if (!book.getDescription().equals(oldBook.getDescription())) {
+                bookDao.setBookDescription(book);
+            }
+
+            // Update price if changed
+            if (book.getPrice() != oldBook.getPrice()) {
+                bookDao.setBookPrice(book);
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+
+        return Constant.SUCCESS;
+    }
+
     public void setDao(BookDao bookDao, UserDao userDao) {
         this.bookDao = bookDao;
         this.userDao = userDao;

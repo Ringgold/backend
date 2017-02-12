@@ -25,4 +25,10 @@ public interface BookDao {
 
     @SqlUpdate("delete from book where id = :id")
     void deleteBookById(@Bind("id") String id);
+
+    @SqlUpdate("update book set price = :price where id = :id")
+    void setBookPrice(@BindBean Book book);
+
+    @SqlUpdate("update book set description = :description where id = :id")
+    void setBookDescription(@BindBean Book book);
 }
