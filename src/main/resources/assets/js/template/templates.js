@@ -10,25 +10,25 @@ with (obj) {
 _.each(books, function (book) {;
 __p += '\r\n<div data-id="' +
 ((__t = (book.id)) == null ? '' : __t) +
-'" class="w3-card-4 w3-margin-top">\r\n    <header class="w3-container w3-blue-gray">\r\n        <h3><a href="/book_detail" style="text-decoration: none">Book Title: ' +
+'" class="w3-card-4 w3-margin-top">\r\n    <header>\r\n        <ul class="w3-navbar w3-border w3-blue-gray w3-large" style="text-transform: uppercase;">\r\n            <li>\r\n                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" href="/book_detail">' +
 ((__t = (book.title)) == null ? '' : __t) +
-'</a></h3>\r\n    </header>\r\n    <div class="w3-container w3-white">\r\n        <p>Author: ' +
-((__t = (book.author)) == null ? '' : __t) +
-'</p>\r\n        <p>Price: ' +
-((__t = (book.price)) == null ? '' : __t) +
-'</p>\r\n    </div>\r\n    <footer class="w3-container w3-blue-gray">\r\n        <button class="w3-margin-right w3-margin-top w3-btn w3-round w3-green">Contact seller</button>\r\n        <button id="delete_' +
+'</a>\r\n            </li>\r\n            <li id="delete_' +
 ((__t = (book.id)) == null ? '' : __t) +
-'" class="w3-margin-right w3-margin-top w3-btn w3-round w3-green"\r\n                onclick="delete_post(\'' +
+'" class="w3-right">\r\n                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" onclick="delete_post(\'' +
 ((__t = (book.id)) == null ? '' : __t) +
-'\');">Delete\r\n        </button>\r\n        <script>\r\n            if (!sessionStorage.getItem(\'id\')) $(\'#delete_' +
+'\');">Delete</a>\r\n            </li>\r\n            <li class="w3-right">\r\n                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme">Contact Seller</a>\r\n            </li>\r\n        </ul>\r\n        <script>\r\n            if (!sessionStorage.getItem(\'id\')) $(\'#delete_' +
 ((__t = (book.id)) == null ? '' : __t) +
 '\').hide();\r\n            if (sessionStorage.getItem(\'id\') !== \'' +
 ((__t = (book.seller)) == null ? '' : __t) +
 '\') $(\'#delete_' +
 ((__t = (book.id)) == null ? '' : __t) +
-'\').hide();\r\n        </script>\r\n    </footer>\r\n</div>\r\n';
+'\').hide();\r\n        </script>\r\n    </header>\r\n    <div class="w3-container w3-white">\r\n        <p>Author: ' +
+((__t = (book.author)) == null ? '' : __t) +
+'</p>\r\n        <p>Price: ' +
+((__t = (book.price)) == null ? '' : __t) +
+'</p>\r\n    </div>\r\n</div>\r\n';
 });;
-__p += '\r\n';
+__p += '\r\n\r\n';
 
 }
 return __p

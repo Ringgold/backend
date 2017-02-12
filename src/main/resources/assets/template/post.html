@@ -1,21 +1,26 @@
 <%_.each(books, function (book) {%>
 <div data-id="<%=book.id%>" class="w3-card-4 w3-margin-top">
-    <header class="w3-container w3-blue-gray">
-        <h3><a href="/book_detail" style="text-decoration: none">Book Title: <%=book.title%></a></h3>
+    <header>
+        <ul class="w3-navbar w3-border w3-blue-gray w3-large" style="text-transform: uppercase;">
+            <li>
+                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" href="/book_detail"><%=book.title%></a>
+            </li>
+            <li id="delete_<%=book.id%>" class="w3-right">
+                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" onclick="delete_post('<%=book.id%>');">Delete</a>
+            </li>
+            <li class="w3-right">
+                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme">Contact Seller</a>
+            </li>
+        </ul>
+        <script>
+            if (!sessionStorage.getItem('id')) $('#delete_<%=book.id%>').hide();
+            if (sessionStorage.getItem('id') !== '<%=book.seller%>') $('#delete_<%=book.id%>').hide();
+        </script>
     </header>
     <div class="w3-container w3-white">
         <p>Author: <%=book.author%></p>
         <p>Price: <%=book.price%></p>
     </div>
-    <footer class="w3-container w3-blue-gray">
-        <button class="w3-margin-right w3-margin-top w3-btn w3-round w3-green">Contact seller</button>
-        <button id="delete_<%=book.id%>" class="w3-margin-right w3-margin-top w3-btn w3-round w3-green"
-                onclick="delete_post('<%=book.id%>');">Delete
-        </button>
-        <script>
-            if (!sessionStorage.getItem('id')) $('#delete_<%=book.id%>').hide();
-            if (sessionStorage.getItem('id') !== '<%=book.seller%>') $('#delete_<%=book.id%>').hide();
-        </script>
-    </footer>
 </div>
 <%});%>
+

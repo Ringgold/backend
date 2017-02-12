@@ -12,29 +12,29 @@
     <script src="js/jquery.js"></script>
     <script src="js/underscore.js"></script>
 </head>
-<body class="w3-light-grey">
-<header class="w3-indigo w3-padding-4 w3-padding-left w3-row">
-    <h1 class="w3-half"><a href="/" style=" text-decoration: none">Book Trader</a></h1>
-    <div class="w3-right w3-row-padding">
-        <div class="w3-half">
-            <button id="sign_in" class="w3-btn w3-green w3-round w3-margin-top w3-small" onclick="window.location.href = '/login';">Sign In</button>
-        </div>
-        <div class="w3-half">
-            <button id="sign_up" class="w3-btn w3-green w3-round w3-margin-top w3-small" onclick="window.location.href = '/sign_up';">Sign Up</button>
-        </div>
-        <div class="w3-quarter">
-            <p class="w3-margin-top" id="welcome_pre">Welcome </p>
-        </div>
-        <div class="w3-quarter">
-            <p class="w3-margin-top" id="welcome"></p>
-        </div>
-        <div class="w3-quarter">
-            <button id="post" class="w3-btn w3-green w3-round w3-margin-top w3-small" onclick="window.location.href = '/post';">Post</button>
-        </div>
-        <div class="w3-quarter">
-            <button id="logout" class="w3-btn w3-green w3-round w3-margin-top w3-small" onclick="sessionStorage.clear(); window.location.reload();">Logout</button>
-        </div>
-    </div>
+<body class="w3-theme-l5">
+<header>
+    <ul class="w3-navbar w3-border w3-indigo w3-padding-4">
+        <li><a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/">BookTrader</a></li>
+        <li id="logout" class="w3-right">
+            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" onclick="sessionStorage.clear(); window.location.reload();">Logout</a>
+        </li>
+        <li id="post" class="w3-right">
+            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/post">Post</a>
+        </li>
+        <li class="w3-right">
+            <a id="welcome" class="w3-hover-indigo w3-text-white"></a>
+        </li>
+        <li id="welcome_pre" class="w3-right">
+            <a class="w3-hover-indigo w3-text-white">Welcome</a>
+        </li>
+        <li id="sign_up" class="w3-right">
+            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/sign_up">Sign Up</a>
+        </li>
+        <li id="sign_in" class="w3-right">
+            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/login">Sign In</a>
+        </li>
+    </ul>
     <script>
         if (sessionStorage.getItem('id')) {
             $('#sign_in').hide();
