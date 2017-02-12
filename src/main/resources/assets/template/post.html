@@ -8,31 +8,13 @@
         <p>Price: <%=book.price%></p>
     </div>
     <footer class="w3-container w3-blue-gray">
-        <button class=" w3-margin-right w3-margin-top w3-btn w3-round w3-green">Contact seller</button>
-        <button id="delete_post" class=" w3-margin-right w3-margin-top w3-btn w3-round w3-green" onclick="delete_post();">Delete</button>
+        <button class="w3-margin-right w3-margin-top w3-btn w3-round w3-green">Contact seller</button>
+        <button id="delete_<%=book.id%>" class="w3-margin-right w3-margin-top w3-btn w3-round w3-green"
+                onclick="delete_post('<%=book.id%>');">Delete
+        </button>
         <script>
-            if (sessionStorage.getItem('id')) {
-            } else {
-                $('#delete_post').hide();
-            }
-            function delete_post() {
-                var data = getFormData($('#post_book'));
-                data = JSON.parse(data);
-                if(data.seller != sessionStorage.getItem('id')){
-                    alert('Sorry, you can only delete your own posts.')
-                }else{
-                    data = JSON.stringify(data);
-                    $.post("/api/book/delete/"+ sessionStorage.getItem('id') + "/" + "<%=book.id>", data, function(result) {    //not sure if "<%=book.id>" is correct ?
-                        if (result === 'SUCCESS') {
-                            window.location.reload();
-                        } else {
-                            alert("please try again");
-                        }
-                    });
-                }
-
-
-            }
+            if (!sessionStorage.getItem('id')) $('#delete_<%=book.id%>').hide();
+            if (sessionStorage.getItem('id') !== '<%=book.seller%>') $('#delete_<%=book.id%>').hide();
         </script>
     </footer>
 </div>
