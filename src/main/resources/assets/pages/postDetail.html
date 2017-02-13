@@ -56,8 +56,8 @@
         </p>
     </div>
     <script>
-        var idToLookFor = sessionStorage.getItem('book_id');
-        $.get("/api/book/detail/" + idToLookFor, function(response) {
+        var bookId = sessionStorage.getItem('book_id');
+        $.get("/api/book/get_book/" + bookId, function(response) {
             if (response === 'FAIL') {
                 alert("failed");
                 return;
