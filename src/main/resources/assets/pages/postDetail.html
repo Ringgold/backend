@@ -57,6 +57,32 @@
         </p>
     </div>
     <script>
+        function updateBook(price, description) {
+            if (/^\d*(\.\d{2})?$/.test(price)) {
+                var userId = sessionStorage.getItem('id');
+                var bookId = sessionStorage.getItem('book_id');
+
+                var updatedBook = {
+                    id: bookId,
+                    price: price,
+                    description: description,
+                    seller: userId
+                }
+
+                $.post("/api/book/update", JSON.stringify(updatedBook), function (result) {
+                    if (result == 'SUCCESS') {
+                        alert('Price updated successfully.');
+                        window.location.reload();
+                    } else {
+                        alert('Price update failed.');
+                    }
+                })
+
+            } else {
+                alert('Invalid price.');
+            }
+        }
+
         var bookId = sessionStorage.getItem('book_id');
         $.get("/api/book/get_book/" + bookId, function(response) {
             if (response === 'FAIL') {
@@ -70,6 +96,12 @@
             if (sessionStorage.getItem('id') === book.seller) {
                 $('#price-edit').removeAttr('hidden');
                 $('#desc-edit').removeAttr('hidden');
+
+                $('#price-edit').click(function () {
+                    var price = prompt("Enter new price:");
+                    if (price)
+                        updateBook(price, book.description);
+                });
             }
 
             $('#title').html(book.title);
