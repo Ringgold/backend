@@ -34,8 +34,11 @@ class Email{
 
     public static void main(String[] args) {
         //from,password,to,subject,message
-        string book_trader_password ="428bookTrader";
-        Email.send("bookTrader428@gmail.com","428bookTrader","andres.rincon@mail.mcgill.ca","hello javatpoint","How r u?");
+        String book_trader_password ="428bookTrader";
+        String email_seller = "andres.rincon@mail.mcgill.ca";
+        String message = "You received a message from Book traders";
+        String subject = "Contact book selelr";
+        Email.send("bookTrader428@gmail.com",book_trader_password, email_seller,subject, message);
         //change from, password and to
     }    
 }
