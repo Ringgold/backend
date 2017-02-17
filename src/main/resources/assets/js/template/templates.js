@@ -18,7 +18,9 @@ __p += '\r\n<div class="w3-card-4 w3-margin-top">\r\n    <header>\r\n        <ul
 ((__t = (book.id)) == null ? '' : __t) +
 '\');">Delete</a>\r\n            </li>\r\n            <li id="contact_' +
 ((__t = (book.id)) == null ? '' : __t) +
-'" class="w3-right">\r\n                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" href="">Contact Seller</a>\r\n            </li>\r\n        </ul>\r\n        <script>\r\n            if (!sessionStorage.getItem(\'id\')) {\r\n                $(\'#delete_' +
+'" class="w3-right">\r\n                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" href="/contact" onclick="sessionStorage.setItem(\'book_id\', \'' +
+((__t = (book.id)) == null ? '' : __t) +
+'\')">Contact Seller</a>\r\n            </li>\r\n        </ul>\r\n        <script>\r\n            if (!sessionStorage.getItem(\'id\')) {\r\n                $(\'#delete_' +
 ((__t = (book.id)) == null ? '' : __t) +
 '\').hide();\r\n            }\r\n            if (sessionStorage.getItem(\'id\') !== \'' +
 ((__t = (book.seller)) == null ? '' : __t) +

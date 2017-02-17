@@ -1,4 +1,5 @@
 import api.BookApi;
+import api.MailApi;
 import api.UserApi;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
@@ -24,17 +25,20 @@ public class BackendService extends Application<Configuration> {
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/sign_up", "register.html", "register"));
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/book_detail", "postDetail.html", "postDetail"));
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/post", "posts.html", "post"));
+        bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/contact", "contact.html", "contact"));
     }
 
     @Override
     public void run(Configuration configuration, Environment environment) {
         final UserApi userApi = new UserApi();
         final BookApi bookApi = new BookApi();
+        final MailApi mailApi = new MailApi();
 
         userApi.setDao(Constant.dbi.onDemand(UserDao.class), Constant.dbi.onDemand(BookDao.class));
         bookApi.setDao(Constant.dbi.onDemand(BookDao.class), Constant.dbi.onDemand(UserDao.class));
 
         environment.jersey().register(userApi);
         environment.jersey().register(bookApi);
+        environment.jersey().register(mailApi);
     }
 }

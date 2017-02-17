@@ -40,6 +40,7 @@
                         var user = JSON.parse(result);
                         sessionStorage.setItem('id', user.id);
                         sessionStorage.setItem('name', user.name);
+                        sessionStorage.setItem('email', user.email);
                         window.location.href = '../';
                     } else {
                         alert('please try again');

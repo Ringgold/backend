@@ -2,41 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <title>Book Trader</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/w3.css">
     <script src="../js/main.js"></script>
     <script src="../js/jquery.js"></script>
 </head>
 <body class="w3-light-grey">
-<header class="w3-indigo w3-padding-4 w3-padding-left w3-row">
-    <h1 class="w3-half"><a href="/" style="text-decoration: none">Book Trader</a></h1>
+<header>
+    <ul class="w3-navbar w3-border w3-indigo w3-padding-4">
+        <li><a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/">BookTrader</a></li>
+    </ul>
+    <script>
+        if (!sessionStorage.getItem('id')) {
+            alert("please log in first!");
+            window.location.href = '/';
+        }
+    </script>
 </header>
-
 <div class="w3-container">
     <div class="w3-container">
         <h2>Send seller an email</h2>
     </div>
-    <form id="post_book" class="w3-container w3-animate-left" onsubmit="register(event)">
 
-        <textarea name="Send an Email" rows="5" cols="51" placeholder="Email displays here" class="w3-border w3-round-large w3-margin-top" type="text" maxlength="255" required></textarea>
-
+    <form class="w3-container w3-animate-left" onsubmit="register(event)">
+        <textarea id="content" rows="5" cols="51" placeholder="Email content..."
+                  class="w3-border w3-round-large w3-margin-top" type="text" maxlength="255" required></textarea>
         <br>
-
         <button class="w3-btn w3-green w3-round w3-margin-top">Send</button>
         <script>
             function register(event) {
                 event.preventDefault();
-                var data = getFormData($('#post_book'));
-                data = JSON.parse(data);
-                data.seller = sessionStorage.getItem('id');
-                data = JSON.stringify(data);
-                $.post("/api/book/post", data, function(result) {
-                    if (result === 'SUCCESS') {
-                        window.location.href = '../';
-                    } else {
-                        alert("please try again");
-                    }
+                var data = {};
+                data.content = $('#content').val();
+
+                $.get('/api/book/get_book/' + sessionStorage.getItem('book_id'), function (book) {
+                    book = JSON.parse(book);
+                    var sellerId = book.seller;
+                    $.get('/api/user/get_user/' + sellerId, function(seller) {
+                        seller = JSON.parse(seller);
+                        data.sellerEmail = seller.email;
+                        data.userEmail = sessionStorage.getItem('email');
+                        data.userName = sessionStorage.getItem('name');
+                        $.post('/api/mail/send', JSON.stringify(data), function(response) {
+                            if (response === 'SUCCESS') {
+                                alert("success");
+                            } else {
+                                alert("please try again");
+                            }
+                        });
+                    });
                 });
             }
         </script>
