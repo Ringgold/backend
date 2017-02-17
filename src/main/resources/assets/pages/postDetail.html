@@ -32,7 +32,7 @@
                 <td id="author"><!-- author name --></td>
             </tr>
             <tr>
-                <td>Price <a id="price-edit" href="#" hidden><i class="fa fa-pencil-square" ></i></a></td>
+                <td>Price &nbsp; <a id="price-edit" href="#" hidden><i class="fa fa-pencil-square" ></i></a></td>
                 <td id="price"><!-- $$$ --></td>
             </tr>
             <tr>
@@ -71,15 +71,15 @@
 
                 $.post("/api/book/update", JSON.stringify(updatedBook), function (result) {
                     if (result == 'SUCCESS') {
-                        alert('Price updated successfully.');
+                        alert('Book updated successfully.');
                         window.location.reload();
                     } else {
-                        alert('Price update failed.');
+                        alert('Book update failed.');
                     }
                 })
 
             } else {
-                alert('Invalid price.');
+                alert('Invalid information.');
             }
         }
 
@@ -98,10 +98,17 @@
                 $('#desc-edit').removeAttr('hidden');
 
                 $('#price-edit').click(function () {
-                    var price = prompt("Enter new price:");
+                    var price = prompt("Enter new price:", book.price);
                     if (price)
                         updateBook(price, book.description);
                 });
+
+                $('#desc-edit').click(function () {
+                    var desc = prompt("Enter new description:", book.description);
+                    if (desc) {
+                        updateBook(book.price, desc);
+                    }
+                })
             }
 
             $('#title').html(book.title);
