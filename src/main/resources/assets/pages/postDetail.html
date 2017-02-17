@@ -99,13 +99,13 @@
 
                 $('#price-edit').click(function () {
                     var price = prompt("Enter new price:", book.price);
-                    if (price)
+                    if (price && price != book.price)
                         updateBook(price, book.description);
                 });
 
                 $('#desc-edit').click(function () {
                     var desc = prompt("Enter new description:", book.description);
-                    if (desc) {
+                    if (desc && desc != book.description) {
                         updateBook(book.price, desc);
                     }
                 })
