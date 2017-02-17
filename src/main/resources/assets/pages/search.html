@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/w3.css">
+
+    <!--library-->
+    <script src="../js/template/templates.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/underscore.js"></script>
+</head>
+
+<body class="w3-theme-l5">
+
+<header>
+    <ul class="w3-navbar w3-border w3-indigo w3-padding-4">
+        <li><a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/">BookTrader</a></li>
+    </ul>
+</header>
+
+<form id="search_Form" class="w3-container w3-animate-left" onsubmit="search(event)">
+    <input id="search_text" name="search_Box" placeholder="Search for any book"
+           class="w3-input w3-border w3-round-large w3-margin-top" type="search" required>
+    <button class="w3-btn w3-white w3-round w3-margin-top">Search</button>
+
+    <script>
+        function search(event) {
+            event.preventDefault();
+            var search_text = $('#search_text');
+            localStorage.setItem('search_id', search_text.val());
+            window.location.reload();
+        }
+    </script>
+</form>
+
+<div id="searchList" class="w3-container">
+</div>
+<script>
+
+    $.post("/api/book/searched", localStorage.getItem('search_id'), function (bookList) {
+        bookList = JSON.parse(bookList);
+        var bookListPanel = window.JST.post({
+            books: bookList
+        });
+        var panel = $('#searchList');
+        panel.empty();
+        panel.append(bookListPanel);
+    });
+
+</script>
+<div class="w3-container w3-center">
+    <a href="/" class="w3-btn w3-white w3-round w3-margin-top w3-animate-left">Back to Main Page ?</a>
+</div>
+
+</body>
+</html>

@@ -9,10 +9,13 @@ import template.Constant;
 import template.User.User;
 import template.User.UserDao;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import java.awt.PageAttributes;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("/book")
@@ -38,6 +41,33 @@ public class BookApi {
         }
         return result;
     }
+
+    @Path("/searched")
+    @POST
+    public String getSearchedBooks(String search_data) {
+        String search_data_lowerCase = search_data.toLowerCase();
+        String search_result;
+        try {
+            List<Book> list = bookDao.getAllBook();
+            List<Book> matches = new ArrayList<Book>();
+            for(int i =0; i<list.size(); i++){
+                if(list.get(i).getTitle().toLowerCase().contains(search_data_lowerCase)){
+                    matches.add(list.get(i));
+                }
+            }
+            Gson gson = new Gson();
+            search_result = gson.toJson(matches);
+            if (search_result == null) {
+                throw new NullPointerException();
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+
+        return search_result;
+    }
+
 
     @Path("/get_book/{book_id}")
     @GET
