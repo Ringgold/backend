@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Trader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/w3.css">
+    <script src="../js/main.js"></script>
+    <script src="../js/jquery.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body class="w3-light-grey">
+<header>
+    <ul class="w3-navbar w3-border w3-indigo w3-padding-4">
+        <li><a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/">BookTrader</a></li>
+    </ul>
+</header>
+<div class="w3-container">
+    <div class="w3-container">
+        <h2>Account Activation</h2>
+        <p>
+            <span id="message_wait">
+                <i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp; Please wait while we activate your account...
+            </span>
+            <span id="message_error" hidden>
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> &nbsp; An error has occurred. Please contact the webmaster.
+            </span>
+            <span id="message_ok" hidden>
+                <i class="fa fa-check-circle" aria-hidden="true"></i> &nbsp; Your account has been activated!
+            </span>
+        </p>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        // Grab user id and activation code from GET request variables
+        var queryDict = {
+            user: null,
+            code: null
+        };
+        location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]});
+
+        // WIP
+    });
+</script>
+</body>
+</html>
