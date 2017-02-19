@@ -23,21 +23,17 @@ public class MailApi {
     private final String password = "428bookTrader";
 
     private void send(String userEmail, String userName, String sellerEmail, String content) throws Exception {
-        try {
-            Session session = Session.getDefaultInstance(getProps());
+        Session session = Session.getDefaultInstance(getProps());
 
-            MimeMessage message = new MimeMessage(session);
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(sellerEmail));
-            message.setSubject(userName + " wants to buy the book [book trader]");
-            message.setText("from: " + userEmail + "\n" + content + "\n" + "name: " + userName);
+        MimeMessage message = new MimeMessage(session);
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(sellerEmail));
+        message.setSubject(userName + " wants to buy the book [book trader]");
+        message.setText("from: " + userEmail + "\n" + content + "\n" + "name: " + userName);
 
-            Transport transport = session.getTransport("smtp");
-            transport.connect(host, user, password);
-            transport.sendMessage(message, message.getAllRecipients());
-            transport.close();
-        } catch (Exception e) {
-            throw new Exception();
-        }
+        Transport transport = session.getTransport("smtp");
+        transport.connect(host, user, password);
+        transport.sendMessage(message, message.getAllRecipients());
+        transport.close();
     }
 
     private Properties getProps() {
@@ -60,7 +56,23 @@ public class MailApi {
             if (!mail.validate()) {
                 throw new NullPointerException();
             }
-            send(mail.getUserEmail(), mail.getUserName(), mail.getSellerEmail(), mail.getContent());
+
+            final String email = mail.getUserEmail();
+            final String username = mail.getUserName();
+            final String sellerEmail = mail.getSellerEmail();
+            final String mailContent = mail.getContent();
+            
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        send(email, username, sellerEmail, mailContent);
+                    } catch (Exception e) {
+                        LOG.error(e.getMessage());
+                    }
+                }
+            });
+
+
         } catch (Exception e) {
             LOG.error(e.getMessage());
             return Constant.FAIL;
