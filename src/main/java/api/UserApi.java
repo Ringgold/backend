@@ -30,6 +30,11 @@ public class UserApi {
             if (list.size() == 0) {
                 return Constant.EMPTY;
             }
+
+            for (User u : list) {
+                u.setPassword("null");
+            }
+
             Gson gson = new Gson();
             result = gson.toJson(list);
             if (result == null) {
@@ -50,6 +55,11 @@ public class UserApi {
         try {
             user = gson.fromJson(request, User.class);
             user.setId(Constant.generateUUID());
+            user.setStatus(0);
+            user.setActivationCode(Constant.generateUUID());
+
+            // TODO: Send activation email.
+
             if (!user.validate()) {
                 return Constant.NOTVALID;
             }
@@ -118,6 +128,7 @@ public class UserApi {
                 throw new Exception();
             }
             user.setPassword("null");
+            user.setActivationCode("null");
             Gson gson = new Gson();
             result = gson.toJson(user);
             if (result == null) {
@@ -128,6 +139,24 @@ public class UserApi {
             return Constant.FAIL;
         }
         return result;
+    }
+
+    @Path("/activate/{user_id}/{activation_code}")
+    @GET
+    public String activate(@PathParam("user_id") String userId, @PathParam("activation_code") String activationCode) {
+        try {
+            User user = userDao.getUserById(userId);
+
+            if (user.getActivationCode().equals(activationCode)) {
+                userDao.activate(user.getId());
+                return Constant.SUCCESS;
+            }
+
+            return Constant.FAIL;
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
     }
 
     public void setDao(UserDao userDao, BookDao bookDao) {

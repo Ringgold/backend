@@ -24,8 +24,8 @@ import static org.junit.Assert.assertTrue;
 public class UserApiTest {
     private UserApi api;
     private DBI dbi;
-    private final User user_a = new User(Constant.generateUUID(), "test_a@gg", "12345678", "test_a");
-    private final User user_b = new User(Constant.generateUUID(), "test_b@gg", "87654321", "test_b");
+    private final User user_a = new User(Constant.generateUUID(), "test_a@gg", "12345678", "test_a", Constant.generateUUID(), 0);
+    private final User user_b = new User(Constant.generateUUID(), "test_b@gg", "87654321", "test_b", Constant.generateUUID(), 0);
 
     @Before
     public void setUp() throws ClassNotFoundException {
@@ -65,7 +65,7 @@ public class UserApiTest {
 
     @Test
     public void register() {
-        User user_temp = new User(Constant.generateUUID(), "test@gg", "12343210", "test");
+        User user_temp = new User(Constant.generateUUID(), "test@gg", "12343210", "test", "null", 0);
         Gson gson = new Gson();
         String temp = gson.toJson(user_temp);
         String response = api.register(temp);
@@ -81,8 +81,24 @@ public class UserApiTest {
     }
 
     @Test
+    public void activate() {
+        Gson gson = new Gson();
+
+        String resp = api.getUserById(user_a.getId());
+        User userOne = gson.fromJson(resp, User.class);
+        assertTrue(userOne.getStatus() == 0);
+
+        api.activate(user_a.getId(), user_a.getActivationCode());
+
+        resp = api.getUserById(user_a.getId());
+        userOne = gson.fromJson(resp, User.class);
+        assertTrue(userOne.getStatus() == 1);
+        assertTrue(userOne.getActivationCode().equals("null"));
+    }
+
+    @Test
     public void login() {
-        User user = new User("", user_a.getEmail(), user_a.getPassword(), "");
+        User user = new User("", user_a.getEmail(), user_a.getPassword(), "", "null", 1);
         Gson gson = new Gson();
         String request = gson.toJson(user);
         String response = api.login(request);

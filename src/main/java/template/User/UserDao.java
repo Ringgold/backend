@@ -11,7 +11,7 @@ import java.util.List;
 @RegisterMapper(UserMapper.class)
 
 public interface UserDao {
-    @SqlUpdate("insert into user values (:id, :email, :password, :name)")
+    @SqlUpdate("insert into user values (:id, :email, :password, :name, :activationCode, :status)")
     void insert(@BindBean User user);
 
     @SqlQuery("select * from user where email = :email")
@@ -22,4 +22,7 @@ public interface UserDao {
 
     @SqlQuery("select * from user")
     List<User> getAllUser();
+
+    @SqlUpdate("update user set status = 1, activationCode = 'null' where id = :id")
+    void activate(@Bind("id") String id);
 }

@@ -26,11 +26,20 @@ public class User {
     @Size(min = 1, max = 32)
     private String name;
 
-    public User(String id, String email, String password, String name) {
+    @NotNull
+    @Size(min = 1, max = 32)
+    private String activationCode;
+
+    @NotNull
+    private int status;
+
+    public User(String id, String email, String password, String name, String activationCode, int status) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
+        this.activationCode = activationCode;
+        this.status = status;
     }
 
     public String getId() {
@@ -63,6 +72,22 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getActivationCode() {
+        return this.activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
+    }
+
+    public int getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public boolean validate() {

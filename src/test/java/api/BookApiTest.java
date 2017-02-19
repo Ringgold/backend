@@ -38,7 +38,7 @@ public class BookApiTest {
         handle.execute("DELETE FROM user");
         handle.close();
         userID = Constant.generateUUID();
-        User validUser = new User(userID, "testEmail12345@gmail.com", "lsaKSfjsalkncc2","Oscar");
+        User validUser = new User(userID, "testEmail12345@gmail.com", "lsaKSfjsalkncc2","Oscar", "garbage", 0);
         userDao.insert(validUser);
     }
 

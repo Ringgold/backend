@@ -11,6 +11,8 @@ public class UserMapper implements ResultSetMapper<User> {
         return new User(resultSet.getString("id"),
                 resultSet.getString("email"),
                 resultSet.getString("password"),
-                resultSet.getString("name"));
+                resultSet.getString("name"),
+                resultSet.getString("activationcode"),
+                resultSet.getInt("status"));
     }
 }
