@@ -5,7 +5,16 @@ function getFormData(form) {
     return data;
 }
 
-function delete_post(bookId) {
+var bookIdToBeDeleted = null;
+
+function confirm_before_delete_post(bookId) {
+    bookIdToBeDeleted = bookId;
+    document.getElementById('modal-confirm-deletion').style.display='block';
+}
+
+function delete_post(){
+    var bookId = bookIdToBeDeleted;
+    bookIdToBeDeleted = null;
     $.get('/api/book/delete/' + sessionStorage.getItem('id') + '/' + bookId, function (result) {
         if (result === 'SUCCESS') {
             window.location.reload();

@@ -8,7 +8,7 @@
             </li>
             <li id="delete_<%=book.id%>" class="w3-right">
                 <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" href=""
-                   onclick="delete_post('<%=book.id%>');">Delete</a>
+                   onclick="confirm_before_delete_post('<%=book.id%>'); return false;">Delete</a>
             </li>
             <li id="contact_<%=book.id%>" class="w3-right">
                 <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" href="/contact" onclick="sessionStorage.setItem('book_id', '<%=book.id%>')">Contact Seller</a>
