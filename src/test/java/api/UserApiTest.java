@@ -88,7 +88,14 @@ public class UserApiTest {
         User userOne = gson.fromJson(resp, User.class);
         assertTrue(userOne.getStatus() == 0);
 
-        api.activate(user_a.getId(), user_a.getActivationCode());
+        resp = api.activate(user_a.getId(), user_a.getActivationCode());
+        assertEquals(resp, Constant.SUCCESS);
+
+        resp = api.activate(user_a.getId(), user_a.getActivationCode());
+        assertEquals(resp, Constant.FAIL);
+
+        resp = api.activate(user_a.getId(), "null");
+        assertEquals(resp, Constant.FAIL);
 
         resp = api.getUserById(user_a.getId());
         userOne = gson.fromJson(resp, User.class);

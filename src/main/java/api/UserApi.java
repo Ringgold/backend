@@ -147,7 +147,7 @@ public class UserApi {
         try {
             User user = userDao.getUserById(userId);
 
-            if (user.getActivationCode().equals(activationCode)) {
+            if (user.getActivationCode().equals(activationCode) && user.getStatus() == 0) {
                 userDao.activate(user.getId());
                 return Constant.SUCCESS;
             }
