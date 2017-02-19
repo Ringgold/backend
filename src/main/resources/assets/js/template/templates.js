@@ -14,7 +14,7 @@ __p += '\r\n<div class="w3-card-4 w3-margin-top">\r\n    <header>\r\n        <ul
 ((__t = (book.title)) == null ? '' : __t) +
 '</a>\r\n            </li>\r\n            <li id="delete_' +
 ((__t = (book.id)) == null ? '' : __t) +
-'" class="w3-right">\r\n                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" href=""\r\n                   onclick="delete_post(\'' +
+'" class="w3-right">\r\n                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" href=""\r\n                   onclick="confirm_before_delete_post(\'' +
 ((__t = (book.id)) == null ? '' : __t) +
 '\'); return false;">Delete</a>\r\n            </li>\r\n            <li id="contact_' +
 ((__t = (book.id)) == null ? '' : __t) +
