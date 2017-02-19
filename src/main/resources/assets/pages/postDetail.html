@@ -166,6 +166,12 @@
             }
             var book = JSON.parse(response);
 
+            if (/^\d*$/.test(book.price)) {
+                book.price = "" + book.price + ".00";
+            } else if (/^\d*\.\d$/.test(book.price))  {
+                book.price = "" + book.price + "0";
+            }
+
             // If currently logged in user is the poster of the displayed book,
             // edit buttons must be visible
             if (sessionStorage.getItem('id') === book.seller) {
