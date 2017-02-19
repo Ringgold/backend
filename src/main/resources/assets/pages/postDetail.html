@@ -154,7 +154,7 @@
                 })
 
             } else {
-                alert('Invalid price!');
+                alert('Invalid price! Price should be in one of those forms: xx, x, xx.xx, x.xx | Not accepted are: x.x, xx.x');
             }
         }
 
@@ -171,7 +171,7 @@
             if (sessionStorage.getItem('id') === book.seller) {
                 $('#price-edit').removeAttr('hidden');
                 $('#desc-edit').removeAttr('hidden');
-                $('#contact').removeAttr('hidden');
+                document.getElementById('contact').style.visibility='hidden';
             }
 
             $('#title').html(book.title);
