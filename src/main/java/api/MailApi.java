@@ -61,7 +61,7 @@ public class MailApi {
             final String username = mail.getUserName();
             final String sellerEmail = mail.getSellerEmail();
             final String mailContent = mail.getContent();
-            
+
             new Thread(new Runnable() {
                 public void run() {
                     try {

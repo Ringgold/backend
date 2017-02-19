@@ -9,11 +9,17 @@ import template.Constant;
 import template.User.User;
 import template.User.UserDao;
 
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import java.util.List;
+import java.util.Properties;
 
 @Path("/user")
 public class UserApi {
@@ -56,9 +62,24 @@ public class UserApi {
             user = gson.fromJson(request, User.class);
             user.setId(Constant.generateUUID());
             user.setStatus(0);
-            user.setActivationCode(Constant.generateUUID());
 
-            // TODO: Send activation email.
+            String code = Constant.generateUUID();
+            user.setActivationCode(code);
+
+            final String name = user.getName();
+            final String email = user.getEmail();
+            final String id = user.getId();
+            final String actCode = new String(code);
+
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        sendActivationEmail(name, email, id, actCode);
+                    } catch (Exception e) {
+                        LOG.error(e.getMessage());
+                    }
+                }
+            }).start();
 
             if (!user.validate()) {
                 return Constant.NOTVALID;
@@ -157,6 +178,38 @@ public class UserApi {
             LOG.error(e.getMessage());
             return Constant.FAIL;
         }
+    }
+
+    private void sendActivationEmail(String name, String address, String userId, String code) throws Exception {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hi, " + name + "!\n\n");
+        sb.append("Please click the following link to activate your account:\n");
+        sb.append("http://silentdoor.net/activate?user=" + userId + "&code=" + code + "\n\n");
+        sb.append("Thank you,\nBook Trader\n");
+        String content = sb.toString();
+
+        String host = "smtp.gmail.com";
+        String user = "booktrader428";
+        String password = "428bookTrader";
+
+        Properties props = System.getProperties();
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.user", user);
+        props.put("mail.smtp.password", password);
+        props.put("mail.smtp.socketFactory.port", "587");
+        props.put("mail.smtp.auth", "true");
+
+        Session session = Session.getDefaultInstance(props);
+        MimeMessage message = new MimeMessage(session);
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(address));
+        message.setSubject("Book Trader: " + name + ", please activate your account!");
+        message.setText(content);
+
+        Transport transport = session.getTransport("smtp");
+        transport.connect(host, user, password);
+        transport.sendMessage(message, message.getAllRecipients());
+        transport.close();
     }
 
     public void setDao(UserDao userDao, BookDao bookDao) {
