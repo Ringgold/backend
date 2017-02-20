@@ -57,20 +57,7 @@ public class MailApi {
                 throw new NullPointerException();
             }
 
-            final String email = mail.getUserEmail();
-            final String username = mail.getUserName();
-            final String sellerEmail = mail.getSellerEmail();
-            final String mailContent = mail.getContent();
-
-            new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        send(email, username, sellerEmail, mailContent);
-                    } catch (Exception e) {
-                        LOG.error(e.getMessage());
-                    }
-                }
-            });
+            send(mail.getUserEmail(), mail.getUserName(), mail.getSellerEmail(), mail.getContent());
 
 
         } catch (Exception e) {
