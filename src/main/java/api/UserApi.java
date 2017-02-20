@@ -27,6 +27,13 @@ public class UserApi {
     private UserDao userDao;
     private BookDao bookDao;
 
+    private static final String host = "smtp.gmail.com";
+    private static final String user = "booktrader.activation";
+    private static final String password = "428bookTrader";
+
+    private Properties mailProps;
+    private Session mailSession;
+
     @Path("/all")
     @GET
     public String getAllUser() {
@@ -188,28 +195,27 @@ public class UserApi {
         sb.append("Thank you,\nBook Trader\n");
         String content = sb.toString();
 
-        String host = "smtp.gmail.com";
-        String user = "booktrader428";
-        String password = "428bookTrader";
-
-        Properties props = System.getProperties();
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.user", user);
-        props.put("mail.smtp.password", password);
-        props.put("mail.smtp.socketFactory.port", "587");
-        props.put("mail.smtp.auth", "true");
-
-        Session session = Session.getDefaultInstance(props);
-        MimeMessage message = new MimeMessage(session);
+        MimeMessage message = new MimeMessage(mailSession);
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(address));
         message.setSubject("Book Trader: " + name + ", please activate your account!");
         message.setText(content);
 
-        Transport transport = session.getTransport("smtp");
+        Transport transport = mailSession.getTransport("smtp");
         transport.connect(host, user, password);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
+    }
+
+    public void initMail() {
+        mailProps = System.getProperties();
+        mailProps.put("mail.smtp.starttls.enable", "true");
+        mailProps.put("mail.smtp.host", host);
+        mailProps.put("mail.smtp.user", user);
+        mailProps.put("mail.smtp.password", password);
+        mailProps.put("mail.smtp.socketFactory.port", "465");
+        mailProps.put("mail.smtp.auth", "true");
+
+        mailSession = Session.getDefaultInstance(mailProps);
     }
 
     public void setDao(UserDao userDao, BookDao bookDao) {

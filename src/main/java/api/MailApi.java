@@ -56,10 +56,7 @@ public class MailApi {
             if (!mail.validate()) {
                 throw new NullPointerException();
             }
-
             send(mail.getUserEmail(), mail.getUserName(), mail.getSellerEmail(), mail.getContent());
-
-
         } catch (Exception e) {
             LOG.error(e.getMessage());
             return Constant.FAIL;
