@@ -192,6 +192,27 @@ public class BookApi {
         return Constant.SUCCESS;
     }
 
+    @Path("/get_seller/{book_id}")
+    @GET
+    public String getSellerById(@PathParam("book_id") String bookId) {
+        String result;
+        try {
+            Book book = bookDao.getBookById(bookId);
+            if (!book.validate()) {
+                return Constant.FAIL;
+            }
+            else{
+                result= book.getSeller();
+            }
+        }
+        catch (Exception e){
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+        return result;
+
+    }
+
     public void setDao(BookDao bookDao, UserDao userDao) {
         this.bookDao = bookDao;
         this.userDao = userDao;
