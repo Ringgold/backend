@@ -86,6 +86,9 @@ public class UserApi {
             if (!user.getPassword().equals(potential.getPassword())) {
                 return Constant.FAIL;
             }
+            if (user.getStatus() != 1) {
+                return Constant.FAIL;
+            }
             result = gson.toJson(user);
             if (result == null) {
                 throw new NullPointerException();
