@@ -25,7 +25,7 @@ public class UserApiTest {
     private UserApi api;
     private DBI dbi;
     private final User user_a = new User(Constant.generateUUID(), "test_a@gg", "12345678", "test_a", Constant.generateUUID(), 0);
-    private final User user_b = new User(Constant.generateUUID(), "test_b@gg", "87654321", "test_b", Constant.generateUUID(), 0);
+    private final User user_b = new User(Constant.generateUUID(), "test_b@gg", "87654321", "test_b", Constant.generateUUID(), 1);
 
     @Before
     public void setUp() throws ClassNotFoundException {
@@ -105,14 +105,14 @@ public class UserApiTest {
 
     @Test
     public void login() {
-        User user = new User("", user_a.getEmail(), user_a.getPassword(), "", "null", 1);
+        User user = new User("", user_b.getEmail(), user_b.getPassword(), "", "null", 1);
         Gson gson = new Gson();
         String request = gson.toJson(user);
         String response = api.login(request);
-        String comparable = gson.toJson(user_a);
+        String comparable = gson.toJson(user_b);
         assertTrue(response.equals(comparable));
 
-        user.setPassword(user_b.getPassword());
+        user.setPassword(user_a.getPassword());
         request = gson.toJson(user);
         response = api.login(request);
         assertTrue(response.equals(Constant.FAIL));
