@@ -40,6 +40,7 @@ public class BackendService extends Application<Configuration> {
         bookApi.setDao(Constant.dbi.onDemand(BookDao.class), Constant.dbi.onDemand(UserDao.class));
 
         mailApi.initMail();
+        userApi.setMailApi(mailApi);
 
         environment.jersey().register(userApi);
         environment.jersey().register(bookApi);

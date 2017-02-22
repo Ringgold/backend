@@ -12,7 +12,7 @@ public class UserMapper implements ResultSetMapper<User> {
                 resultSet.getString("email"),
                 resultSet.getString("password"),
                 resultSet.getString("name"),
-                resultSet.getString("activationcode"),
+                resultSet.getString("activation_code"),
                 resultSet.getInt("status"));
     }
 }

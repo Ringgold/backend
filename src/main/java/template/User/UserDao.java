@@ -23,6 +23,6 @@ public interface UserDao {
     @SqlQuery("select * from user")
     List<User> getAllUser();
 
-    @SqlUpdate("update user set status = 1, activationCode = 'null' where id = :id")
+    @SqlUpdate("update user set status = 1, activation_code = 'null' where id = :id")
     void activate(@Bind("id") String id);
 }

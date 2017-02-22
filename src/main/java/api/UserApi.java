@@ -61,11 +61,12 @@ public class UserApi {
             String code = Constant.generateUUID();
             user.setActivationCode(code);
 
-            mailApi.sendActivationEmail(user.getName(), user.getEmail(), user.getId(), code);
-
             if (!user.validate()) {
                 return Constant.NOTVALID;
             }
+
+            mailApi.sendActivationEmail(user.getName(), user.getEmail(), user.getId(), code);
+
             userDao.insert(user);
         } catch (Exception e) {
             LOG.error(e.getMessage());
@@ -167,7 +168,7 @@ public class UserApi {
         this.bookDao = bookDao;
     }
 
-    public void setApi(MailApi mailApi) {
+    public void setMailApi(MailApi mailApi) {
         this.mailApi = mailApi;
     }
 }

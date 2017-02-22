@@ -20,18 +20,10 @@ public class MailApi {
     private static final Logger LOG = LoggerFactory.getLogger(MailApi.class);
 
     private static final String host = "smtp.gmail.com";
-    private static final String user = "bookTrader428";
-    private static final String password = "428bookTrader";
+    private static final String domain = "bookTrader428";
+    private static final String prop = "428bookTrader";
 
-    private static final String activationHost = "smtp.gmail.com";
-    private static final String activationUser = "booktrader.activation";
-    private static final String activationPassword = "428bookTrader";
-
-    private Properties mailProps;
     private Session mailSession;
-
-    private Properties activationMailProps;
-    private Session activationMailSession;
 
     private void send(String userEmail, String userName, String sellerEmail, String content) throws Exception {
         MimeMessage message = new MimeMessage(mailSession);
@@ -40,7 +32,7 @@ public class MailApi {
         message.setText("from: " + userEmail + "\n" + content + "\n" + "name: " + userName);
 
         Transport transport = mailSession.getTransport("smtp");
-        transport.connect(host, user, password);
+        transport.connect(host, domain, prop);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
     }
@@ -58,7 +50,7 @@ public class MailApi {
 
     @POST
     @Path("/send")
-    public String main(String request) {
+    public String sendContactSellerEmail(String request) {
         Gson gson = new Gson();
         try {
             Mail mail = gson.fromJson(request, Mail.class);
@@ -73,30 +65,28 @@ public class MailApi {
         return Constant.SUCCESS;
     }
 
-    public void sendActivationEmail(String name, String address, String userId, String code) throws Exception {
+    void sendActivationEmail(String name, String address, String userId, String code) throws Exception {
         StringBuilder sb = new StringBuilder();
-        sb.append("Hi, " + name + "!\n\n");
+        sb.append("Hi, ").append(name).append("!\n\n");
         sb.append("Please click the following link to activate your account:\n");
-        sb.append("http://silentdoor.net/activate?user=" + userId + "&code=" + code + "\n\n");
+        sb.append("http://silentdoor.net/activate?user=").append(userId).append("&code=").append(code).append("\n\n"); //todo convert domain into constant
         sb.append("Thank you,\nBook Trader\n");
         String content = sb.toString();
 
-        MimeMessage message = new MimeMessage(activationMailSession);
+        MimeMessage message = new MimeMessage(mailSession);
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(address));
         message.setSubject("Book Trader: " + name + ", please activate your account!");
         message.setText(content);
 
-        Transport transport = activationMailSession.getTransport("smtp");
-        transport.connect(activationHost, activationUser, activationPassword);
+        Transport transport = mailSession.getTransport("smtp");
+        transport.connect(host, domain, prop);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
     }
 
     public void initMail() {
-        mailProps = getProps(host, user, password);
-        activationMailProps = getProps(activationHost, activationUser, activationPassword);
+        Properties mailProps = getProps(host, domain, prop);
 
         mailSession = Session.getDefaultInstance(mailProps);
-        activationMailSession = Session.getDefaultInstance(activationMailProps);
     }
 }
