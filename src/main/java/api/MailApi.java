@@ -30,6 +30,9 @@ public class MailApi {
     private Properties mailProps;
     private Session mailSession;
 
+    private Properties activationMailProps;
+    private Session activationMailSession;
+
     private void send(String userEmail, String userName, String sellerEmail, String content) throws Exception {
         MimeMessage message = new MimeMessage(mailSession);
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(sellerEmail));
@@ -42,7 +45,7 @@ public class MailApi {
         transport.close();
     }
 
-    private Properties getProps() {
+    private Properties getProps(String host, String user, String password) {
         Properties props = System.getProperties();
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", host);
@@ -70,8 +73,30 @@ public class MailApi {
         return Constant.SUCCESS;
     }
 
+    public void sendActivationEmail(String name, String address, String userId, String code) throws Exception {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hi, " + name + "!\n\n");
+        sb.append("Please click the following link to activate your account:\n");
+        sb.append("http://silentdoor.net/activate?user=" + userId + "&code=" + code + "\n\n");
+        sb.append("Thank you,\nBook Trader\n");
+        String content = sb.toString();
+
+        MimeMessage message = new MimeMessage(activationMailSession);
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(address));
+        message.setSubject("Book Trader: " + name + ", please activate your account!");
+        message.setText(content);
+
+        Transport transport = activationMailSession.getTransport("smtp");
+        transport.connect(activationHost, activationUser, activationPassword);
+        transport.sendMessage(message, message.getAllRecipients());
+        transport.close();
+    }
+
     public void initMail() {
-        mailProps = getProps();
+        mailProps = getProps(host, user, password);
+        activationMailProps = getProps(activationHost, activationUser, activationPassword);
+
         mailSession = Session.getDefaultInstance(mailProps);
+        activationMailSession = Session.getDefaultInstance(activationMailProps);
     }
 }
