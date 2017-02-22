@@ -5,6 +5,7 @@
     <title>Sign Up</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="../js/main.js"></script>
     <script src="../js/jquery.js"></script>
 </head>
@@ -33,16 +34,28 @@
         <input name="password" placeholder="password" class="w3-input w3-border w3-round-large w3-margin-top"
                type="password" required>
 
-        <button class="w3-btn w3-green w3-round w3-margin-top">Create Account</button>
+        <button id="create-account-button" class="w3-btn w3-green w3-round w3-margin-top" onclick="document.getElementById('create-account-button').disabled = true; $('#message_wait').removeAttr('hidden'); $('#message_error').attr('hidden', 'hidden');">Create Account</button>
+        <br />
+        <br />
+        <span id="message_wait" hidden>
+            &nbsp; <i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp; Please wait while we create your account...
+        </span>
+        <span id="message_error" hidden>
+            &nbsp; <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> &nbsp; Please try again.
+        </span>
         <script>
             function register(event) {
                 event.preventDefault();
                 var data = getFormData($('#register_form'));
                 $.post("/api/user/register", data, function(result) {
+
+                    document.getElementById('create-account-button').disabled = false;
+                    $('#message_wait').attr('hidden', 'hidden');
+
                     if (result === 'SUCCESS') {
                         window.location.href = '../';
                     } else {
-                        alert("please try again");
+                        $('#message_error').removeAttr('hidden');
                     }
                 });
             }

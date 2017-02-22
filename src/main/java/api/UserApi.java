@@ -73,20 +73,7 @@ public class UserApi {
             String code = Constant.generateUUID();
             user.setActivationCode(code);
 
-            final String name = user.getName();
-            final String email = user.getEmail();
-            final String id = user.getId();
-            final String actCode = new String(code);
-
-            new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        sendActivationEmail(name, email, id, actCode);
-                    } catch (Exception e) {
-                        LOG.error(e.getMessage());
-                    }
-                }
-            }).start();
+            sendActivationEmail(user.getName(), user.getEmail(), user.getId(), code);
 
             if (!user.validate()) {
                 return Constant.NOTVALID;
