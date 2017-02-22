@@ -18,19 +18,25 @@ import java.util.Properties;
 @Path("/mail")
 public class MailApi {
     private static final Logger LOG = LoggerFactory.getLogger(MailApi.class);
-    private final String host = "smtp.gmail.com";
-    private final String user = "bookTrader428";
-    private final String password = "428bookTrader";
+
+    private static final String host = "smtp.gmail.com";
+    private static final String user = "bookTrader428";
+    private static final String password = "428bookTrader";
+
+    private static final String activationHost = "smtp.gmail.com";
+    private static final String activationUser = "booktrader.activation";
+    private static final String activationPassword = "428bookTrader";
+
+    private Properties mailProps;
+    private Session mailSession;
 
     private void send(String userEmail, String userName, String sellerEmail, String content) throws Exception {
-        Session session = Session.getDefaultInstance(getProps());
-
-        MimeMessage message = new MimeMessage(session);
+        MimeMessage message = new MimeMessage(mailSession);
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(sellerEmail));
         message.setSubject(userName + " wants to buy the book [book trader]");
         message.setText("from: " + userEmail + "\n" + content + "\n" + "name: " + userName);
 
-        Transport transport = session.getTransport("smtp");
+        Transport transport = mailSession.getTransport("smtp");
         transport.connect(host, user, password);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
@@ -62,5 +68,10 @@ public class MailApi {
             return Constant.FAIL;
         }
         return Constant.SUCCESS;
+    }
+
+    public void initMail() {
+        mailProps = getProps();
+        mailSession = Session.getDefaultInstance(mailProps);
     }
 }
