@@ -37,6 +37,13 @@
         <button id="create-account-button" class="w3-btn w3-green w3-round w3-margin-top" onclick="document.getElementById('create-account-button').disabled = true; $('#message_wait').removeAttr('hidden'); $('#message_error').attr('hidden', 'hidden');register(event);">Create Account</button>
         <br />
         <br />
+        <span id="message_ok" hidden>
+            &nbsp; <i class="fa fa-check-circle" aria-hidden="true"></i> &nbsp; Account created! Please activate your account by following the link sent to your email.
+            <br />
+            <p>
+                <button class="w3-btn w3-indigo" onclick="window.location='/'">RETURN TO HOME PAGE</button>
+            </p>
+        </span>
         <span id="message_wait" hidden>
             &nbsp; <i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp; Please wait while we create your account...
         </span>
@@ -53,7 +60,8 @@
                     $('#message_wait').attr('hidden', 'hidden');
 
                     if (result === 'SUCCESS') {
-                        window.location.href = '../';
+                        $('#message_ok').removeAttr('hidden');
+                        $("#register_form :input").prop("disabled", true);
                     } else {
                         $('#message_error').removeAttr('hidden');
                     }
