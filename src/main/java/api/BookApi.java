@@ -1,6 +1,7 @@
 package api;
 
 import com.google.gson.Gson;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import template.Book.Book;
@@ -14,7 +15,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import java.awt.PageAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -195,22 +195,20 @@ public class BookApi {
     @Path("/get_seller/{book_id}")
     @GET
     public String getSellerById(@PathParam("book_id") String bookId) {
-        String result;
+        String username;
         try {
             Book book = bookDao.getBookById(bookId);
             if (!book.validate()) {
                 return Constant.FAIL;
             }
-            else{
-                result= book.getSeller();
-            }
+            User user = userDao.getUserById(book.getSeller());
+            username = user.getName();
         }
         catch (Exception e){
             LOG.error(e.getMessage());
             return Constant.FAIL;
         }
-        return result;
-
+        return username;
     }
 
     public void setDao(BookDao bookDao, UserDao userDao) {
