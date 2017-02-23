@@ -4,6 +4,8 @@ import api.UserApi;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.bundles.redirect.HttpsRedirect;
+import io.dropwizard.bundles.redirect.RedirectBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.skife.jdbi.v2.DBI;
@@ -20,6 +22,9 @@ public class BackendService extends Application<Configuration> {
 
     @Override
     public void initialize(Bootstrap<Configuration> bootstrap) {
+        bootstrap.addBundle(new RedirectBundle(
+                new HttpsRedirect(false)
+        ));
         bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html", "intro"));
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/login", "login.html", "login"));
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/sign_up", "register.html", "register"));
