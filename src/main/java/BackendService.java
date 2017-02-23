@@ -23,7 +23,7 @@ public class BackendService extends Application<Configuration> {
     @Override
     public void initialize(Bootstrap<Configuration> bootstrap) {
         bootstrap.addBundle(new RedirectBundle(
-                new HttpsRedirect(false)
+                new HttpsRedirect(true)
         ));
         bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html", "intro"));
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/login", "login.html", "login"));
