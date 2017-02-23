@@ -65,9 +65,9 @@ public class UserApi {
                 return Constant.NOTVALID;
             }
 
+            userDao.insert(user);
             mailApi.sendActivationEmail(user.getName(), user.getEmail(), user.getId(), code);
 
-            userDao.insert(user);
         } catch (Exception e) {
             LOG.error(e.getMessage());
             return Constant.FAIL;
