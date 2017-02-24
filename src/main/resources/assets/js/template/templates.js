@@ -8,7 +8,7 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
 _.each(books, function (book) {;
-__p += '\r\n<div class="w3-card-4 w3-margin-top">\r\n    <header>\r\n        <ul class="w3-navbar w3-border w3-blue-gray w3-large" style="text-transform: uppercase;">\r\n            <li>\r\n                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" href="/book_detail"\r\n                   onclick="sessionStorage.setItem(\'book_id\', \'' +
+__p += '\r\n<div class="w3-card-4 w3-margin-top">\r\n    <header>\r\n        <ul class="w3-navbar w3-border w3-blue-gray w3-large">\r\n            <li>\r\n                <a style="text-transform: uppercase;" class="w3-hover-blue-gray w3-text-white w3-hover-text-theme"\r\n                   href="/book_detail"\r\n                   onclick="sessionStorage.setItem(\'book_id\', \'' +
 ((__t = (book.id)) == null ? '' : __t) +
 '\')">' +
 ((__t = (book.title)) == null ? '' : __t) +
@@ -18,7 +18,7 @@ __p += '\r\n<div class="w3-card-4 w3-margin-top">\r\n    <header>\r\n        <ul
 ((__t = (book.id)) == null ? '' : __t) +
 '\'); return false;">Delete</a>\r\n            </li>\r\n            <li id="contact_' +
 ((__t = (book.id)) == null ? '' : __t) +
-'" class="w3-right">\r\n                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" href="/contact" onclick="sessionStorage.setItem(\'book_id\', \'' +
+'" class="w3-right">\r\n                <a class="w3-hover-blue-gray w3-text-white w3-hover-text-theme" href="/contact"\r\n                   onclick="sessionStorage.setItem(\'book_id\', \'' +
 ((__t = (book.id)) == null ? '' : __t) +
 '\')">Contact Seller</a>\r\n            </li>\r\n        </ul>\r\n        <script>\r\n            if (!sessionStorage.getItem(\'id\')) {\r\n                $(\'#delete_' +
 ((__t = (book.id)) == null ? '' : __t) +
