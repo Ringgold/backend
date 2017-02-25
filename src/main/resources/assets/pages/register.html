@@ -41,7 +41,7 @@
             &nbsp; <i class="fa fa-check-circle" aria-hidden="true"></i> &nbsp; Account created! Please activate your account by following the link sent to your email.
             <br />
             <p>
-                <button class="w3-btn w3-indigo" onclick="window.location='/'">RETURN TO HOME PAGE</button>
+                <button id="return-home-button" class="w3-btn w3-indigo" onclick="window.location='/'">RETURN TO HOME PAGE</button>
             </p>
         </span>
         <span id="message_wait" hidden>
@@ -62,6 +62,7 @@
                     if (result === 'SUCCESS') {
                         $('#message_ok').removeAttr('hidden');
                         $("#register_form :input").prop("disabled", true);
+                        $('#return-home-button').prop('disabled', false);
                     } else {
                         $('#message_error').removeAttr('hidden');
                     }
