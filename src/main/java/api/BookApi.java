@@ -42,6 +42,25 @@ public class BookApi {
         return result;
     }
 
+    @Path("/getBooksBySellerId/{seller_id}")
+    @GET
+    public String getBooksBySellerId(@PathParam("seller_id") String userId) {
+        String result;
+        try {
+            List<Book> list = bookDao.getBooksByUser(userId);
+            Gson gson = new Gson();
+            result = gson.toJson(list);
+            if (result == null) {
+                throw new NullPointerException();
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+        return result;
+    }
+
+
     @Path("/searched")
     @POST
     public String getSearchedBooks(String search_data) {

@@ -71,6 +71,19 @@ public class BookApiTest {
     }
 
     @Test
+    public void getAllBooksBySellerId() {
+        String testEmpty = api.getBooksBySellerId("fakeid123");
+        assertEquals("[]", testEmpty);
+        int count = 10;
+        addBooks(count);
+        testEmpty = api.getBooksBySellerId("fakeid123");
+        assertEquals("[]", testEmpty);
+        String testGood = api.getBooksBySellerId(userID);
+        List<Book> list = gson.fromJson(testGood, new TypeToken<List<Book>>() {}.getType());
+        assertTrue(list.size()==count);
+    }
+
+    @Test
     public void getAllBooks() {
         String testEmpty = api.getAllBooks();
         assertEquals("[]", testEmpty);

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Books</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/w3.css">
+
+    <!--library-->
+    <script src="js/template/templates.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/underscore.js"></script>
+</head>
+<body class="w3-theme-l5">
+<header>
+    <ul class="w3-navbar w3-border w3-indigo w3-padding-4">
+        <li><a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/">BookTrader</a></li>
+        <li id="logout" class="w3-right">
+            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href ="" onclick="sessionStorage.clear(); window.location.reload();">Logout</a>
+        </li>
+        <li id="post" class="w3-right">
+            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/post">Post</a>
+        </li>
+        <li id="welcome_pre" class="w3-right">
+            <div class="w3-hover-indigo w3-text-white" style="display: inline-block">Welcome</div>
+            <a id="welcome" class="w3-hover-indigo w3-text-white" style="display: inline-block"></a>
+        </li>
+        <li id="sign_up" class="w3-right">
+            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/sign_up">Sign Up</a>
+        </li>
+        <li id="sign_in" class="w3-right">
+            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/login">Sign In</a>
+        </li>
+    </ul>
+
+    <form id="search_Form" class="w3-container w3-animate-left" onsubmit="search(event)">
+        <input id="search_text" name="search_Box" placeholder="Search for any book" class="w3-input w3-border w3-round-large w3-margin-top" type="search" required>
+        <button class="w3-btn w3-white w3-round w3-margin-top">Search</button>
+        <script>
+            function search(event) {
+                event.preventDefault();
+                var search_text = $('#search_text');
+                localStorage.setItem('search_id', search_text.val());
+                window.location.href = '/search';
+            }
+        </script>
+    </form>
+
+    <script>
+        if (sessionStorage.getItem('id')) {
+            $('#sign_in').hide();
+            $('#sign_up').hide();
+            $('#welcome').html(sessionStorage.getItem('name'));
+        } else {
+            $('#welcome').hide();
+            $('#welcome_pre').hide();
+            $('#post').hide();
+            $('#logout').hide();
+        }
+    </script>
+</header>
+
+
+<div id="bookList" class="w3-container">
+</div>
+
+<div id="modal-confirm-deletion" class="w3-modal">
+    <div class="w3-modal-content w3-card-8 w3-animate-top">
+        <header class="w3-container w3-indigo">
+            <span onclick="closeConfirmDeletion()" class="w3-closebtn">&times;</span>
+            <h2>Confirm Deletion</h2>
+        </header>
+        <div class="w3-container">
+            <p>
+                Are you sure you want to delete this post?
+            </p>
+        </div>
+        <footer class="w3-container w3-indigo">
+            <span class="w3-right w3-padding-8">
+                <button id="cancel-confirm-deletion" class="w3-btn w3-red" onclick="closeConfirmDeletion()">CANCEL</button>
+                <button id="confirm-deletion" class="w3-btn w3-green" onclick="confirmDeletion()">DELETE THE POST</button>
+            </span>
+        </footer>
+    </div>
+</div>
+
+<script>
+    function closeConfirmDeletion(){
+        document.getElementById('modal-confirm-deletion').style.display='none';
+    }
+
+    function confirmDeletion(){
+        delete_post();
+    }
+
+    var userId = sessionStorage.getItem('id');
+    $.get("/api/book/getBooksBySellerId/" + userId, function(bookList) {
+        bookList = JSON.parse(bookList);
+        var bookListPanel = window.JST.post({
+            books: bookList
+        });
+        var panel = $('#bookList');
+        panel.empty();
+        panel.append(bookListPanel);
+    });
+</script>
+
+
+</body>
+</html>
