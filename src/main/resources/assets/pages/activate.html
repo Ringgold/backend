@@ -39,14 +39,8 @@
 </div>
 <script>
     $(document).ready(function() {
-        // Grab user id and activation code from GET request variables
-        var queryDict = {
-            user: null,
-            code: null
-        };
-        location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]});
 
-        $.get("/api/user/activate/" + queryDict.user + "/" + queryDict.code, function (response) {
+        $.get("/api/user/activate/" + getParameterByName("user") + "/" + getParameterByName("code"), function (response) {
             document.getElementById('message_wait').style.display='none';
 
             if (response == "SUCCESS") {

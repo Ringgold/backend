@@ -8,9 +8,9 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
 _.each(books, function (book) {;
-__p += '\r\n<div class="w3-card-4 w3-margin-top">\r\n    <header>\r\n        <ul class="w3-navbar w3-border w3-blue-gray w3-large">\r\n            <li>\r\n                <a style="text-transform: uppercase;" class="w3-hover-blue-gray w3-text-white w3-hover-text-theme"\r\n                   href="/book_detail"\r\n                   onclick="sessionStorage.setItem(\'book_id\', \'' +
+__p += '\r\n<div class="w3-card-4 w3-margin-top">\r\n    <header>\r\n        <ul class="w3-navbar w3-border w3-blue-gray w3-large">\r\n            <li>\r\n                <a style="text-transform: uppercase;" class="w3-hover-blue-gray w3-text-white w3-hover-text-theme"\r\n                   href="/book_detail?book_id=' +
 ((__t = (book.id)) == null ? '' : __t) +
-'\')">' +
+'">' +
 ((__t = (book.title)) == null ? '' : __t) +
 '</a>\r\n            </li>\r\n            <li id="delete_' +
 ((__t = (book.id)) == null ? '' : __t) +
