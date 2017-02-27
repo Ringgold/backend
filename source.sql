@@ -68,11 +68,12 @@ CREATE TABLE `user` (
 DROP TABLE IF EXISTS `profile`;
 
 CREATE TABLE `profile` (
-  `id` VARCHAR(32) NOT NULL,
+  `pid` varchar(32) NOT NULL,
   `about_me` VARCHAR(255) NULL,
   `rating` DECIMAL(2,1) NULL,
   `phone_number` VARCHAR(10) NULL,
-  PRIMARY KEY (`id`),
+  `id` VARCHAR(32) NOT NULL,
+  PRIMARY KEY (`pid`),
   CONSTRAINT `id`
     FOREIGN KEY (`id`)
     REFERENCES `user` (`id`)
