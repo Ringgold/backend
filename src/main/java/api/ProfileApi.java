@@ -72,6 +72,24 @@ public class ProfileApi {
         return result;
     }
 
+    @GET
+    @Path("/get_user_rating/{user_id}")
+    public String getUserRatingByUserId(@PathParam("user_id") String userId) {
+        String result;
+        try {
+            Profile profile = profileDao.getProfileByUserId(userId);
+            double rating = profile.getRating();
+            result = Double.toString(rating);
+            if (result == null) {
+                throw new NullPointerException();
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+        return result;
+    }
+
 
 
     public void setDao(ProfileDao profileDao, BookDao bookDao) {

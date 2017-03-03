@@ -12,7 +12,10 @@ public interface ProfileDao {
     @SqlQuery("select * from profile where user_id = :user_id")
     Profile getProfileByUserId(@Bind("user_id") String userId);
 
-    @SqlQuery("update profile set about_me = :about_me where user_id = :user_id")
+    @SqlUpdate("update profile set about_me = :about_me where user_id = :user_id")
     void updateAboutMe(@Bind("about_me") String aboutMe, @Bind("user_id") String userId);
+
+    @SqlUpdate("update profile set rating = :rating where user_id = :user_id")
+    void updateRating(@Bind("user_id") String userId, @Bind("rating") double rating);
 }
 
