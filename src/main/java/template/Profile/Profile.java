@@ -1,8 +1,5 @@
 package template.Profile;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -11,29 +8,30 @@ import javax.validation.constraints.Size;
 
 public class Profile {
     @NotNull
-    @Size(min=32, max=32)
+    @Size(min = 32, max = 32)
     private String id;
 
     @NotNull
-    @NotEmpty
-    @Size(max=255)
+    @Size(max = 255)
     private String about_me;
 
     @NotNull
-    @NotEmpty
-    @Size(max=4)
-    private String rating;
+    private double rating;
 
     @NotNull
-    @NotEmpty
-    @Size(max=10)
+    @Size(max = 10)
     private String phone_number;
 
-    public Profile(String id, String about_me, String rating, String phone_number) {
+    @NotNull
+    @Size(min = 32, max = 32)
+    private String user_id;
+
+    public Profile(String id, String about_me, double rating, String phone_number, String user_id) {
         this.id = id;
         this.about_me = about_me;
         this.rating = rating;
         this.phone_number = phone_number;
+        this.user_id = user_id;
     }
 
     public String getId() {
@@ -48,15 +46,15 @@ public class Profile {
         return about_me;
     }
 
-    public void setAbout_me(String email) {
+    public void setAbout_me(String about_me) {
         this.about_me = about_me;
     }
 
-    public String getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
@@ -66,6 +64,14 @@ public class Profile {
 
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public boolean validate() {

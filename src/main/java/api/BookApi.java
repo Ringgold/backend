@@ -1,7 +1,6 @@
 package api;
 
 import com.google.gson.Gson;
-import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import template.Book.Book;
@@ -10,7 +9,6 @@ import template.Constant;
 import template.User.User;
 import template.User.UserDao;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -60,7 +58,6 @@ public class BookApi {
         return result;
     }
 
-
     @Path("/searched")
     @POST
     public String getSearchedBooks(String search_data) {
@@ -69,9 +66,9 @@ public class BookApi {
         try {
             List<Book> list = bookDao.getAllBook();
             List<Book> matches = new ArrayList<Book>();
-            for(int i =0; i<list.size(); i++){
-                if(list.get(i).getTitle().toLowerCase().contains(search_data_lowerCase)){
-                    matches.add(list.get(i));
+            for (Book book : list) {
+                if (book.getTitle().toLowerCase().contains(search_data_lowerCase)) {
+                    matches.add(book);
                 }
             }
             Gson gson = new Gson();
@@ -87,20 +84,18 @@ public class BookApi {
         return search_result;
     }
 
-
     @Path("/get_book/{book_id}")
     @GET
-    public String getBook(@PathParam("book_id") String bookId){
+    public String getBook(@PathParam("book_id") String bookId) {
         String result;
-        try{
+        try {
             Book book = bookDao.getBookById(bookId);
             Gson gson = new Gson();
             result = gson.toJson(book);
-            if(result == null || result.equals("null")){
+            if (result == null || result.equals("null")) {
                 throw new NullPointerException();
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             LOG.error(e.getMessage());
             return Constant.FAIL;
         }
@@ -190,25 +185,6 @@ public class BookApi {
         }
 
         return Constant.SUCCESS;
-    }
-
-    @Path("/get_seller/{book_id}")
-    @GET
-    public String getSellerById(@PathParam("book_id") String bookId) {
-        String username;
-        try {
-            Book book = bookDao.getBookById(bookId);
-            if (!book.validate()) {
-                return Constant.FAIL;
-            }
-            User user = userDao.getUserById(book.getSeller());
-            username = user.getName();
-        }
-        catch (Exception e){
-            LOG.error(e.getMessage());
-            return Constant.FAIL;
-        }
-        return username;
     }
 
     public void setDao(BookDao bookDao, UserDao userDao) {
