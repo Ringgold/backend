@@ -26,41 +26,16 @@
             <div class="w3-hover-indigo w3-text-white" style="display: inline-block">Welcome</div>
             <a id="welcome" class="w3-hover-indigo w3-text-white" style="display: inline-block"></a>
         </li>
-        <li id="sign_up" class="w3-right">
-            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/sign_up">Sign Up</a>
-        </li>
-        <li id="sign_in" class="w3-right">
-            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/login">Sign In</a>
-        </li>
     </ul>
-
-    <form id="search_Form" class="w3-container w3-animate-left" onsubmit="search(event)">
-        <input id="search_text" name="search_Box" placeholder="Search for any book" class="w3-input w3-border w3-round-large w3-margin-top" type="search" required>
-        <button class="w3-btn w3-white w3-round w3-margin-top">Search</button>
-        <script>
-            function search(event) {
-                event.preventDefault();
-                var search_text = $('#search_text');
-                localStorage.setItem('search_id', search_text.val());
-                window.location.href = '/search';
-            }
-        </script>
-    </form>
-
     <script>
         if (sessionStorage.getItem('id')) {
-            $('#sign_in').hide();
-            $('#sign_up').hide();
             $('#welcome').html(sessionStorage.getItem('name'));
         } else {
             $('#welcome').hide();
             $('#welcome_pre').hide();
-            $('#post').hide();
-            $('#logout').hide();
         }
     </script>
 </header>
-
 
 <div id="bookList" class="w3-container">
 </div>
