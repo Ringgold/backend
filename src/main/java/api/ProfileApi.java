@@ -9,10 +9,7 @@ import template.Constant;
 import template.Profile.Profile;
 import template.Profile.ProfileDao;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 
 @Path("/profile")
 public class ProfileApi {
@@ -104,6 +101,18 @@ public class ProfileApi {
         }
         return result;
     }
+    @POST
+    @Path("{user_id}/update_rating")
+    public String updateRating(@PathParam("user_id") String user_id, @FormParam("rating") double rating) {
+        try {
+            profileDao.updateRating(rating, user_id);
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+        return Constant.SUCCESS;
+    }
+
 
     public void setDao(ProfileDao profileDao, BookDao bookDao) {
         this.bookDao = bookDao;

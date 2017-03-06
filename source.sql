@@ -48,6 +48,7 @@ CREATE TABLE `profile` (
   `id` varchar(32) NOT NULL,
   `about_me` varchar(255) NOT NULL,
   `rating` decimal(2,1) NOT NULL,
+  `rating_count` integer NOT NULL,
   `phone_number` varchar(10) NOT NULL,
   `user_id` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
