@@ -10,6 +10,8 @@ import org.skife.jdbi.v2.Handle;
 import template.Book.Book;
 import template.Book.BookDao;
 import template.Constant;
+import template.Profile.Profile;
+import template.Profile.ProfileDao;
 import template.User.User;
 import template.User.UserDao;
 
@@ -23,9 +25,16 @@ import static org.junit.Assert.assertTrue;
 
 public class UserApiTest {
     private UserApi api;
+    private ProfileApi profileApi;
     private DBI dbi;
-    private final User user_a = new User(Constant.generateUUID(), "test_a@gg", "12345678", "test_a", Constant.generateUUID(), 0);
-    private final User user_b = new User(Constant.generateUUID(), "test_b@gg", "87654321", "test_b", Constant.generateUUID(), 1);
+
+    String user_id_a = Constant.generateUUID();
+    String profile_id_a = Constant.generateUUID();
+    String user_id_b = Constant.generateUUID();
+
+    private final User user_a = new User(user_id_a, "test_a@gg", "12345678", "test_a", Constant.generateUUID(), 0);
+    private final Profile profile_a = new Profile(profile_id_a, "Book lover", 0.0, 0, "5148888888", user_id_a);
+    private final User user_b = new User(user_id_b, "test_b@gg", "87654321", "test_b", Constant.generateUUID(), 1);
 
     @Before
     public void setUp() throws ClassNotFoundException {
@@ -33,6 +42,8 @@ public class UserApiTest {
         dbi = new DBI("jdbc:mysql://localhost/booktrader_test?useUnicode=true&characterEncoding=UTF-8&useSSL=false", "root", "delivery");
         api = new UserApi();
         api.setDao(dbi.onDemand(UserDao.class), dbi.onDemand(BookDao.class));
+        profileApi = new ProfileApi();
+        profileApi.setDao(dbi.onDemand(ProfileDao.class), dbi.onDemand(BookDao.class));
         Handle handle = dbi.open();
         handle.execute("DELETE FROM book");
         handle.execute("DELETE FROM user");
@@ -40,6 +51,8 @@ public class UserApiTest {
         UserDao userDao = dbi.onDemand(UserDao.class);
         userDao.insert(user_a);
         userDao.insert(user_b);
+        ProfileDao profileDao = dbi.onDemand(ProfileDao.class);
+        profileDao.insert(profile_a);
     }
 
     @After
@@ -47,6 +60,7 @@ public class UserApiTest {
         Handle handle = dbi.open();
         handle.execute("DELETE FROM book");
         handle.execute("DELETE FROM user");
+        handle.execute("DELETE FROM profile");
         handle.close();
     }
 
@@ -163,5 +177,12 @@ public class UserApiTest {
         assertEquals(response, Constant.FAIL);
         response = api.getUserById("");
         assertEquals(response, Constant.FAIL);
+    }
+
+    @Test
+    public void updateUserRating() throws Exception {
+        String response = profileApi.updateRating(user_a.getId(), 5.0);
+        response = profileApi.updateRating(user_a.getId(), 4.0);
+        response = profileApi.updateRating(user_a.getId(), 3.0);
     }
 }
