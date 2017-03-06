@@ -13,12 +13,14 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import java.util.List;
 
 @Path("/profile")
 public class ProfileApi {
     private static final Logger LOG = LoggerFactory.getLogger(BookApi.class);
     private BookDao bookDao;
     private ProfileDao profileDao;
+
 
     @POST
     @Path("/insert_profile") //TODO unit test missing
@@ -53,6 +55,18 @@ public class ProfileApi {
     }
 
     @GET
+    @Path("/update_phone_number_by_user_id/{user_id}/{phone_number}")//TODO unit test missing and should be post method
+    public String updatePhonenumberByUserId(@PathParam("user_id") String userId, @PathParam("phone_number") String phoneNumber) {
+        try {
+            profileDao.updateAboutMe(phoneNumber, userId);
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+        return Constant.SUCCESS;
+    }
+
+    @GET
     @Path("/get_seller_profile_by_book_id/{book_id}")//TODO unit test missing
     public String getProfileByBookId(@PathParam("book_id") String book_id) {
         String result;
@@ -62,24 +76,6 @@ public class ProfileApi {
             Profile profile = profileDao.getProfileByUserId(sellerId);
             Gson gson = new Gson();
             result = gson.toJson(profile);
-            if (result == null) {
-                throw new NullPointerException();
-            }
-        } catch (Exception e) {
-            LOG.error(e.getMessage());
-            return Constant.FAIL;
-        }
-        return result;
-    }
-
-    @GET
-    @Path("/get_user_rating/{user_id}")
-    public String getUserRatingByUserId(@PathParam("user_id") String userId) {
-        String result;
-        try {
-            Profile profile = profileDao.getProfileByUserId(userId);
-            double rating = profile.getRating();
-            result = Double.toString(rating);
             if (result == null) {
                 throw new NullPointerException();
             }
