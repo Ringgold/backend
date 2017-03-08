@@ -56,9 +56,9 @@ public class ProfileApi {
 
     @GET
     @Path("/update_phone_number_by_user_id/{user_id}/{phone_number}")//TODO unit test missing and should be post method
-    public String updatePhonenumberByUserId(@PathParam("user_id") String userId, @PathParam("phone_number") String phoneNumber) {
+    public String updatePhoneNumberByUserId(@PathParam("user_id") String userId, @PathParam("phone_number") String phoneNumber) {
         try {
-            profileDao.updateAboutMe(phoneNumber, userId);
+            profileDao.updatePhoneNumber(phoneNumber, userId);
         } catch (Exception e) {
             LOG.error(e.getMessage());
             return Constant.FAIL;

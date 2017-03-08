@@ -8,31 +8,14 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        body, h1, h2, h3, h4, h5, h6 {
-            font-family: "Montserrat", sans-serif
-        }
-
-        .w3-row-padding img {
-            margin-bottom: 12px
-        }
-
+        body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+        .w3-row-padding img {margin-bottom: 12px}
         /* Set the width of the sidenav to 120px */
-        .w3-sidenav {
-            width: 120px;
-            background: #222;
-        }
-
+        .w3-sidenav {width: 120px;background: #222;}
         /* Add a left margin to the "page content" that matches the width of the sidenav (120px) */
-        #main {
-            margin-left: 120px
-        }
-
+        #main {margin-left: 120px}
         /* Remove margins from "page content" on small screens */
-        @media only screen and (max-width: 600px) {
-            #main {
-                margin-left: 0
-            }
-        }
+        @media only screen and (max-width: 600px) {#main {margin-left: 0}}
     </style>
 
     <!-- library -->
@@ -92,22 +75,10 @@
     <div class="w3-content w3-justify w3-text-black w3-padding-64" id="about">
         <h2 class="w3-text-black">About Me </h2>
         <hr style="width:200px" class="w3-opacity">
-        <a id="aboutme-edit" href="#" onclick="displayEditAboutMe()"><i class="fa fa-pencil-square"></i></a>
+        <a id="aboutme-edit" href="#" onclick="displayEditAboutMe()"><i class="fa fa-pencil-square" ></i></a>
         <p id="aboutme"> Some text about me. </p>
         <br>
         <h3 class="w3-padding-16 w3-text-black">My Rating</h3>
-        <p>
-            <script>
-                displayRating();
-                function displayRating() {
-                    var userId = sessionStorage.getItem('id');
-                    $.get("/api/profile/get_user_rating/" + userId, function (response) {
-                        var rating = JSON.parse(response);
-                        document.write(rating);
-                    })
-                }
-            </script>
-        </p>
         <p class="w3-wide">Reputation</p>
         <div class="w3-white">
             <div class="w3-grey" style="height:28px;width:95%"></div>
@@ -129,34 +100,7 @@
         </div>
         <!-- End Portfolio Section -->
     </div>
-    <!-- Rate Me Section-->
-    <div class="w3-padding-64 w3-content w3-text-grey" id="rate_me">
-        <h2 class="w3-text-black">Rate Me</h2>
-        <hr style="width:200px" class="w3-opacity">
-        <p>Select a rating: </p>
-        <form action="">
-            <select name="Rating" id="rate_val">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
-            <br><br>
-            <input class="w3-button w3-btn w3-green w3-padding-large w3-margin-right w3-margin-top w3-round"
-                   type="submit">
-            <script>
-                //In progress:
-                //var val = document.getElementById("rate_val");
-                //var ratingChosen = val.options[val.selectedIndex].value;
-            </script>
-        </form>
-    </div>
+
     <!-- Contact Section -->
     <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
         <h2 class="w3-text-black">Contact Me</h2>
@@ -165,18 +109,17 @@
         <div class="w3-section">
             <p id="phone"><i class="fa fa-phone fa-fw w3-text-black w3-xxlarge w3-margin-right"></i>
                 <!-- Phone Number -->
-                <a id="phone-edit" href="#" onclick="displayEditPhone()"><i class="fa fa-pencil-square"></i></a>
+                <a id="phone-edit" href="#" onclick="displayEditPhone()"><i class="fa fa-pencil-square" ></i></a>
             </p>
             <p id="email"><i class="fa fa-envelope fa-fw w3-text-black w3-xxlarge w3-margin-right"> </i>
                 <!-- Email Address -->
-                <a id="email-edit" href="#" onclick="displayEditEmail()"><i class="fa fa-pencil-square"></i></a>
+                <a id="email-edit" href="#" onclick="displayEditEmail()"><i class="fa fa-pencil-square" ></i></a>
             </p>
         </div>
         <br>
         <p>Lets get in touch. Send me a message:</p>
         <p>
-            <a class="w3-button w3-btn w3-green w3-padding-large w3-margin-right w3-margin-top w3-round"
-               href="/contact">
+            <a class="w3-button w3-btn w3-green w3-padding-large w3-margin-right w3-margin-top w3-round" href="/contact">
                 <i class="fa fa-paper-plane"></i> SEND MESSAGE </a>
         </p>
         </form>
@@ -263,31 +206,81 @@
         }
 
         function closeEditAboutMe() {
-            document.getElementById('modal-aboutme-edit').style.display = 'none';
+            document.getElementById('modal-aboutme-edit').style.display='none';
         }
 
         function closeEditPhone() {
-            document.getElementById('modal-phone-edit').style.display = 'none';
+            document.getElementById('modal-phone-edit').style.display='none';
         }
 
         function closeEditEmail() {
-            document.getElementById('modal-email-edit').style.display = 'none';
+            document.getElementById('modal-email-edit').style.display='none';
         }
 
         function displayEditAboutMe() {
-            document.getElementById('modal-aboutme-edit').style.display = 'block';
+            document.getElementById('modal-aboutme-edit').style.display='block';
             $('input[name="aboutme"]').val($('#aboutme').html());
         }
 
         function displayEditPhone() {
-            document.getElementById('modal-phone-edit').style.display = 'block';
+            document.getElementById('modal-phone-edit').style.display='block';
             $('input[name="phone"]').val($('#phone').html());
         }
 
         function displayEditEmail() {
-            document.getElementById('modal-email-edit').style.display = 'block';
+            document.getElementById('modal-email-edit').style.display='block';
             $('input[name="email"]').val($('#email').html());
         }
+
+        function updateAboutMeByUserId(userId, aboutme){
+            if(!aboutme ||  aboutme == "") {
+                var profileId = sessionStorage.getItem('id');
+
+                var updatedProfile = {
+                    id: profileId,
+                    about_me: about_me,
+                    rating: rating,
+                    phone_number: phone_Number,
+                    userId: userId
+                }
+
+                $.post("/api/profile/update_about_me_by_user_id/{user_id}/{about_me}", JSON.stringify(updatedProfile), function (result) {
+                    if (result == 'SUCCESS') {
+                        window.location.reload();
+                    } else {
+                        alert("About me update failed.")
+                    }
+                })
+            }else {
+                alert('Invalid about me, should have some input.');
+            }
+        }
+
+        function updatePhoneNumberByUserId(userId, phoneNumber){
+            if(!phoneNumber || phoneNumber == ""){
+                var profileId = sessionStorage.getItem('id');
+
+                var updatedProfile = {
+                    id: profileId,
+                    about_me: about_me,
+                    rating: rating,
+                    phone_number: phone_Number,
+                    userId: userId
+                }
+
+                $.post("/api/profile/update_phone_number_by_user_id/{user_id}/{phone_number}", JSON.stringify(updatedProfile), function (result) {
+                    if (result == 'SUCCESS') {
+                        window.location.reload();
+                    } else {
+                        alert("Phone number update failed.")
+                    }
+                })
+            }else {
+                alert('Invalid about me, should have some input.');
+            }
+        }
+
+
 
     </script>
 
