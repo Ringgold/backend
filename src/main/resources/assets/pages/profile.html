@@ -27,6 +27,11 @@
         <h1 class="w3-jumbo"><span id="user_name">I'm</span></h1>
     </header>
 
+    <!-- About Section -->
+        <h2 class="w3-text-black">About Me </h2>
+        <hr style="width:200px" class="w3-opacity">
+        <a id="aboutme-edit" href="#" onclick="displayEditAboutMe()"><i class="fa fa-pencil-square"></i></a>
+        <p id="aboutme"> Some text about me. </p>
     <div class="w3-content">
         <h2>About Me</h2>
         <a id="about-me-edit" href="#" onclick="$('#modal-about-me-edit').show();"><i class="fa fa-pencil-square"></i></a>
@@ -34,19 +39,7 @@
         <br>
         <h3 class="w3-padding-16 w3-text-black">My Rating</h3>
         <p  id = "show_rating"></p>
-        <p>
-            <script>
-                
-                function displayRating() {
-                    var userId = sessionStorage.getItem('id');
-                    $.get("/api/profile/get_user_rating/" + userId, function (response) {
-                        var rating = JSON.parse(response);
-                        document.write(rating);
-                          });
-                }
-              document.getElementById("show_rating").innerHTML = displayRating();
-            </script>
-        </p>
+
         <h2>My Rating</h2>
         <p class="w3-wide">Reputation</p>
         <br>
@@ -75,29 +68,19 @@
         <h2 class="w3-text-black">Rate Me</h2>
         <hr style="width:200px" class="w3-opacity">
         <p>Select a rating: </p>
-        <form action="" onsubmit="return confirm('Are you sure you want to rate this user?'); ">
+
+        <form>
             <select name="Rating" id="rate_val">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
             </select>
             <br><br>
             <input class="w3-button w3-btn w3-green w3-padding-large w3-margin-right w3-margin-top w3-round"
-                   type="submit" onsubmit="return confirm('Are you sure you want to rate this user?');">
-            <script>
-                //In progress:
-               // function submitRating(){
-                //var val = document.getElementById("rate_val");
-                //var ratingChosen = val.options[val.selectedIndex].value;
-                //}
-            </script>
+                   type="submit" onclick="addRating()">
+
         </form>
     </div>
     <!-- Contact Section -->
@@ -201,6 +184,33 @@
             }
             window.location.reload();
         }
+        displayRating();
+        function displayRating() {
+            var userId = sessionStorage.getItem('id');
+            $.get("/api/profile/get_user_rating/" + userId, function (response) {
+                var rating = JSON.parse(response);
+                document.getElementById("show_rating").innerHTML = rating;
+            });
+        }
+
+        var sel = document.getElementById("box1");
+        var text= sel.options[sel.selectedIndex].text;
+
+        function addRating() {
+            var val = document.getElementById("rate_val");
+            var ratingChosen = parseInt( val.options[val.selectedIndex].text );
+            //alert(typeof(ratingChosen));
+            //var userId = sessionStorage.getItem('id');
+            $.post("/api/profile/update_rating/" + userId , ratingChosen, function(response) {
+                if (response === 'SUCCESS') {
+                    alert("thank you for your submission");
+                    displayRating();
+                } else {
+                    alert("please try again");
+                }
+            });
+        }
+
     </script>
 </div>
 
