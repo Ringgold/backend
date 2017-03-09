@@ -42,7 +42,7 @@
                     $.get("/api/profile/get_user_rating/" + userId, function (response) {
                         var rating = JSON.parse(response);
                         document.write(rating);
-                    })
+                    }
                 }
               document.getElementById("show_rating").innerHTML = displayRating();
             </script>
