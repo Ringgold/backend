@@ -90,6 +90,9 @@ public class ProfileApi {
         String result;
         try {
             Profile profile = profileDao.getProfileByUserId(userId);
+            double rating = profile.getRating();
+            Gson gson = new Gson();
+            result = gson.toJson(rating);
             Gson gson = new Gson();
             result = gson.toJson(profile);
             if (result == null) {
@@ -102,7 +105,7 @@ public class ProfileApi {
         return result;
     }
     @POST
-    @Path("{user_id}/update_rating")
+    @Path("update_rating/{user_id}")
     public String updateRating(@PathParam("user_id") String user_id, @FormParam("rating") double rating) {
         try {
             profileDao.updateRating(rating, user_id);
