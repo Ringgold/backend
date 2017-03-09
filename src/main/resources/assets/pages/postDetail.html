@@ -185,13 +185,13 @@
             $('#price').html(book.price);
             $('#isbn').html(book.code);
             $('#description').html(book.description);
-            
+            $('#seller').attr('href', "/profile?seller="+book.seller);
             $.get("/api/user/get_user/" + book.seller, function(response) {
                 var user = JSON.parse(response);
                 var seller_display = $('#seller');
                 seller_display.html(user.name);
                 seller_display.attr("href", "/profile?user_id=" + book.seller);
-                $('#seller').attr('href', "/profile?seller="+book.seller;
+                
             })
         });
     </script>
