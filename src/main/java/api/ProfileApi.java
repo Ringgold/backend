@@ -9,6 +9,8 @@ import template.Constant;
 import template.Profile.Profile;
 import template.Profile.ProfileDao;
 
+
+import javax.validation.constraints.Null;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -87,9 +89,64 @@ public class ProfileApi {
     }
 
 
+    @GET
+    @Path("/get_aboutme_by_user_id/{user_id}")//TODO unit testing
+    public String getAboutmeByUserId(@PathParam("user_id") String user_Id){
+        String result;
+        try{
+            Profile about_me = profileDao.getAboutMeByUserId(user_Id);
+                Gson gson = new Gson();
+                result = gson.toJson(about_me);
+                if(result == null || result.equals("null")) {
+                    throw new NullPointerException();
+                }
+        }catch (Exception e){
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+        return result;
+    }
+
+    @GET
+    @Path("/get_phonenumber_by_user_id/{user_id}")//TODO unit testing
+    public String getPhoneNumberByUserId(@PathParam("user_id") String user_Id){
+        String result;
+        try {
+            Profile rating = profileDao.getRatingByUserId(user_Id);
+                Gson gson = new Gson();
+                result = gson.toJson(rating);
+                if(result == null || result.equals("null")) {
+                    throw new NullPointerException();
+                }
+        }catch (Exception e){
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+        return result;
+    }
+
+    @GET
+    @Path("/get_rating_by_user_id/{user_id}")//TODO unit testing
+    public String getRatingByUserId(@PathParam("user_id") String user_Id){
+        String result;
+        try {
+            Profile rating = profileDao.getPhoneNumberByUserId(user_Id);
+            Gson gson = new Gson();
+            result = gson.toJson(rating);
+            if(result == null || result.equals("null")){
+                throw new NullPointerException();
+            }
+        }catch (Exception e){
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+        return result;
+    }
+
 
     public void setDao(ProfileDao profileDao, BookDao bookDao) {
         this.bookDao = bookDao;
         this.profileDao = profileDao;
+
     }
 }
