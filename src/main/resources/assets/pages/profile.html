@@ -37,8 +37,21 @@
         <a id="about-me-edit" href="#" onclick="$('#modal-about-me-edit').show();"><i class="fa fa-pencil-square"></i></a>
         <p id="about_me"> Some text about me. </p>
         <br>
-        <h3 class="w3-padding-16 w3-text-black">My Rating: <span id = "show_rating"></span></h3>
-
+        <h3 class="w3-padding-16 w3-text-black">My Rating</h3>
+        <p  id = "show_rating"></p>
+        <p>
+            <script>
+                /*
+                function displayRating() {
+                    var userId = sessionStorage.getItem('id');
+                    $.get("/api/profile/get_user_rating/" + userId, function (response) {
+                        var rating = JSON.parse(response);
+                        document.write(rating);
+                          });
+                }
+              document.getElementById("show_rating").innerHTML = displayRating();*/
+            </script>
+        </p>
         <h2>My Rating</h2>
         <p class="w3-wide">Reputation</p>
         <br>
