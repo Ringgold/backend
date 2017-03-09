@@ -191,16 +191,28 @@
 
     <script>
         function saveEditAboutMe() {
+            var description = $('input[name="aboutme"]').val();
+            if (description && description != $('#aboutme').html()) {
+                updateProfile(description, $('#phone').html(), $('#email').html());
+            }
 
             closeEditAboutMe();
         }
 
         function saveEditPhone() {
+            var phonenumber = $('input[name="phone"]').val();
+            if (phonenumber && phonenumber != $('#phone').html()) {
+                updateProfile($('#aboutme').html(), phonenumber, $('#email').html());
+            }
 
             closeEditPhone();
         }
 
         function saveEditEmail() {
+            var emailaddress = $('input[name="email"]').val();
+            if (emailaddress && emailaddress != $('#email').html()) {
+                updateProfile($('#aboutme').html(), $('#phone').html(), emailaddress);
+            }
 
             closeEditEmail();
         }
