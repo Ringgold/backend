@@ -75,7 +75,7 @@
         <h2 class="w3-text-black">Rate Me</h2>
         <hr style="width:200px" class="w3-opacity">
         <p>Select a rating: </p>
-        <form action="" onsubmit="return confirm('Are you sure you want to rate this user?');">
+        <form action="" onsubmit="return confirm('Are you sure you want to rate this user?'); ">
             <select name="Rating" id="rate_val">
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -93,8 +93,10 @@
                    type="submit" onsubmit="return confirm('Are you sure you want to rate this user?');">
             <script>
                 //In progress:
+               // function submitRating(){
                 //var val = document.getElementById("rate_val");
                 //var ratingChosen = val.options[val.selectedIndex].value;
+                //}
             </script>
         </form>
     </div>
