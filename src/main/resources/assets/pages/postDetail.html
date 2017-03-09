@@ -185,6 +185,7 @@
             $('#price').html(book.price);
             $('#isbn').html(book.code);
             $('#description').html(book.description);
+            $('#seller').attr('href', "/profile?seller="+user.name)
             $.get("/api/user/get_user/" + book.seller, function(response) {
                 var user = JSON.parse(response);
                 var seller_display = $('#seller');
