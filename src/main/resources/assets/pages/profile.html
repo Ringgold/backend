@@ -44,7 +44,7 @@
             <script>
                 
                 function displayRating() {
-                    var userId = sessionStorage.getItem('id');
+                    var userId = getParameterByName("seller");
                     $.get("/api/profile/get_user_rating/" + userId, function (response) {
                         var rating = JSON.parse(response);
                         document.write(rating);
