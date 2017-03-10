@@ -37,8 +37,7 @@
         <a id="about-me-edit" href="#" onclick="$('#modal-about-me-edit').show();"><i class="fa fa-pencil-square"></i></a>
         <p id="about_me"> Some text about me. </p>
         <br>
-        <h3 class="w3-padding-16 w3-text-black">My Rating</h3>
-        <p  id = "show_rating"></p>
+        <h3 class="w3-padding-16 w3-text-black">My Rating: <span id = "show_rating"></span></h3>
 
         <h2>My Rating</h2>
         <p class="w3-wide">Reputation</p>
@@ -193,15 +192,12 @@
             });
         }
 
-        var sel = document.getElementById("box1");
-        var text= sel.options[sel.selectedIndex].text;
-
         function addRating() {
             var val = document.getElementById("rate_val");
-            var ratingChosen = parseInt( val.options[val.selectedIndex].text );
-            //alert(typeof(ratingChosen));
-            //var userId = sessionStorage.getItem('id');
-            $.post("/api/profile/update_rating/" + userId , ratingChosen, function(response) {
+            var ratingChosen =  val.options[val.selectedIndex].value ;
+
+            var userId = sessionStorage.getItem('id');
+            $.post("/api/profile/update_rating/" + userId , { rating: ratingChosen }, function(response) {
                 if (response === 'SUCCESS') {
                     alert("thank you for your submission");
                     displayRating();
