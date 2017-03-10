@@ -136,7 +136,7 @@
         function updateBook(price, description) {
             if (/^\d*(\.\d{2})?$/.test(price) || !description || description == "") {
                 var userId = sessionStorage.getItem('id');
-                var bookId = sessionStorage.getItem('book_id');
+                var bookId = getParameterByName("book_id");
 
                 var updatedBook = {
                     id: bookId,
