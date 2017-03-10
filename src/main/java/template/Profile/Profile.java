@@ -19,6 +19,9 @@ public class Profile {
     private double rating;
 
     @NotNull
+    private int rating_count;
+
+    @NotNull
     @Size(max = 10)
     private String phone_number;
 
@@ -26,10 +29,11 @@ public class Profile {
     @Size(min = 32, max = 32)
     private String user_id;
 
-    public Profile(String id, String about_me, double rating, String phone_number, String user_id) {
+    public Profile(String id, String about_me, double rating, int rating_count, String phone_number, String user_id) {
         this.id = id;
         this.about_me = about_me;
         this.rating = rating;
+        this.rating_count = rating_count;
         this.phone_number = phone_number;
         this.user_id = user_id;
     }
@@ -58,6 +62,10 @@ public class Profile {
         this.rating = rating;
     }
 
+    public int getRating_count(){return rating_count;}
+
+    public void setRating_count(int rating_count){ this.rating_count = rating_count; }
+
     public String getPhone_number() {
         return phone_number;
     }
@@ -66,6 +74,7 @@ public class Profile {
         this.phone_number = phone_number;
     }
 
+<<<<<<< .mine
     public String getUser_id() {
         return user_id;
     }
@@ -74,6 +83,20 @@ public class Profile {
         this.user_id = user_id;
     }
 
+
+
+=======
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+
+
+>>>>>>> .theirs
     public boolean validate() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();

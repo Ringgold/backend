@@ -10,27 +10,28 @@ import template.Profile.Profile;
 import template.Profile.ProfileDao;
 
 
-import javax.validation.constraints.Null;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import java.util.List;
 
 @Path("/profile")
 public class ProfileApi {
-    private static final Logger LOG = LoggerFactory.getLogger(BookApi.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ProfileApi.class);
     private BookDao bookDao;
     private ProfileDao profileDao;
 
 
     @POST
-    @Path("/insert_profile") //TODO unit test missing
+    @Path("/insert_profile")
     public String insertProfile(String request) {
         Profile profile;
         Gson gson = new Gson();
         try {
             profile = gson.fromJson(request, Profile.class);
+            if (profile == null){
+                throw new NullPointerException();
+            }
             String id = Constant.generateUUID();
             profile.setId(id);
             if (!profile.validate()) {
@@ -45,7 +46,7 @@ public class ProfileApi {
     }
 
     @GET
-    @Path("/update_about_me_by_user_id/{user_id}/{about_me}")//TODO unit test missing and should be post method
+    @Path("/update_about_me_by_user_id/{user_id}/{about_me}")
     public String updateAboutMeByUserId(@PathParam("user_id") String userId, @PathParam("about_me") String aboutMe) {
         try {
             profileDao.updateAboutMe(aboutMe, userId);
@@ -57,7 +58,7 @@ public class ProfileApi {
     }
 
     @GET
-    @Path("/update_phone_number_by_user_id/{user_id}/{phone_number}")//TODO unit test missing and should be post method
+    @Path("/update_phone_number_by_user_id/{user_id}/{phone_number}")
     public String updatePhoneNumberByUserId(@PathParam("user_id") String userId, @PathParam("phone_number") String phoneNumber) {
         try {
             profileDao.updatePhoneNumber(phoneNumber, userId);
@@ -69,7 +70,7 @@ public class ProfileApi {
     }
 
     @GET
-    @Path("/get_seller_profile_by_book_id/{book_id}")//TODO unit test missing
+    @Path("/get_seller_profile_by_book_id/{book_id}")
     public String getProfileByBookId(@PathParam("book_id") String book_id) {
         String result;
         try {
@@ -90,16 +91,16 @@ public class ProfileApi {
 
 
     @GET
-    @Path("/get_aboutme_by_user_id/{user_id}")//TODO unit testing
+    @Path("/get_about_me_by_user_id/{user_id}")//TODO unit testing
     public String getAboutmeByUserId(@PathParam("user_id") String user_Id){
         String result;
         try{
             Profile about_me = profileDao.getAboutMeByUserId(user_Id);
-                Gson gson = new Gson();
-                result = gson.toJson(about_me);
-                if(result == null || result.equals("null")) {
-                    throw new NullPointerException();
-                }
+            Gson gson = new Gson();
+            result = gson.toJson(about_me);
+            if(result == null || result.equals("null")) {
+                throw new NullPointerException();
+            }
         }catch (Exception e){
             LOG.error(e.getMessage());
             return Constant.FAIL;
@@ -108,7 +109,7 @@ public class ProfileApi {
     }
 
     @GET
-    @Path("/get_phonenumber_by_user_id/{user_id}")//TODO unit testing
+    @Path("/get_phone_number_by_user_id/{user_id}")//TODO unit testing
     public String getPhoneNumberByUserId(@PathParam("user_id") String user_Id){
         String result;
         try {
