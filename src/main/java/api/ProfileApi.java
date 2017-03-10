@@ -113,9 +113,9 @@ public class ProfileApi {
     public String getPhoneNumberByUserId(@PathParam("user_id") String user_Id){
         String result;
         try {
-            Profile rating = profileDao.getRatingByUserId(user_Id);
+            Profile phoneNumber = profileDao.getPhoneNumberByUserId(user_Id);
                 Gson gson = new Gson();
-                result = gson.toJson(rating);
+                result = gson.toJson(phoneNumber);
                 if(result == null || result.equals("null")) {
                     throw new NullPointerException();
                 }
@@ -131,7 +131,7 @@ public class ProfileApi {
     public String getRatingByUserId(@PathParam("user_id") String user_Id){
         String result;
         try {
-            Profile rating = profileDao.getPhoneNumberByUserId(user_Id);
+            Profile rating = profileDao.getRatingByUserId(user_Id);
             Gson gson = new Gson();
             result = gson.toJson(rating);
             if(result == null || result.equals("null")){
