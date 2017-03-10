@@ -64,7 +64,7 @@ public class ProfileApiTest {
 
     @Test
     public void insertProfile() {
-        Profile test = new Profile(Constant.generateUUID(),"test_about_me",1.0, 1,"test_phone_number",Constant.generateUUID());
+        Profile test = new Profile(Constant.generateUUID(),"test_about_me",1.0, 1,"1234567890",Constant.generateUUID());
         String jsonString = gson.toJson(test,Profile.class);
         //System.out.println(jsonString);
         String ret = api.insertProfile(jsonString);
@@ -88,7 +88,7 @@ public class ProfileApiTest {
     public void updateAboutMeByUserId(){
         String userID = Constant.generateUUID();
         String profileID = Constant.generateUUID();
-        Profile testProfile = new Profile(profileID,"test_about_me",5.0, 1,"test_phone_number",userID);
+        Profile testProfile = new Profile(profileID,"test_about_me",5.0, 1,"1234567890",userID);
         String jsonString = gson.toJson(testProfile, Profile.class);
         String ret = api.insertProfile(jsonString);
         assertEquals(ret,Constant.SUCCESS);
@@ -111,14 +111,14 @@ public class ProfileApiTest {
     public void updatePhoneNumberByUserId(){
         String userID = Constant.generateUUID();
         String profileID = Constant.generateUUID();
-        Profile testProfile = new Profile(profileID,"test_about_me",5.0, 1,"test_phone_number",userID);
+        Profile testProfile = new Profile(profileID,"test_about_me",5.0, 1,"1234567890",userID);
         String jsonString = gson.toJson(testProfile, Profile.class);
         String ret = api.insertProfile(jsonString);
         assertEquals(ret,Constant.SUCCESS);
 
-        testProfile.setPhone_number("old_phone_number");
+        testProfile.setPhone_number("1234567890");
         jsonString = gson.toJson(testProfile,Profile.class);
-        ret = api.updatePhoneNumberByUserId(userID,"new_phone_number");
+        ret = api.updatePhoneNumberByUserId(userID,"0987654321");
         assertEquals(Constant.SUCCESS, ret);
 
         String phoneNumbe = testProfile.getPhone_number();

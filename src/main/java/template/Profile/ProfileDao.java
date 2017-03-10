@@ -4,6 +4,9 @@ import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
+import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
+
+@RegisterMapper(ProfileMapper.class)
 
 public interface ProfileDao {
     @SqlUpdate("insert into profile values (:id, :about_me, :rating, :rating_count, :phone_number, :user_id)")
