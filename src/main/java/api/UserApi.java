@@ -59,7 +59,15 @@ public class UserApi {
         try {
             user = gson.fromJson(request, User.class);
             user.setId(Constant.generateUUID());
-            user.setStatus(0);
+
+            // This is a user used for testing if the email if the following is true
+            boolean isATestUser = user.getEmail().equals("test@test.test");
+
+            if (isATestUser) {
+                user.setStatus(1);
+            } else {
+                user.setStatus(0);
+            }
 
             String code = Constant.generateUUID();
             user.setActivationCode(code);
@@ -69,7 +77,10 @@ public class UserApi {
             }
 
             userDao.insert(user);
-            mailApi.sendActivationEmail(user.getName(), user.getEmail(), user.getId(), code);
+
+            if (!isATestUser) {
+                mailApi.sendActivationEmail(user.getName(), user.getEmail(), user.getId(), code);
+            }
 
         } catch (Exception e) {
             LOG.error(e.getMessage());
