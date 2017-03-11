@@ -66,7 +66,7 @@ public class UserApi {
             if (isATestUser) {
                 user.setStatus(1);
                 user.setEmail(Constant.generateUUID());
-                user.setPassword("oscar");
+                user.setPassword("password");
             } else {
                 user.setStatus(0);
             }
