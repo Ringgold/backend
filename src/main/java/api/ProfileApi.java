@@ -9,7 +9,6 @@ import template.Constant;
 import template.Profile.Profile;
 import template.Profile.ProfileDao;
 
-
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -21,7 +20,6 @@ public class ProfileApi {
     private BookDao bookDao;
     private ProfileDao profileDao;
 
-
     @POST
     @Path("/insert_profile")
     public String insertProfile(String request) {
@@ -29,7 +27,7 @@ public class ProfileApi {
         Gson gson = new Gson();
         try {
             profile = gson.fromJson(request, Profile.class);
-            if (profile == null){
+            if (profile == null) {
                 throw new NullPointerException();
             }
             String id = Constant.generateUUID();
@@ -71,10 +69,10 @@ public class ProfileApi {
 
     @GET
     @Path("/get_seller_profile_by_book_id/{book_id}")
-    public String getProfileByBookId(@PathParam("book_id") String book_id) {
+    public String getProfileByBookId(@PathParam("book_id") String bookId) {
         String result;
         try {
-            Book book = bookDao.getBookById(book_id);
+            Book book = bookDao.getBookById(bookId);
             String sellerId = book.getSeller();
             Profile profile = profileDao.getProfileByUserId(sellerId);
             Gson gson = new Gson();
@@ -89,61 +87,23 @@ public class ProfileApi {
         return result;
     }
 
-
     @GET
-    @Path("/get_about_me_by_user_id/{user_id}")//TODO unit testing
-    public String getAboutmeByUserId(@PathParam("user_id") String user_Id){
-        String result;
-        try{
-            Profile about_me = profileDao.getAboutMeByUserId(user_Id);
-            Gson gson = new Gson();
-            result = gson.toJson(about_me);
-            if(result == null || result.equals("null")) {
-                throw new NullPointerException();
-            }
-        }catch (Exception e){
-            LOG.error(e.getMessage());
-            return Constant.FAIL;
-        }
-        return result;
-    }
-
-    @GET
-    @Path("/get_phone_number_by_user_id/{user_id}")//TODO unit testing
-    public String getPhoneNumberByUserId(@PathParam("user_id") String user_Id){
+    @Path("/get_seller_profile_by_user_id/{user_id}")
+    public String getProfileByUserId(@PathParam("user_id") String userId) {
         String result;
         try {
-            Profile phoneNumber = profileDao.getPhoneNumberByUserId(user_Id);
-                Gson gson = new Gson();
-                result = gson.toJson(phoneNumber);
-                if(result == null || result.equals("null")) {
-                    throw new NullPointerException();
-                }
-        }catch (Exception e){
-            LOG.error(e.getMessage());
-            return Constant.FAIL;
-        }
-        return result;
-    }
-
-    @GET
-    @Path("/get_rating_by_user_id/{user_id}")//TODO unit testing
-    public String getRatingByUserId(@PathParam("user_id") String user_Id){
-        String result;
-        try {
-            Profile rating = profileDao.getRatingByUserId(user_Id);
+            Profile profile = profileDao.getProfileByUserId(userId);
             Gson gson = new Gson();
-            result = gson.toJson(rating);
-            if(result == null || result.equals("null")){
+            result = gson.toJson(profile);
+            if (result == null) {
                 throw new NullPointerException();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             LOG.error(e.getMessage());
             return Constant.FAIL;
         }
         return result;
     }
-
 
     public void setDao(ProfileDao profileDao, BookDao bookDao) {
         this.bookDao = bookDao;

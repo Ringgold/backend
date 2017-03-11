@@ -42,7 +42,7 @@
         </table>
         <br>
         <p>
-            &nbsp;&nbsp;&nbsp;Posted by <a id="seller" href="/profile" target="_blank" onclick="sessionStorage.setItem('seller_id', sessionStorage.getItem('id'))"> [seller's username] </a>
+            Posted by <a id="seller" href="/profile"> [seller's username] </a>
         </p>
     </div>
 
@@ -143,7 +143,7 @@
                     price: price,
                     description: description,
                     seller: userId
-                }
+                };
 
                 $.post("/api/book/update", JSON.stringify(updatedBook), function (result) {
                     if (result == 'SUCCESS') {
@@ -187,7 +187,9 @@
             $('#description').html(book.description);
             $.get("/api/user/get_user/" + book.seller, function(response) {
                 var user = JSON.parse(response);
-                $('#seller').html(user.name);
+                var seller_display = $('#seller');
+                seller_display.html(user.name);
+                seller_display.attr("href", "/profile?user_id=" + book.seller);
             })
         });
     </script>

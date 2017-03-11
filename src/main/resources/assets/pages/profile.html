@@ -2,23 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Book Trader</title>
+    <title>User Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-        .w3-row-padding img {margin-bottom: 12px}
-        /* Set the width of the sidenav to 120px */
-        .w3-sidenav {width: 120px;background: #222;}
-        /* Add a left margin to the "page content" that matches the width of the sidenav (120px) */
-        #main {margin-left: 120px}
-        /* Remove margins from "page content" on small screens */
-        @media only screen and (max-width: 600px) {#main {margin-left: 0}}
-    </style>
 
-    <!-- library -->
+
     <script src="../js/main.js"></script>
     <script src="../js/jquery.js"></script>
 </head>
@@ -31,116 +21,54 @@
 <br>
 
 <body class="w3-white">
-<!-- Icon Bar (Sidenav - hidden on small screens) -->
-<nav class="w3-sidenav w3-center w3-small w3-hide-small w3-white">
-    <!-- Avatar image in top left corner -->
-    <a class="w3-padding-large w3-blue-gray" href="#">
-        <i class="fa fa-home w3-xxlarge"></i>
-        <p>HOME</p>
-    </a>
-    <br>
-    <a class="w3-padding-large w3-hover-indigo" href="#">
-        <i class="fa fa-user w3-xxlarge"></i>
-        <p>ABOUT</p>
-    </a>
-    <br>
-    <a class="w3-padding-large w3-hover-indigo" href="#posts">
-        <i class="fa fa-eye w3-xxlarge"></i>
-        <p>POSTS</p>
-    </a>
-    <br>
-    <a class="w3-padding-large w3-hover-indigo" href="#contact">
-        <i class="fa fa-envelope w3-xxlarge"></i>
-        <p>CONTACT</p>
-    </a>
-</nav>
 
-<!-- Navbar on small screens (Hidden on medium and large screens) -->
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-    <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-        <a class="w3-bar-item w3-button" style="width:25% !important" href="#">ABOUT</a>
-        <a class="w3-bar-item w3-button" style="width:25% !important" href="#posts">POSTS</a>
-        <a class="w3-bar-item w3-button" style="width:25% !important" href="#contact">CONTACT</a>
-    </div>
-</div>
-
-<!-- Page Content -->
-<div class="w3-padding-large" id="main">
-    <!-- Header/Home -->
+<div class="w3-container" id="main">
     <header class="w3-container w3-padding-32 w3-center w3-light-grey" id="username">
-        <h1 class="w3-jumbo"><span class="w3-hide-small">I'm</span> <!-- username -->.</h1>
+        <h1 class="w3-jumbo"><span id="user_name">I'm</span></h1>
     </header>
 
-    <!-- About Section -->
-    <div class="w3-content w3-justify w3-text-black w3-padding-64" id="about">
-        <h2 class="w3-text-black">About Me </h2>
-        <hr style="width:200px" class="w3-opacity">
-        <a id="aboutme-edit" href="#" onclick="displayEditAboutMe()"><i class="fa fa-pencil-square" ></i></a>
-        <p id="aboutme"> Some text about me. </p>
+    <div class="w3-content">
+        <h2>About Me</h2>
+        <a id="about-me-edit" href="#" onclick="$('#modal-about-me-edit').show();"><i class="fa fa-pencil-square"></i></a>
+        <p id="about_me"> Some text about me. </p>
         <br>
-        <h3 class="w3-padding-16 w3-text-black">My Rating</h3>
+        <h2>My Rating</h2>
         <p class="w3-wide">Reputation</p>
-        <div class="w3-white">
-            <div class="w3-grey" style="height:28px;width:95%"></div>
-        </div>
-        <!-- End About Section -->
-    </div>
-
-    <!-- Portfolio Section -->
-    <div class="w3-padding-64 w3-content" id="posts">
-        <h2 class="w3-text-black">My Posts</h2>
-        <hr style="width:200px" class="w3-opacity">
-
-        <!-- Grid for posts -->
-        <div class="w3-row-padding" style="margin:0 -16px">
-            <div class="w3-half">
-
-            </div>
-            <!-- End posts grid -->
-        </div>
-        <!-- End Portfolio Section -->
-    </div>
-
-    <!-- Contact Section -->
-    <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
-        <h2 class="w3-text-black">Contact Me</h2>
-        <hr style="width:200px" class="w3-opacity">
-
-        <div class="w3-section">
-            <p id="phone"><i class="fa fa-phone fa-fw w3-text-black w3-xxlarge w3-margin-right"></i>
-                <!-- Phone Number -->
-                <a id="phone-edit" href="#" onclick="displayEditPhone()"><i class="fa fa-pencil-square" ></i></a>
-            </p>
-            <p id="email"><i class="fa fa-envelope fa-fw w3-text-black w3-xxlarge w3-margin-right"> </i>
-                <!-- Email Address -->
-                <a id="email-edit" href="#" onclick="displayEditEmail()"><i class="fa fa-pencil-square" ></i></a>
-            </p>
-        </div>
         <br>
-        <p>Lets get in touch. Send me a message:</p>
-        <p>
-            <a class="w3-button w3-btn w3-green w3-padding-large w3-margin-right w3-margin-top w3-round" href="/contact">
-                <i class="fa fa-paper-plane"></i> SEND MESSAGE </a>
-        </p>
-        </form>
-        <!-- End Contact Section -->
+        <h2>My Posts</h2>
+        <a href="#" class="w3-btn w3-white w3-border w3-border-green w3-round w3-padding-large">CLICK ME TO SEE THE
+            POSTS</a>
+        <br>
     </div>
 
-    <div id="modal-aboutme-edit" class="w3-modal">
+    <div class="w3-content">
+        <br>
+        <br>
+        <h2>Contact Me</h2>
+        <div class="w3-section">
+            <p>
+                <i class="fa fa-phone fa-fw w3-text-black w3-xlarge w3-margin-right"></i>
+                <a id="phone-edit" href="#" onclick="$('#modal-phone-edit').show();"><i class="fa fa-pencil-square"></i></a>
+                <span id="phone_number"></span>
+            </p>
+        </div>
+    </div>
+
+    <div id="modal-about-me-edit" class="w3-modal">
         <div class="w3-modal-content w3-card-8 w3-animate-top">
             <header class="w3-container w3-indigo">
-        <span onclick="document.getElementById('modal-aboutme-edit').style.display='none'"
+        <span onclick="document.getElementById('modal-about-me-edit').style.display='none'"
               class="w3-closebtn">&times;</span>
                 <h2>Edit About Me</h2>
             </header>
             <div class="w3-container">
                 <p>
-                    <input name="aboutme" class="w3-input w3-border w3-round-large w3-margin-top" type="text">
+                    <input name="about_me" title="about_me" class="w3-input w3-border w3-round-large w3-margin-top" type="text">
                 </p>
             </div>
             <footer class="w3-container w3-indigo">
                 <span class="w3-right w3-padding-8">
-                    <button id="cancel-aboutme" class="w3-btn w3-red" onclick="closeEditAboutMe()">CANCEL</button>
+                    <button id="cancel-aboutme" class="w3-btn w3-red" onclick="document.getElementById('modal-about-me-edit').style.display='none'">CANCEL</button>
                     <button id="save-aboutme" class="w3-btn w3-green" onclick="saveEditAboutMe()">SAVE</button>
                 </span>
             </footer>
@@ -156,147 +84,60 @@
             </header>
             <div class="w3-container">
                 <p>
-                    <input name="phone" class="w3-input w3-border w3-round-large w3-margin-top" type="text">
+                    <input name="phone" title="phone" class="w3-input w3-border w3-round-large w3-margin-top" type="text">
                 </p>
             </div>
             <footer class="w3-container w3-indigo">
                 <span class="w3-right w3-padding-8">
-                    <button id="cancel-phone" class="w3-btn w3-red" onclick="closeEditPhone()">CANCEL</button>
+                    <button id="cancel-phone" class="w3-btn w3-red" onclick="document.getElementById('modal-phone-edit').style.display='none'">CANCEL</button>
                     <button id="save-phone" class="w3-btn w3-green" onclick="saveEditPhone()">SAVE</button>
                 </span>
             </footer>
         </div>
     </div>
 
-    <div id="modal-email-edit" class="w3-modal">
-        <div class="w3-modal-content w3-card-8 w3-animate-top">
-            <header class="w3-container w3-indigo">
-        <span onclick="document.getElementById('modal-email-edit').style.display='none'"
-              class="w3-closebtn">&times;</span>
-                <h2>Change Email Address</h2>
-            </header>
-            <div class="w3-container">
-                <p>
-                    <input name="email" class="w3-input w3-border w3-round-large w3-margin-top" type="text">
-                </p>
-            </div>
-            <footer class="w3-container w3-indigo">
-                <span class="w3-right w3-padding-8">
-                    <button id="cancel-email" class="w3-btn w3-red" onclick="closeEditEmail()">CANCEL</button>
-                    <button id="save-email" class="w3-btn w3-green" onclick="saveEditEmail()">SAVE</button>
-                </span>
-            </footer>
-        </div>
-    </div>
-
     <script>
-        function saveEditAboutMe() {
-            var description = $('input[name="aboutme"]').val();
-            if (description && description != $('#aboutme').html()) {
-                updateProfile(description, $('#phone').html(), $('#email').html());
-            }
+        var myId = sessionStorage.getItem("id");
+        var userId = getParameterByName("user_id");
+        if (myId !== userId) {
+            $('#phone-edit').hide();
+            $('#about-me-edit').hide();
+            $('#email-edit').hide();
+        }
+        $.get("/api/profile/get_seller_profile_by_user_id/" + userId, function(data) {
+            data = JSON.parse(data);
+            var profile = {};
+            profile.about_me = data.about_me;
+            profile.phone_number = data.phone_number;
+            $('#about_me').html(profile.about_me);
+            $('#phone_number').html(profile.phone_number);
+        });
 
-            closeEditAboutMe();
+        $.get("/api/user/get_user/" + userId, function(data) {
+            data = JSON.parse(data);
+            $('#user_name').html("I'm " + data.name);
+        });
+
+        function saveEditAboutMe() {
+            var about_me = $('input[title="about_me"]').val();
+            if (about_me && about_me !== $('#about_me').html()) {
+                $.get('/api/profile/update_about_me_by_user_id/' + userId + '/' + about_me, function (data) {
+                    alert(data);
+                });
+            }
+            window.location.reload();
         }
 
         function saveEditPhone() {
-            var phonenumber = $('input[name="phone"]').val();
-            if (phonenumber && phonenumber != $('#phone').html()) {
-                updateProfile($('#aboutme').html(), phonenumber, $('#email').html());
+            var phone_number = $('input[title="phone"]').val();
+            if (phone_number && phone_number !== $('#phone_number').html()) {
+                $.get('/api/profile/update_phone_number_by_user_id/' + userId + '/' + phone_number, function (data) {
+                    alert(data);
+                });
             }
-
-            closeEditPhone();
+            window.location.reload();
         }
-
-        function saveEditEmail() {
-            var emailaddress = $('input[name="email"]').val();
-            if (emailaddress && emailaddress != $('#email').html()) {
-                updateProfile($('#aboutme').html(), $('#phone').html(), emailaddress);
-            }
-
-            closeEditEmail();
-        }
-
-        function closeEditAboutMe() {
-            document.getElementById('modal-aboutme-edit').style.display='none';
-        }
-
-        function closeEditPhone() {
-            document.getElementById('modal-phone-edit').style.display='none';
-        }
-
-        function closeEditEmail() {
-            document.getElementById('modal-email-edit').style.display='none';
-        }
-
-        function displayEditAboutMe() {
-            document.getElementById('modal-aboutme-edit').style.display='block';
-            $('input[name="aboutme"]').val($('#aboutme').html());
-        }
-
-        function displayEditPhone() {
-            document.getElementById('modal-phone-edit').style.display='block';
-            $('input[name="phone"]').val($('#phone').html());
-        }
-
-        function displayEditEmail() {
-            document.getElementById('modal-email-edit').style.display='block';
-            $('input[name="email"]').val($('#email').html());
-        }
-
-        function updateAboutMeByUserId(userId, aboutme){
-            if(!aboutme ||  aboutme == "") {
-                var profileId = sessionStorage.getItem('id');
-
-                var updatedProfile = {
-                    id: profileId,
-                    about_me: about_me,
-                    rating: rating,
-                    phone_number: phone_Number,
-                    userId: userId
-                }
-
-                $.post("/api/profile/update_about_me_by_user_id/{user_id}/{about_me}", JSON.stringify(updatedProfile), function (result) {
-                    if (result == 'SUCCESS') {
-                        window.location.reload();
-                    } else {
-                        alert("About me update failed.")
-                    }
-                })
-            }else {
-                alert('Invalid about me, should have some input.');
-            }
-        }
-
-        function updatePhoneNumberByUserId(userId, phoneNumber){
-            if(!phoneNumber || phoneNumber == ""){
-                var profileId = sessionStorage.getItem('id');
-
-                var updatedProfile = {
-                    id: profileId,
-                    about_me: about_me,
-                    rating: rating,
-                    phone_number: phone_Number,
-                    userId: userId
-                }
-
-                $.post("/api/profile/update_phone_number_by_user_id/{user_id}/{phone_number}", JSON.stringify(updatedProfile), function (result) {
-                    if (result == 'SUCCESS') {
-                        window.location.reload();
-                    } else {
-                        alert("Phone number update failed.")
-                    }
-                })
-            }else {
-                alert('Invalid about me, should have some input.');
-            }
-        }
-
-
-
     </script>
-
-    <!-- END PAGE CONTENT -->
 </div>
 
 </body>
