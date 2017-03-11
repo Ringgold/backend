@@ -46,7 +46,7 @@ public class BackendService extends Application<Configuration> {
         final MailApi mailApi = new MailApi();
         final ProfileApi profileApi = new ProfileApi();
 
-        userApi.setDao(Constant.dbi.onDemand(UserDao.class), Constant.dbi.onDemand(BookDao.class));
+        userApi.setDao(Constant.dbi.onDemand(UserDao.class), Constant.dbi.onDemand(BookDao.class), Constant.dbi.onDemand(ProfileDao.class));
         bookApi.setDao(Constant.dbi.onDemand(BookDao.class), Constant.dbi.onDemand(UserDao.class));
         profileApi.setDao(Constant.dbi.onDemand(ProfileDao.class), Constant.dbi.onDemand(BookDao.class));
 

@@ -23,7 +23,7 @@
             <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/post">Post</a>
         </li>
         <li id="welcome_pre" class="w3-right">
-            <div class="w3-hover-indigo w3-text-white" style="display: inline-block">Welcome</div>
+            <a href="#" class="w3-hover-indigo w3-text-white" style="display: inline-block">Welcome</a>
             <a id="welcome" class="w3-hover-indigo w3-text-white" style="display: inline-block" href="/profile" onclick="sessionStorage.setItem('seller_id', sessionStorage.getItem('id'))"></a>
         </li>
         <li id="sign_up" class="w3-right">
@@ -51,7 +51,9 @@
         if (sessionStorage.getItem('id')) {
             $('#sign_in').hide();
             $('#sign_up').hide();
-            $('#welcome').html(sessionStorage.getItem('name'));
+            var welcomeBoard = $('#welcome');
+            welcomeBoard.html(sessionStorage.getItem('name'));
+            welcomeBoard.attr("href", "/profile/?user_id=" + sessionStorage.getItem('id'));
         } else {
             $('#welcome').hide();
             $('#welcome_pre').hide();

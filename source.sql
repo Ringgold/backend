@@ -48,9 +48,9 @@ CREATE TABLE `profile` (
   `id` varchar(32) NOT NULL,
   `about_me` varchar(255) NOT NULL,
   `rating` decimal(2,1) NOT NULL,
-  `rating_count` integer NOT NULL,
   `phone_number` varchar(10) NOT NULL,
   `user_id` varchar(32) NOT NULL,
+  `rating_count` int(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -85,4 +85,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-01 20:03:04
+-- Dump completed on 2017-03-11 11:44:28

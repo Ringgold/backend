@@ -41,7 +41,6 @@ public class ProfileApiTest {
         handle.execute("DELETE FROM profile");
         handle.execute("DELETE FROM user");
         handle.close();
-        //api.insertProfile(gson.toJson(validProfile));
         User validUser = new User(Constant.generateUUID(), "please@gg", "12345678", "please", Constant.generateUUID(), 0);
         Book validBook = new Book(Constant.generateUUID(), "somebook", "author_a", "code_a", 10.99, "good", validUser.getId());
         validProfile = new Profile(Constant.generateUUID(), "testAboutMe", 5.0, "12345", validUser.getId(), 1);

@@ -32,7 +32,8 @@
                 <td id="author"><!-- author name --></td>
             </tr>
             <tr>
-                <td>Price &nbsp; <a id="price-edit" href="#" onclick="displayEditPrice()" hidden><i class="fa fa-pencil-square" ></i></a></td>
+                <td>Price &nbsp; <a id="price-edit" href="#" onclick="displayEditPrice()" hidden><i
+                        class="fa fa-pencil-square"></i></a></td>
                 <td id="price"><!-- $$$ --></td>
             </tr>
             <tr>
@@ -47,10 +48,12 @@
     </div>
 
     <div class="w3-half">
-        <a id="contact" class="w3-button w3-margin-right w3-margin-top w3-btn w3-round w3-green" href="/contact">Contact Seller</a>
+        <a id="contact" class="w3-button w3-margin-right w3-margin-top w3-btn w3-round w3-green" href="/contact">Contact
+            Seller</a>
         <br>
         <br>
-        <h4> Description <a id="desc-edit" href="#" onclick="displayEditDescription()" hidden><i class="fa fa-pencil-square" ></i></a> </h4>
+        <h4> Description <a id="desc-edit" href="#" onclick="displayEditDescription()" hidden><i
+                class="fa fa-pencil-square"></i></a></h4>
         <p id="description">
             <!-- Description of the book (written by seller) -->
         </p>
@@ -91,7 +94,8 @@
             </div>
             <footer class="w3-container w3-indigo">
                 <span class="w3-right w3-padding-8">
-                    <button id="cancel-description" class="w3-btn w3-red" onclick="closeEditDescription()">CANCEL</button>
+                    <button id="cancel-description" class="w3-btn w3-red"
+                            onclick="closeEditDescription()">CANCEL</button>
                     <button id="save-description" class="w3-btn w3-green" onclick="saveEditDescription()">SAVE</button>
                 </span>
             </footer>
@@ -116,20 +120,20 @@
         }
 
         function closeEditDescription() {
-            document.getElementById('modal-description-edit').style.display='none';
+            document.getElementById('modal-description-edit').style.display = 'none';
         }
 
         function closeEditPrice() {
-            document.getElementById('modal-price-edit').style.display='none';
+            document.getElementById('modal-price-edit').style.display = 'none';
         }
 
         function displayEditDescription() {
-            document.getElementById('modal-description-edit').style.display='block';
+            document.getElementById('modal-description-edit').style.display = 'block';
             $('input[name="description"]').val($('#description').html());
         }
 
         function displayEditPrice() {
-            document.getElementById('modal-price-edit').style.display='block';
+            document.getElementById('modal-price-edit').style.display = 'block';
             $('input[name="price"]').val($('#price').html());
         }
 
@@ -159,7 +163,7 @@
         }
 
         var bookId = getParameterByName("book_id");
-        $.get("/api/book/get_book/" + bookId, function(response) {
+        $.get("/api/book/get_book/" + bookId, function (response) {
             if (response === 'FAIL') {
                 alert("failed");
                 return;
@@ -168,7 +172,7 @@
 
             if (/^\d*$/.test(book.price)) {
                 book.price = "" + book.price + ".00";
-            } else if (/^\d*\.\d$/.test(book.price))  {
+            } else if (/^\d*\.\d$/.test(book.price)) {
                 book.price = "" + book.price + "0";
             }
 
@@ -177,7 +181,7 @@
             if (sessionStorage.getItem('id') === book.seller) {
                 $('#price-edit').removeAttr('hidden');
                 $('#desc-edit').removeAttr('hidden');
-                document.getElementById('contact').style.visibility='hidden';
+                document.getElementById('contact').style.visibility = 'hidden';
             }
 
             $('#title').html(book.title);
@@ -185,13 +189,10 @@
             $('#price').html(book.price);
             $('#isbn').html(book.code);
             $('#description').html(book.description);
-            $('#seller').attr('href', "/profile?seller="+book.seller);
-            $.get("/api/user/get_user/" + book.seller, function(response) {
+            $('#seller').attr("href", "/profile?user_id=" + book.seller);
+            $.get("/api/user/get_user/" + book.seller, function (response) {
                 var user = JSON.parse(response);
-                var seller_display = $('#seller');
-                seller_display.html(user.name);
-                seller_display.attr("href", "/profile?user_id=" + book.seller);
-                
+                $('#seller').html(user.name);
             })
         });
     </script>

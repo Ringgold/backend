@@ -10,6 +10,7 @@ import org.skife.jdbi.v2.Handle;
 import template.Book.Book;
 import template.Book.BookDao;
 import template.Constant;
+import template.Profile.ProfileDao;
 import template.User.User;
 import template.User.UserDao;
 
@@ -31,10 +32,11 @@ public class UserApiTest {
         Class.forName("com.mysql.jdbc.Driver");
         dbi = new DBI("jdbc:mysql://localhost/booktrader_test?useUnicode=true&characterEncoding=UTF-8&useSSL=false", "root", "delivery");
         api = new UserApi();
-        api.setDao(dbi.onDemand(UserDao.class), dbi.onDemand(BookDao.class));
+        api.setDao(dbi.onDemand(UserDao.class), dbi.onDemand(BookDao.class), dbi.onDemand(ProfileDao.class));
         Handle handle = dbi.open();
         handle.execute("DELETE FROM book");
         handle.execute("DELETE FROM user");
+        handle.execute("DELETE FROM profile");
         handle.close();
         UserDao userDao = dbi.onDemand(UserDao.class);
         userDao.insert(user_a);
@@ -46,6 +48,7 @@ public class UserApiTest {
         Handle handle = dbi.open();
         handle.execute("DELETE FROM book");
         handle.execute("DELETE FROM user");
+        handle.execute("DELETE FROM profile");
         handle.close();
     }
 

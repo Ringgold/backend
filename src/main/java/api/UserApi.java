@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import template.Book.Book;
 import template.Book.BookDao;
 import template.Constant;
+import template.Profile.Profile;
+import template.Profile.ProfileDao;
 import template.User.User;
 import template.User.UserDao;
 
@@ -20,6 +22,7 @@ public class UserApi {
     private static final Logger LOG = LoggerFactory.getLogger(UserApi.class);
     private UserDao userDao;
     private BookDao bookDao;
+    private ProfileDao profileDao;
     private MailApi mailApi;
 
     @Path("/all")
@@ -156,6 +159,9 @@ public class UserApi {
 
             if (user.getActivationCode().equals(activationCode) && user.getStatus() == 0) {
                 userDao.activate(user.getId());
+                String profileId = Constant.generateUUID();
+                Profile profile = new Profile(profileId, "who am I?", 0.0, "0000000000", user.getId(), 0);
+                profileDao.insert(profile);
                 return Constant.SUCCESS;
             }
 
@@ -166,9 +172,10 @@ public class UserApi {
         }
     }
 
-    public void setDao(UserDao userDao, BookDao bookDao) {
+    public void setDao(UserDao userDao, BookDao bookDao, ProfileDao profileDao) {
         this.userDao = userDao;
         this.bookDao = bookDao;
+        this.profileDao = profileDao;
     }
 
     public void setMailApi(MailApi mailApi) {

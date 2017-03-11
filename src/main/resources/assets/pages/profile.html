@@ -27,85 +27,36 @@
         <h1 class="w3-jumbo"><span id="user_name">I'm</span></h1>
     </header>
 
-    <!-- About Section -->
-    <div class="w3-content w3-justify w3-text-black w3-padding-64" id="about">
-        <h2 class="w3-text-black">About Me </h2>
-        <hr style="width:200px" class="w3-opacity">
-        <a id="aboutme-edit" href="#" onclick="displayEditAboutMe()"><i class="fa fa-pencil-square"></i></a>
-        <p id="aboutme"> Some text about me. </p>
     <div class="w3-content">
         <h2>About Me</h2>
-        <a id="about-me-edit" href="#" onclick="$('#modal-about-me-edit').show();"><i class="fa fa-pencil-square"></i></a>
+        <a id="about-me-edit" href="#" onclick="$('#modal-about-me-edit').show();"><i
+                class="fa fa-pencil-square"></i></a>
         <p id="about_me"> Some text about me. </p>
         <br>
-        <h3 class="w3-padding-16 w3-text-black">My Rating</h3>
-        <p  id = "show_rating"></p>
-        <p>
-            <script>
-                
-                function displayRating() {
-                    var userId = getParameterByName("seller");
-                    $.get("/api/profile/get_user_rating/" + userId, function (response) {
-                        var rating = JSON.parse(response);
-                        document.write(rating);
-                          });
-                }
-              $("#show_rating").innerHTML = displayRating();
-            </script>
-        </p>
         <h2>My Rating</h2>
-        <p class="w3-wide">Reputation</p>
+        <p class="w3-wide">Reputation: <span id="rating"></span></p>
         <br>
         <h2>My Posts</h2>
-        <a href="#" class="w3-btn w3-white w3-border w3-border-green w3-round w3-padding-large">CLICK ME TO SEE THE
+        <a href="#" class="w3-btn w3-white w3-border w3-border-green w3-round">CLICK ME TO SEE THE
             POSTS</a>
         <br>
     </div>
 
-    <!-- Portfolio Section -->
-    <div class="w3-padding-64 w3-content" id="posts">
-        <h2 class="w3-text-black">My Posts</h2>
-        <hr style="width:200px" class="w3-opacity">
-
-        <!-- Grid for posts -->
-        <div class="w3-row-padding" style="margin:0 -16px">
-            <div class="w3-half">
-
-            </div>
-            <!-- End posts grid -->
-        </div>
-        <!-- End Portfolio Section -->
-    </div>
     <!-- Rate Me Section-->
-    <div class="w3-padding-64 w3-content w3-text-grey" id="rate_me">
-        <h2 class="w3-text-black">Rate Me</h2>
-        <hr style="width:200px" class="w3-opacity">
+    <div class="w3-content" id="rate_me">
+        <h2>Rate Me</h2>
         <p>Select a rating: </p>
-        <form action="" onsubmit="return confirm('Are you sure you want to rate this user?');">
-            <select name="Rating" id="rate_val">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-               
-            </select>
-            <br><br>
-            <input class="w3-button w3-btn w3-green w3-padding-large w3-margin-right w3-margin-top w3-round"
-                   type="submit" >
-            <script>
-                //In progress:
-               // function submitRating(){
-                //var val = document.getElementById("rate_val");
-                //var ratingChosen = val.options[val.selectedIndex].value;
-                //}
-            </script>
-        </form>
+        <select name="Rating" id="rate_val">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <br>
+        <br>
+        <a class="w3-btn w3-white w3-border w3-border-green w3-round" href="#" onclick="rateSeller()">SUBMIT</a>
     </div>
-    <!-- Contact Section -->
-    <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
-        <h2 class="w3-text-black">Contact Me</h2>
-        <hr style="width:200px" class="w3-opacity">
 
     <div class="w3-content">
         <br>
@@ -129,12 +80,14 @@
             </header>
             <div class="w3-container">
                 <p>
-                    <input name="about_me" title="about_me" class="w3-input w3-border w3-round-large w3-margin-top" type="text">
+                    <input name="about_me" title="about_me" class="w3-input w3-border w3-round-large w3-margin-top"
+                           type="text">
                 </p>
             </div>
             <footer class="w3-container w3-indigo">
                 <span class="w3-right w3-padding-8">
-                    <button id="cancel-aboutme" class="w3-btn w3-red" onclick="document.getElementById('modal-about-me-edit').style.display='none'">CANCEL</button>
+                    <button id="cancel-aboutme" class="w3-btn w3-red"
+                            onclick="document.getElementById('modal-about-me-edit').style.display='none'">CANCEL</button>
                     <button id="save-aboutme" class="w3-btn w3-green" onclick="saveEditAboutMe()">SAVE</button>
                 </span>
             </footer>
@@ -150,12 +103,14 @@
             </header>
             <div class="w3-container">
                 <p>
-                    <input name="phone" title="phone" class="w3-input w3-border w3-round-large w3-margin-top" type="text">
+                    <input name="phone" title="phone" class="w3-input w3-border w3-round-large w3-margin-top"
+                           type="text">
                 </p>
             </div>
             <footer class="w3-container w3-indigo">
                 <span class="w3-right w3-padding-8">
-                    <button id="cancel-phone" class="w3-btn w3-red" onclick="document.getElementById('modal-phone-edit').style.display='none'">CANCEL</button>
+                    <button id="cancel-phone" class="w3-btn w3-red"
+                            onclick="document.getElementById('modal-phone-edit').style.display='none'">CANCEL</button>
                     <button id="save-phone" class="w3-btn w3-green" onclick="saveEditPhone()">SAVE</button>
                 </span>
             </footer>
@@ -165,29 +120,53 @@
     <script>
         var myId = sessionStorage.getItem("id");
         var userId = getParameterByName("user_id");
-        if (myId !== userId) {
+        if (myId) {
+            if (myId !== userId) {
+                $('#phone-edit').hide();
+                $('#about-me-edit').hide();
+                $('#email-edit').hide();
+            } else {
+                $('#rate_me').hide();
+            }
+        } else {
             $('#phone-edit').hide();
             $('#about-me-edit').hide();
             $('#email-edit').hide();
         }
-        $.get("/api/profile/get_seller_profile_by_user_id/" + userId, function(data) {
+        $.get("/api/profile/get_seller_profile_by_user_id/" + userId, function (data) {
             data = JSON.parse(data);
             var profile = {};
             profile.about_me = data.about_me;
             profile.phone_number = data.phone_number;
+            profile.rating = data.rating;
+            profile.rating_count = data.rating_count;
             $('#about_me').html(profile.about_me);
             $('#phone_number').html(profile.phone_number);
+            if (profile.rating_count < 1) {
+                $('#rating').html("no one has rated yet!");
+            } else {
+                $('#rating').html(profile.rating);
+            }
         });
 
-        $.get("/api/user/get_user/" + userId, function(data) {
+        $.get("/api/user/get_user/" + userId, function (data) {
             data = JSON.parse(data);
             $('#user_name').html("I'm " + data.name);
         });
 
+        function rateSeller() {
+            var rate_val = $('#rate_val').val();
+            rate_val = parseFloat(rate_val);
+            $.get('/api/profile/update_rating/' + userId + '/' + rate_val, function (data) {
+                alert(data);
+            });
+            window.location.reload();
+        }
+
         function saveEditAboutMe() {
             var about_me = $('input[title="about_me"]').val();
             if (about_me && about_me !== $('#about_me').html()) {
-                $.get('/api/profile/update_about_me_by_user_id/' + userId + '/' + about_me, function (data) {
+                $.get('/api/profile/update_about_me_by_user_id/' + myId + '/' + about_me, function (data) {
                     alert(data);
                 });
             }
@@ -197,7 +176,7 @@
         function saveEditPhone() {
             var phone_number = $('input[title="phone"]').val();
             if (phone_number && phone_number !== $('#phone_number').html()) {
-                $.get('/api/profile/update_phone_number_by_user_id/' + userId + '/' + phone_number, function (data) {
+                $.get('/api/profile/update_phone_number_by_user_id/' + myId + '/' + phone_number, function (data) {
                     alert(data);
                 });
             }
