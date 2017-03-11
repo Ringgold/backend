@@ -35,7 +35,7 @@ public class BackendService extends Application<Configuration> {
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/contact", "contact.html", "contact"));
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/search", "search.html", "search"));
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/activate", "activate.html", "activate"));
-        bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/myBooks", "myBooks.html", "myBooks"));
+        bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/my_books", "myBooks.html", "myBooks"));
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/profile", "profile.html", "profile"));
     }
 

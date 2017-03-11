@@ -37,7 +37,7 @@
         <p class="w3-wide">Reputation: <span id="rating"></span></p>
         <br>
         <h2>My Posts</h2>
-        <a href="#" class="w3-btn w3-white w3-border w3-border-green w3-round">CLICK ME TO SEE THE
+        <a id="my_books" href="#" class="w3-btn w3-white w3-border w3-border-green w3-round">CLICK ME TO SEE THE
             POSTS</a>
         <br>
     </div>
@@ -140,8 +140,10 @@
             profile.phone_number = data.phone_number;
             profile.rating = data.rating;
             profile.rating_count = data.rating_count;
+            profile.user_id = data.user_id;
             $('#about_me').html(profile.about_me);
             $('#phone_number').html(profile.phone_number);
+            $('#my_books').attr("href", "/my_books/?user_id=" + profile.user_id);
             if (profile.rating_count < 1) {
                 $('#rating').html("no one has rated yet!");
             } else {
@@ -155,12 +157,15 @@
         });
 
         function rateSeller() {
-            var rate_val = $('#rate_val').val();
-            rate_val = parseFloat(rate_val);
-            $.get('/api/profile/update_rating/' + userId + '/' + rate_val, function (data) {
-                alert(data);
-            });
-            window.location.reload();
+            var response = confirm("Are you sure you want to rate this user?");
+            if (response == true) {
+                var rate_val = $('#rate_val').val();
+                rate_val = parseFloat(rate_val);
+                $.get('/api/profile/update_rating/' + userId + '/' + rate_val, function (data) {
+                    alert(data);
+                    window.location.reload();
+                });
+            }
         }
 
         function saveEditAboutMe() {

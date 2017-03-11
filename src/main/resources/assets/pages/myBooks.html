@@ -9,6 +9,8 @@
     <!--library-->
     <script src="../js/main.js"></script>
     <script src="../js/jquery.js"></script>
+    <script src="../js/template/templates.js"></script>
+    <script src="../js/underscore.js"></script>
 </head>
 <body class="w3-theme-l5">
 <header>
@@ -67,7 +69,7 @@
         delete_post();
     }
 
-    var userId = sessionStorage.getItem('id');
+    var userId = getParameterByName("user_id");
     $.get("/api/book/getBooksBySellerId/" + userId, function(bookList) {
         bookList = JSON.parse(bookList);
         var bookListPanel = window.JST.post({
