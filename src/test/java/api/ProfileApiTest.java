@@ -38,9 +38,9 @@ public class ProfileApiTest {
         api.setDao(profileDao, bookDao);
 
         Handle handle = dbi.open();
-        handle.execute("DELETE FROM BOOK");
-        handle.execute("DELETE FROM PROFILE");
-        handle.execute("DELETE FROM USER");
+        handle.execute("DELETE FROM book");
+        handle.execute("DELETE FROM profile");
+        handle.execute("DELETE FROM user");
         handle.close();
         //api.insertProfile(gson.toJson(validProfile));
         User validUser = new User(Constant.generateUUID(), "please@gg", "12345678", "please", Constant.generateUUID(), 0);
@@ -55,9 +55,9 @@ public class ProfileApiTest {
     @After
     public void tearDown() {
         Handle handle = dbi.open();
-        handle.execute("DELETE FROM BOOK");
-        handle.execute("DELETE FROM PROFILE");
-        handle.execute("DELETE FROM USER");
+        handle.execute("DELETE FROM book");
+        handle.execute("DELETE FROM profile");
+        handle.execute("DELETE FROM user");
         handle.close();
     }
 
