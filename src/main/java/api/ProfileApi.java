@@ -9,7 +9,10 @@ import template.Constant;
 import template.Profile.Profile;
 import template.Profile.ProfileDao;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
 @Path("/profile")
 public class ProfileApi {
@@ -90,9 +93,6 @@ public class ProfileApi {
         String result;
         try {
             Profile profile = profileDao.getProfileByUserId(userId);
-            double rating = profile.getRating();
-            Gson gson = new Gson();
-            result = gson.toJson(rating);
             Gson gson = new Gson();
             result = gson.toJson(profile);
             if (result == null) {
@@ -104,18 +104,23 @@ public class ProfileApi {
         }
         return result;
     }
-    @POST
-    @Path("update_rating/{user_id}")
-    public String updateRating(@PathParam("user_id") String user_id, @FormParam("rating") double rating) {
+
+    @GET
+    @Path("/update_rating/{user_id}/{rating}")
+    public String updateRating(@PathParam("user_id") String userId, @PathParam("rating") double rating) {
         try {
-            profileDao.updateRating(rating, user_id);
+            Profile profile = profileDao.getProfileByUserId(userId);
+            double myRating = profile.getRating();
+            int myRatingCount = profile.getRating_count();
+            myRating = ((myRating * myRatingCount) + rating) / (myRatingCount + 1);
+            myRatingCount = myRatingCount + 1;
+            profileDao.updateRating(myRating, myRatingCount, userId);
         } catch (Exception e) {
             LOG.error(e.getMessage());
             return Constant.FAIL;
         }
         return Constant.SUCCESS;
     }
-
 
     public void setDao(ProfileDao profileDao, BookDao bookDao) {
         this.bookDao = bookDao;

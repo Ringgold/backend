@@ -11,7 +11,6 @@ public class ProfileMapper implements ResultSetMapper<Profile> {
         return new Profile(resultSet.getString("id"),
                 resultSet.getString("about_me"),
                 resultSet.getDouble("rating"),
-                resultSet.getInt("rating_count"),
                 resultSet.getString("phone_number"),
                 resultSet.getString("user_id"),
                 resultSet.getInt("rating_count"));

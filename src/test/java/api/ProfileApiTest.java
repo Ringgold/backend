@@ -1,7 +1,6 @@
 package api;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -127,5 +126,20 @@ public class ProfileApiTest {
         Gson gson = new Gson();
         Profile profile = gson.fromJson(result, Profile.class);
         assertTrue(profile.getRating() == validProfile.getRating());
+    }
+
+    @Test
+    public void updateUserRating() throws Exception {
+        String userID = Constant.generateUUID();
+        String profileID = Constant.generateUUID();
+        Profile testProfile = new Profile(profileID, "test_about_me", 9.0, "1234567890", userID, 1);
+        String jsonString = gson.toJson(testProfile, Profile.class);
+        String ret = api.insertProfile(jsonString);
+        assertEquals(ret, Constant.SUCCESS);
+
+        ret = api.updateRating(userID, 1.0);
+        assertEquals(Constant.SUCCESS, ret);
+        testProfile = gson.fromJson(api.getProfileByUserId(userID), Profile.class);
+        assertTrue(testProfile.getRating() == 5.0);
     }
 }
