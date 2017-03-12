@@ -1,6 +1,5 @@
 package seleniumTest;
 
-import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,10 +12,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import template.Constant;
 
-import javax.validation.constraints.AssertFalse;
-import javax.validation.constraints.AssertTrue;
-
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class RateSellerTest {
     private WebDriver driver;
@@ -24,7 +20,7 @@ public class RateSellerTest {
 
     @Before
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver");
+        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 5);
 
@@ -51,12 +47,12 @@ public class RateSellerTest {
         webElement.click();
 
         //get profile page url
-        webElement =  driver.findElement(By.id("welcome"));
+        webElement = driver.findElement(By.id("welcome"));
         webElement.click();
         profileUrl = driver.getCurrentUrl();
 
         driver.navigate().back();
-        webElement =  driver.findElement(By.id("logout"));
+        webElement = driver.findElement(By.id("logout"));
         webElement.click();
 
         driver.navigate().to(profileUrl);
@@ -69,24 +65,28 @@ public class RateSellerTest {
     }
 
     @Test
-    public void normalScenario(){
+    public void normalScenario() throws InterruptedException {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("rating")));
         String ratingBefore = driver.findElement(By.id("rating")).getText();
 
         Select select = new Select(driver.findElement(By.id("rate_val")));
         select.selectByIndex(0);
 
         driver.findElement(By.cssSelector("a[onclick*='rateSeller']")).click();
+        wait.until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert().accept();
+        wait.until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert().accept();
 
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("a[onclick*='rateSeller']")));
         String ratingAfter = driver.findElement(By.id("rating")).getText();
 
-        Boolean ratingSame =ratingBefore.equals(ratingAfter);
-        Assert.assertTrue(false == ratingSame);
+        Boolean ratingSame = ratingBefore.equals(ratingAfter);
+        assertTrue(!ratingSame);
     }
 
     @Test
-    public void errorlScenario(){
+    public void errorlScenario() {
         String ratingBefore = driver.findElement(By.id("rating")).getText();
 
         Select select = new Select(driver.findElement(By.id("rate_val")));
@@ -97,7 +97,7 @@ public class RateSellerTest {
 
         String ratingAfter = driver.findElement(By.id("rating")).getText();
 
-        Boolean ratingSame =ratingBefore.equals(ratingAfter);
-        Assert.assertTrue(true == ratingSame);
+        Boolean ratingSame = ratingBefore.equals(ratingAfter);
+        assertTrue(ratingSame);
     }
 }
