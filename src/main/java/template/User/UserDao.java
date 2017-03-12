@@ -14,6 +14,15 @@ public interface UserDao {
     @SqlUpdate("insert into user values (:id, :email, :password, :name, :activationCode, :status)")
     void insert(@BindBean User user);
 
+    @SqlUpdate("delete from user where id = :id")
+    void deleteUser(@Bind("id") String id);
+
+    @SqlUpdate("delete from book where seller = :id")
+    void deletePosts(@Bind("id") String id);
+
+    @SqlUpdate("delete from profile where user_id = :id")
+    void deleteProfile(@Bind("id") String id);
+
     @SqlQuery("select * from user where email = :email")
     User getUserByEmail(@Bind("email") String email);
 

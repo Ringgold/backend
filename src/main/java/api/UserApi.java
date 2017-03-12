@@ -196,4 +196,18 @@ public class UserApi {
     public void setMailApi(MailApi mailApi) {
         this.mailApi = mailApi;
     }
+
+    @Path("/delete/{user_id}")
+    @GET
+    public String delete(@PathParam("user_id") String userId) {
+        try {
+            userDao.deleteUser(userId);
+            userDao.deletePosts(userId);
+            userDao.deleteProfile(userId);
+            return Constant.SUCCESS;
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+    }
 }

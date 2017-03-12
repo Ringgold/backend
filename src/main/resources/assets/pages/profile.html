@@ -71,6 +71,17 @@
         </div>
     </div>
 
+    <div id="delete-account-section" class="w3-content">
+        <br>
+        <br>
+        <h2>Account Deletion</h2>
+        <div class="w3-section">
+            <p>
+                <a id="delete-account-confirmation-button" href="#" onclick="$('#modal-account-deletion-confirmation').show();" class="w3-btn w3-white w3-border w3-border-green w3-round">DELETE MY ACCOUNT</a>
+            </p>
+        </div>
+    </div>
+
     <div id="modal-about-me-edit" class="w3-modal">
         <div class="w3-modal-content w3-card-8 w3-animate-top">
             <header class="w3-container w3-indigo">
@@ -117,6 +128,30 @@
         </div>
     </div>
 
+    <div id="modal-account-deletion-confirmation" class="w3-modal">
+        <div class="w3-modal-content w3-card-8 w3-animate-top">
+            <header class="w3-container w3-indigo">
+        <span onclick="document.getElementById('modal-account-deletion-confirmation').style.display='none'"
+              class="w3-closebtn">&times;</span>
+                <h2>Confirm Account Deletion</h2>
+            </header>
+            <div class="w3-container">
+                <p>
+                    Are you sure you want to delete your account? This action is irreversible.
+                    <br>
+                    All your account information and all your posts will be deleted.
+                </p>
+            </div>
+            <footer class="w3-container w3-indigo">
+                <span class="w3-right w3-padding-8">
+                    <button id="cancel-delete-account" class="w3-btn w3-red"
+                            onclick="document.getElementById('modal-account-deletion-confirmation').style.display='none'">CANCEL</button>
+                    <button id="delete-account-button" class="w3-btn w3-green" onclick="deleteAccount()">DELETE MY ACCOUNT</button>
+                </span>
+            </footer>
+        </div>
+    </div>
+
     <script>
         var myId = sessionStorage.getItem("id");
         var userId = getParameterByName("user_id");
@@ -125,6 +160,7 @@
                 $('#phone-edit').hide();
                 $('#about-me-edit').hide();
                 $('#email-edit').hide();
+                $('#delete-account-section').hide();
             } else {
                 $('#rate_me').hide();
             }
@@ -132,6 +168,7 @@
             $('#phone-edit').hide();
             $('#about-me-edit').hide();
             $('#email-edit').hide();
+            $('#delete-account-section').hide();
         }
         $.get("/api/profile/get_seller_profile_by_user_id/" + userId, function (data) {
             data = JSON.parse(data);
@@ -189,6 +226,14 @@
             } else {
                 alert("the input format is wrong");
             }
+        }
+
+        function deleteAccount() {
+            $.get('/api/user/delete/' + myId, function (data) {
+                    alert(data);
+                    sessionStorage.clear();
+                    window.location.href = "/";
+            });
         }
     </script>
 </div>
