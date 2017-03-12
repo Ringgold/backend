@@ -17,8 +17,6 @@ public class ProfileTest{
     private WebDriver driver;
     private WebDriverWait wait;
 
-    private int countTestUsers = 0;
-
     /* test user account information */
     private String loginUsername = Constant.generateUUID();
     private String loginPassword = "password";
@@ -65,8 +63,6 @@ public class ProfileTest{
         WebElement username = driver.findElement(By.id("welcome"));
         username.click();
         wait.until(ExpectedConditions.titleIs("User Profile"));
-
-        countTestUsers++;
     }
 
     @After
