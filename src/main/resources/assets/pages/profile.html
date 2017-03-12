@@ -173,19 +173,22 @@
             if (about_me && about_me !== $('#about_me').html()) {
                 $.get('/api/profile/update_about_me_by_user_id/' + myId + '/' + about_me, function (data) {
                     alert(data);
+                    window.location.reload();
                 });
             }
-            window.location.reload();
         }
 
         function saveEditPhone() {
             var phone_number = $('input[title="phone"]').val();
+            phone_number = Number(phone_number);
             if (phone_number && phone_number !== $('#phone_number').html()) {
                 $.get('/api/profile/update_phone_number_by_user_id/' + myId + '/' + phone_number, function (data) {
                     alert(data);
+                    window.location.reload();
                 });
+            } else {
+                alert("the input format is wrong");
             }
-            window.location.reload();
         }
     </script>
 </div>
