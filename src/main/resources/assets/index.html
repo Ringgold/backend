@@ -35,13 +35,58 @@
     </ul>
 
     <form id="search_Form" class="w3-container w3-animate-left" onsubmit="search(event)">
-        <input id="search_text" name="search_Box" placeholder="Search for any book" class="w3-input w3-border w3-round-large w3-margin-top" type="search" required>
-        <button class="w3-btn w3-white w3-round w3-margin-top">Search</button>
+        <input id="search_text" style="width: 1100px; height: 38px"  name="search_Box" placeholder="Search for any book" class="  custom w3-left-align w3-border w3-margin-top w3-round-large  label" type="search" required>
+        <button class=" label custom0 w3-right w3-btn w3-white w3-round w3-margin-top custom">Search</button>
+        <div class="" id="dropDMenudiv">
+
+            <select name="drop_list" class=" label custom w3-left w3-left-align w3-border  "  id="dropDMenu" style= "padding:5px;">
+                <option value="1">Search By: Title & Author</option>
+                <option value="2">Search By: Title Only</option>
+                <option value="3">Search By: Author Only</option>
+            </select>
+
+            <label style=" height: 38px" class=" custom2 w3-left w3-left-align ">Price Range: </label>
+            <input id="lowerPLimit"  value="0" style="width: 55px; height: 30px" name="search_Box3"  placeholder="from" class=" label  custom w3-left w3-left-align w3-border  " type="search" >
+            <label  class=" custom3 w3-left w3-left-align   ">_</label>
+            <input value="1000" id="upperPLimit"   style="width: 55px; height: 30px" name="search_Box3"  placeholder="to" class=" label  custom w3-left w3-left-align w3-border  " type="search" >
+
+        </div>
+
         <script>
             function search(event) {
+
                 event.preventDefault();
+
                 var search_text = $('#search_text');
-                localStorage.setItem('search_id', search_text.val());
+                var dropDMenu   = $('#dropDMenu');
+                var upperPLimit = $('#upperPLimit');
+                var lowerPLimit = $('#lowerPLimit');
+
+                if (parseInt(upperPLimit.val()) < parseInt(lowerPLimit.val())) {
+                    alert("Lower price limit is greater than upper price limit !");
+                    throw new Error("Lower price limit is greater than upper price limit !");
+                }
+
+                if(isNaN(upperPLimit.val())){
+                    alert("Upper Price limit is not a number !");
+                    throw new Error("Upper Price limit is not a number !");
+                }
+
+                if(isNaN(lowerPLimit.val())){
+                    alert("Lower price limit is not a number !");
+                    throw new Error("Lower price limit is not a number !");
+                }
+
+                if((lowerPLimit.val()<0) || (upperPLimit.val()<0) ) {
+                    alert("Price range cannot have a negative number !");
+                    throw new Error("Price range cannot have a negative number !");
+                }
+
+                localStorage.setItem('search_text', search_text.val());
+                localStorage.setItem('dropDMenu', dropDMenu.val());
+                localStorage.setItem('upperPLimit', upperPLimit.val());
+                localStorage.setItem('lowerPLimit', lowerPLimit.val());
+
                 window.location.href = '/search';
             }
         </script>

@@ -61,14 +61,32 @@ public class BookApi {
     @Path("/searched")
     @POST
     public String getSearchedBooks(String search_data) {
-        String search_data_lowerCase = search_data.toLowerCase();
+        String[] userInputs = search_data.split(",");
+        String search_data_lowerCase = userInputs[0].toLowerCase();
+        int lowerPLimit = Integer.parseInt(userInputs[2]);
+        int upperPLimit = Integer.parseInt(userInputs[3]);
         String search_result;
+
         try {
             List<Book> list = bookDao.getAllBook();
             List<Book> matches = new ArrayList<Book>();
             for (Book book : list) {
-                if (book.getTitle().toLowerCase().contains(search_data_lowerCase)) {
-                    matches.add(book);
+                if (userInputs[1].equals("2")) {
+                    if ( (book.getTitle().toLowerCase().contains(search_data_lowerCase) )
+                            && (book.getPrice() >= lowerPLimit) && (book.getPrice()<=upperPLimit) ){
+                        matches.add(book);
+                    }
+                } else if(userInputs[1].equals("3")){
+                    if ( book.getAuthor().toLowerCase().contains(search_data_lowerCase)
+                            && (book.getPrice() >= lowerPLimit) && (book.getPrice()<=upperPLimit) ) {
+                        matches.add(book);
+                    }
+                } else if(userInputs[1].equals("1")) {
+                    if ( (book.getTitle().toLowerCase().contains(search_data_lowerCase)
+                            || book.getAuthor().toLowerCase().contains(search_data_lowerCase))
+                               && (book.getPrice() >= lowerPLimit) && (book.getPrice()<=upperPLimit) ) {
+                        matches.add(book);
+                    }
                 }
             }
             Gson gson = new Gson();
