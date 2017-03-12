@@ -24,7 +24,7 @@ public class RateSellerTest {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 5);
 
-        String hostName = "http://0.0.0.0:9000";
+        String hostName = "http://localhost:9000";
         String userName = Constant.generateUUID();
         String password = "password";
         String profileUrl;
