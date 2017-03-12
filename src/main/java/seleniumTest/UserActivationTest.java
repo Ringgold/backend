@@ -24,15 +24,11 @@ public class UserActivationTest {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    private final static String TEST_EMAIL = "regis123@test.test";
-    private final static String TEST_ACCT = "actTest123123";
-
     private class User {
         public String id;
         public String email;
         public String password;
         public String name;
-        public String activationCode;
         public int status;
     }
 
@@ -49,7 +45,7 @@ public class UserActivationTest {
     }
 
     @Test
-    public void registerAccount() {
+    public void registerAndActivationAccount() {
         driver.navigate().to("http://localhost:9000");
 
         // Go to register form
@@ -63,8 +59,9 @@ public class UserActivationTest {
         wait.until(ExpectedConditions.elementToBeClickable(By.id("register_form")));
         WebElement registerForm = driver.findElement(By.id("register_form"));
 
+        String TEST_EMAIL = Constant.generateUUID() + "@test.test";
         List<WebElement> registerInputs = registerForm.findElements(By.xpath("*"));
-        registerInputs.get(0).sendKeys(Constant.generateUUID() + "@test.test");
+        registerInputs.get(0).sendKeys(TEST_EMAIL);
         registerInputs.get(1).sendKeys(Constant.generateUUID());
         registerInputs.get(2).sendKeys("password");
         registerInputs.get(3).click();
@@ -72,10 +69,7 @@ public class UserActivationTest {
         // Verify OK message
         wait.until(ExpectedConditions.elementToBeClickable(By.id("message_ok")));
         assertTrue(driver.findElement(By.id("message_ok")).getText().contains("created"));
-    }
 
-    @Test
-    public void activationTest() {
         driver.navigate().to("http://localhost:9000/api/user/all");
         String response = driver.findElement(By.tagName("body")).getText();
 
