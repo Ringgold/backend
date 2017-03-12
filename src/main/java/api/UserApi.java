@@ -61,11 +61,10 @@ public class UserApi {
             user.setId(Constant.generateUUID());
 
             // This is a user used for testing if the email if the following is true
-            boolean isATestUser = user.getEmail().equals("test@test.test");
+            boolean isATestUser = user.getEmail().contains("@test.test");
 
             if (isATestUser) {
                 user.setStatus(1);
-                user.setEmail(Constant.generateUUID() + "@test.test");
                 user.setPassword("password");
             } else {
                 user.setStatus(0);
