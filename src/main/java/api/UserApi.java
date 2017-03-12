@@ -80,7 +80,7 @@ public class UserApi {
             userDao.insert(user);
 
             if (!isATestUser) {
-                mailApi.sendActivationEmail(user.getName(), user.getEmail(), user.getId(), code);
+                mailApi.sendActivationEmail(user.getName(), user.getEmail(), user.getId(), user.getActivationCode());
             }
 
         } catch (Exception e) {
