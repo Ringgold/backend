@@ -66,12 +66,12 @@ public class UserApi {
             if (isATestUser) {
                 user.setStatus(1);
                 user.setPassword("password");
+                user.setActivationCode("null");
             } else {
                 user.setStatus(0);
+                String code = Constant.generateUUID();
+                user.setActivationCode(code);
             }
-
-            String code = Constant.generateUUID();
-            user.setActivationCode(code);
 
             if (!user.validate()) {
                 return Constant.NOTVALID;
