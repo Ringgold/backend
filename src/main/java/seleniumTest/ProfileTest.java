@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import template.Constant;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -16,8 +17,10 @@ public class ProfileTest{
     private WebDriver driver;
     private WebDriverWait wait;
 
+    private int countTestUsers = 0;
+
     /* test user account information */
-    private String loginUsername = "test";
+    private String loginUsername = Constant.generateUUID();
     private String loginPassword = "password";
 
     @Before
@@ -28,14 +31,32 @@ public class ProfileTest{
 
         driver.navigate().to("http://localhost:9000/");
 
+        /* Test User Account Registration */
+        WebElement signUpButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(5) > a"));
+        wait.until(ExpectedConditions.visibilityOf(signUpButton));
+        signUpButton.click();
+        wait.until(ExpectedConditions.titleContains("Sign Up"));
+        WebElement email = driver.findElement(By.name("email"));
+        email.sendKeys(loginUsername + "@test.test");
+        WebElement name = driver.findElement(By.name("name"));
+        name.sendKeys(loginUsername);
+        WebElement password = driver.findElement(By.name("password"));
+        password.sendKeys(loginPassword);
+        WebElement createAccountButton = driver.findElement(By.cssSelector("body > div > form > button"));
+        createAccountButton.click();
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("message_ok"))));
+        WebElement returnHomePageButton = driver.findElement(By.id("return-home-button"));
+        returnHomePageButton.click();
+        wait.until(ExpectedConditions.titleIs("Book Trader"));
+
         /* Login as test user */
         WebElement signInButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(6) > a"));
         wait.until(ExpectedConditions.visibilityOf(signInButton));
         signInButton.click();
         wait.until(ExpectedConditions.titleContains("Sign In"));
-        WebElement email = driver.findElement(By.name("email"));
+        email = driver.findElement(By.name("email"));
         email.sendKeys(loginUsername + "@test.test");
-        WebElement password = driver.findElement(By.name("password"));
+        password = driver.findElement(By.name("password"));
         password.sendKeys(loginPassword);
         WebElement loginButton = driver.findElement(By.cssSelector("body > div > form > button"));
         loginButton.click();
@@ -44,12 +65,13 @@ public class ProfileTest{
         WebElement username = driver.findElement(By.id("welcome"));
         username.click();
         wait.until(ExpectedConditions.titleIs("User Profile"));
+
+        countTestUsers++;
     }
 
     @After
     public void teardown() {
         driver.close();
-        driver.quit();
     }
 
     @Test
@@ -76,7 +98,7 @@ public class ProfileTest{
 
         WebElement webElement = driver.findElement(By.id("about_me"));
         String about_me = webElement.getText();
-        assertEquals("I am a good seller", about_me);
+        assertEquals("who am I?", about_me);
     }
 
     @Test
