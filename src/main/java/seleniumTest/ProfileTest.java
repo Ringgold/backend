@@ -60,6 +60,7 @@ public class ProfileTest{
         loginButton.click();
 
         /* Enter Profile Page*/
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("welcome")));
         WebElement username = driver.findElement(By.id("welcome"));
         username.click();
         wait.until(ExpectedConditions.titleIs("User Profile"));
@@ -85,13 +86,14 @@ public class ProfileTest{
     }
 
     @Test
-    public void invalid_about_me_test(){
+    public void invalid_about_me_test() throws Exception {
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("about-me-edit")));
         driver.findElement(By.id("about-me-edit")).click();
 
-        WebDriverWait wait2 = new WebDriverWait(driver, 10);
-        wait2.until(ExpectedConditions.elementToBeClickable(By.name("about_me")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.name("about_me")));
         driver.findElement(By.id("save-aboutme")).click();
 
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("about_me")));
         WebElement webElement = driver.findElement(By.id("about_me"));
         String about_me = webElement.getText();
         assertEquals("who am I?", about_me);
@@ -108,6 +110,7 @@ public class ProfileTest{
         // New 10-digit phone number as a valid input
         phoneInput.sendKeys("0987654321");
         WebElement saveButton = driver.findElement(By.id("save-phone"));
+        wait.until(ExpectedConditions.elementToBeClickable(saveButton));
         saveButton.click();
         WebElement phoneNumber = driver.findElement(By.id("phone_number"));
         wait.until(ExpectedConditions.visibilityOf(phoneNumber));
@@ -129,6 +132,7 @@ public class ProfileTest{
         // Empty phone number as an invalid input
         phoneInput.sendKeys("");
         WebElement saveButton = driver.findElement(By.id("save-phone"));
+        wait.until(ExpectedConditions.elementToBeClickable(saveButton));
         saveButton.click();
         phoneNumber = driver.findElement(By.id("phone_number"));
         wait.until(ExpectedConditions.visibilityOf(phoneNumber));
