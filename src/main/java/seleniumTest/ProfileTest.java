@@ -49,6 +49,34 @@ public class ProfileTest{
     @After
     public void teardown() {
         driver.close();
+        driver.quit();
+    }
+
+    @Test
+    public void valid_about_me_test() {
+        driver.findElement(By.id("about-me-edit")).click();
+
+        WebDriverWait wait2 = new WebDriverWait(driver, 10);
+        wait2.until(ExpectedConditions.elementToBeClickable(By.name("about_me")));
+        driver.findElement(By.name("about_me")).sendKeys("I am a good seller");
+        driver.findElement(By.id("save-aboutme")).click();
+
+        WebElement webElement = driver.findElement(By.id("about_me"));
+        String about_me = webElement.getText();
+        assertEquals(about_me, "I am a good seller");
+    }
+
+    @Test
+    public void invalid_about_me_test(){
+        driver.findElement(By.id("about-me-edit")).click();
+
+        WebDriverWait wait2 = new WebDriverWait(driver, 10);
+        wait2.until(ExpectedConditions.elementToBeClickable(By.name("about_me")));
+        driver.findElement(By.id("save-aboutme")).click();
+
+        WebElement webElement = driver.findElement(By.id("about_me"));
+        String about_me = webElement.getText();
+        assertEquals("I am a good seller", about_me);
     }
 
     @Test
