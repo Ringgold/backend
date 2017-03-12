@@ -14,14 +14,12 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
-/**
- * Created by User on 3/11/2017.
- */
 public class MyBooks_Test{
-    WebDriver driver = null;
-    WebDriverWait wait = null;
-    static String USER_ID = Constant.generateUUID();
-    static String HOSTNAME = "http://localhost:9000/";
+    private WebDriver driver = null;
+    private WebDriverWait wait = null;
+    private static String USER_ID = Constant.generateUUID();
+    private static String HOSTNAME = "http://localhost:9000/";
+
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
@@ -39,11 +37,6 @@ public class MyBooks_Test{
         d.close();
     }
 
-    @AfterClass
-    public static void tearDownAfterClass() throws Exception {
-    }
-
-
     @Before
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
@@ -54,6 +47,7 @@ public class MyBooks_Test{
     @After
     public void teardown() {
         driver.close();
+        driver.quit();
     }
 
 
