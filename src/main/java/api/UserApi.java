@@ -67,6 +67,9 @@ public class UserApi {
                 user.setStatus(1);
                 user.setPassword("password");
                 user.setActivationCode("null");
+                String profileId = Constant.generateUUID();
+                Profile profile = new Profile(profileId, "who am I?", 0.0, "0000000000", user.getId(), 0);
+                profileDao.insert(profile);
             } else {
                 user.setStatus(0);
                 String code = Constant.generateUUID();
