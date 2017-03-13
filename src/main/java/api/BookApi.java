@@ -71,25 +71,24 @@ public class BookApi {
             List<Book> matches = new ArrayList<Book>();
             for (Book book : list) {
                 if (userInputs[1].equals("2")) {
-                    if ( (book.getTitle().toLowerCase().contains(search_data_lowerCase) )
-                            && (book.getPrice() >= lowerPLimit) && (book.getPrice()<=upperPLimit) ){
+                    if ((book.getTitle().toLowerCase().contains(search_data_lowerCase))
+                            && (book.getPrice() >= lowerPLimit) && (book.getPrice() <= upperPLimit)) {
                         matches.add(book);
                     }
-                } else if(userInputs[1].equals("3")){
-                    if ( book.getAuthor().toLowerCase().contains(search_data_lowerCase)
-                            && (book.getPrice() >= lowerPLimit) && (book.getPrice()<=upperPLimit) ) {
+                } else if (userInputs[1].equals("3")) {
+                    if (book.getAuthor().toLowerCase().contains(search_data_lowerCase)
+                            && (book.getPrice() >= lowerPLimit) && (book.getPrice() <= upperPLimit)) {
                         matches.add(book);
                     }
-                }else if(userInputs[1].equals("4")) {
-                    if ( (book.getTitle().toLowerCase().contains(search_data_lowerCase))) {
+                } else if (userInputs[1].equals("4")) {
+                    if ((book.getCode().toLowerCase().contains(search_data_lowerCase))) {
                         matches.add(book);
                     }
-                }
-                else if(userInputs[1].equals("1")) {
-                    if ( (book.getTitle().toLowerCase().contains(search_data_lowerCase)
+                } else if (userInputs[1].equals("1")) {
+                    if ((book.getTitle().toLowerCase().contains(search_data_lowerCase)
                             || book.getAuthor().toLowerCase().contains(search_data_lowerCase)
-                             || book.getCode().contains(search_data_lowerCase))
-                               && (book.getPrice() >= lowerPLimit) && (book.getPrice()<=upperPLimit) ) {
+                            || book.getCode().contains(search_data_lowerCase))
+                            && (book.getPrice() >= lowerPLimit) && (book.getPrice() <= upperPLimit)) {
                         matches.add(book);
                     }
                 }

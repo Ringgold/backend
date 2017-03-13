@@ -17,14 +17,16 @@
     <ul class="w3-navbar w3-border w3-indigo w3-padding-4">
         <li><a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/">BookTrader</a></li>
         <li id="logout" class="w3-right">
-            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href ="" onclick="sessionStorage.clear(); window.location.reload();">Logout</a>
+            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href=""
+               onclick="sessionStorage.clear(); window.location.reload();">Logout</a>
         </li>
         <li id="post" class="w3-right">
             <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/post">Post</a>
         </li>
         <li id="welcome_pre" class="w3-right">
             <a href="#" class="w3-hover-indigo w3-text-white" style="display: inline-block">Welcome</a>
-            <a id="welcome" class="w3-hover-indigo w3-text-white" style="display: inline-block" href="/profile" onclick="sessionStorage.setItem('seller_id', sessionStorage.getItem('id'))"></a>
+            <a id="welcome" class="w3-hover-indigo w3-text-white" style="display: inline-block" href="/profile"
+               onclick="sessionStorage.setItem('seller_id', sessionStorage.getItem('id'))"></a>
         </li>
         <li id="sign_up" class="w3-right">
             <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/sign_up">Sign Up</a>
@@ -35,11 +37,15 @@
     </ul>
 
     <form id="search_Form" class="w3-container w3-animate-left" onsubmit="search(event)">
-        <input id="search_text" style="width: 1100px; height: 38px"  name="search_Box" placeholder="Search for any book" class="  custom w3-left-align w3-border w3-margin-top w3-round-large  label" type="search" required>
-        <button style="height: 38px" class=" label custom0 w3-right w3-btn w3-white w3-round w3-margin-top custom">Search</button>
+        <input id="search_text" style="width: 1100px; height: 38px" name="search_Box" placeholder="Search for any book"
+               class="  custom w3-left-align w3-border w3-margin-top w3-round-large  label" type="search" required>
+        <button style="height: 38px" class=" label custom0 w3-right w3-btn w3-white w3-round w3-margin-top custom">
+            Search
+        </button>
         <div class="" id="dropDMenudiv">
 
-            <select name="drop_list" class=" label1 custom w3-left w3-left-align w3-border  "  id="dropDMenu" style= "padding:5px;">
+            <select name="drop_list" class=" label1 custom w3-left w3-left-align w3-border  " id="dropDMenu"
+                    style="padding:5px;">
                 <option value="1">Search By: Title, Author or ISBN</option>
                 <option value="2">Search By: Title Only</option>
                 <option value="3">Search By: Author Only</option>
@@ -47,13 +53,13 @@
             </select>
 
             <label style=" height: 38px" class=" custom2 w3-left w3-left-align ">Price Range: </label>
-            <input id="lowerPLimit"  value="0" style="width: 55px; height: 30px" name="search_Box3"  placeholder="from" class=" label  custom w3-left w3-left-align w3-border  " type="search" >
-            <label  class=" custom3 w3-left w3-left-align   ">_</label>
-            <input value="1000" id="upperPLimit"   style="width: 55px; height: 30px" name="search_Box3"  placeholder="to" class=" label  custom w3-left w3-left-align w3-border  " type="search" >
+            <input id="lowerPLimit" value="0" style="width: 55px; height: 30px" name="search_Box3" placeholder="from"
+                   class=" label  custom w3-left w3-left-align w3-border  " type="search">
+            <label class=" custom3 w3-left w3-left-align   ">_</label>
+            <input value="1000" id="upperPLimit" style="width: 55px; height: 30px" name="search_Box3" placeholder="to"
+                   class=" label  custom w3-left w3-left-align w3-border  " type="search">
 
         </div>
-
-
 
 
         <script>
@@ -62,7 +68,7 @@
                 event.preventDefault();
 
                 var search_text = $('#search_text');
-                var dropDMenu   = $('#dropDMenu');
+                var dropDMenu = $('#dropDMenu');
                 var upperPLimit = $('#upperPLimit');
                 var lowerPLimit = $('#lowerPLimit');
 
@@ -71,17 +77,17 @@
                     throw new Error("Lower price limit is greater than upper price limit !");
                 }
 
-                if(isNaN(upperPLimit.val())){
+                if (isNaN(upperPLimit.val())) {
                     alert("Upper Price limit is not a number !");
                     throw new Error("Upper Price limit is not a number !");
                 }
 
-                if(isNaN(lowerPLimit.val())){
+                if (isNaN(lowerPLimit.val())) {
                     alert("Lower price limit is not a number !");
                     throw new Error("Lower price limit is not a number !");
                 }
 
-                if((lowerPLimit.val()<0) || (upperPLimit.val()<0) ) {
+                if ((lowerPLimit.val() < 0) || (upperPLimit.val() < 0)) {
                     alert("Price range cannot have a negative number !");
                     throw new Error("Price range cannot have a negative number !");
                 }
@@ -129,23 +135,25 @@
         </div>
         <footer class="w3-container w3-indigo">
             <span class="w3-right w3-padding-8">
-                <button id="cancel-confirm-deletion" class="w3-btn w3-red" onclick="closeConfirmDeletion()">CANCEL</button>
-                <button id="confirm-deletion" class="w3-btn w3-green" onclick="confirmDeletion()">DELETE THE POST</button>
+                <button id="cancel-confirm-deletion" class="w3-btn w3-red"
+                        onclick="closeConfirmDeletion()">CANCEL</button>
+                <button id="confirm-deletion" class="w3-btn w3-green"
+                        onclick="confirmDeletion()">DELETE THE POST</button>
             </span>
         </footer>
     </div>
 </div>
 
 <script>
-    function closeConfirmDeletion(){
-        document.getElementById('modal-confirm-deletion').style.display='none';
+    function closeConfirmDeletion() {
+        document.getElementById('modal-confirm-deletion').style.display = 'none';
     }
 
-    function confirmDeletion(){
+    function confirmDeletion() {
         delete_post();
     }
 
-    $.get("/api/book/all", function(bookList) {
+    $.get("/api/book/all", function (bookList) {
         bookList = JSON.parse(bookList);
         var bookListPanel = window.JST.post({
             books: bookList
