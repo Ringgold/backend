@@ -30,7 +30,7 @@ public class UserApiTest {
     @Before
     public void setUp() throws ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
-        dbi = new DBI("jdbc:mysql://localhost/booktrader_test?useUnicode=true&characterEncoding=UTF-8&useSSL=false", "root", "delivery");
+        dbi = new DBI("jdbc:mysql://localhost/booktrader_test?useUnicode=true&characterEncoding=UTF-8&useSSL=false", "root", "root");
         api = new UserApi();
         api.setDao(dbi.onDemand(UserDao.class), dbi.onDemand(BookDao.class), dbi.onDemand(ProfileDao.class));
         Handle handle = dbi.open();
