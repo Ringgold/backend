@@ -66,7 +66,6 @@ public class BookApi {
         int lowerPLimit = Integer.parseInt(userInputs[2]);
         int upperPLimit = Integer.parseInt(userInputs[3]);
         String search_result;
-
         try {
             List<Book> list = bookDao.getAllBook();
             List<Book> matches = new ArrayList<Book>();
@@ -81,9 +80,15 @@ public class BookApi {
                             && (book.getPrice() >= lowerPLimit) && (book.getPrice()<=upperPLimit) ) {
                         matches.add(book);
                     }
-                } else if(userInputs[1].equals("1")) {
+                }else if(userInputs[1].equals("4")) {
+                    if ( (book.getTitle().toLowerCase().contains(search_data_lowerCase))) {
+                        matches.add(book);
+                    }
+                }
+                else if(userInputs[1].equals("1")) {
                     if ( (book.getTitle().toLowerCase().contains(search_data_lowerCase)
-                            || book.getAuthor().toLowerCase().contains(search_data_lowerCase))
+                            || book.getAuthor().toLowerCase().contains(search_data_lowerCase)
+                             || book.getCode().contains(search_data_lowerCase))
                                && (book.getPrice() >= lowerPLimit) && (book.getPrice()<=upperPLimit) ) {
                         matches.add(book);
                     }

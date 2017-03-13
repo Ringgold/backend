@@ -36,13 +36,14 @@
 
     <form id="search_Form" class="w3-container w3-animate-left" onsubmit="search(event)">
         <input id="search_text" style="width: 1100px; height: 38px"  name="search_Box" placeholder="Search for any book" class="  custom w3-left-align w3-border w3-margin-top w3-round-large  label" type="search" required>
-        <button class=" label custom0 w3-right w3-btn w3-white w3-round w3-margin-top custom">Search</button>
+        <button style="height: 38px" class=" label custom0 w3-right w3-btn w3-white w3-round w3-margin-top custom">Search</button>
         <div class="" id="dropDMenudiv">
 
-            <select name="drop_list" class=" label custom w3-left w3-left-align w3-border  "  id="dropDMenu" style= "padding:5px;">
-                <option value="1">Search By: Title & Author</option>
+            <select name="drop_list" class=" label1 custom w3-left w3-left-align w3-border  "  id="dropDMenu" style= "padding:5px;">
+                <option value="1">Search By: Title, Author or ISBN</option>
                 <option value="2">Search By: Title Only</option>
                 <option value="3">Search By: Author Only</option>
+                <option value="4">Search By: ISBN Only</option>
             </select>
 
             <label style=" height: 38px" class=" custom2 w3-left w3-left-align ">Price Range: </label>
@@ -51,6 +52,9 @@
             <input value="1000" id="upperPLimit"   style="width: 55px; height: 30px" name="search_Box3"  placeholder="to" class=" label  custom w3-left w3-left-align w3-border  " type="search" >
 
         </div>
+
+
+
 
         <script>
             function search(event) {
