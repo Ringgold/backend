@@ -27,6 +27,8 @@ public class BookEditablesTest {
     private final static String[] PRICE_TESTS_NORMAL = {"1.00", "1", "3.50", "199.99", "200", "200.01"};
     private final static String[] PRICE_TESTS_ERROR = {"-10", "-0.5", "-0", "abc", "5.5.5", ""};
 
+    private final static String DESCRIPTION_TEST = "Hello world!`\\\",,``3.1416";
+
     @BeforeClass
     public static void setUpBeforeClass() {
         System.setProperty("webdriver.gecko.driver", "C:\\geckodriver-v0.14.0-win32\\geckodriver.exe");
@@ -159,6 +161,26 @@ public class BookEditablesTest {
     @Test
     public void editDescriptionTest() {
         goToBookPage();
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("desc-edit")));
+        WebElement descEditButton = driver.findElement(By.id("desc-edit"));
+        descEditButton.click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#modal-description-edit > div:nth-child(1) > div:nth-child(2) > p:nth-child(1) > input:nth-child(1)")));
+        WebElement descInput = driver.findElement(By.cssSelector("#modal-description-edit > div:nth-child(1) > div:nth-child(2) > p:nth-child(1) > input:nth-child(1)"));
+        WebElement saveDescButton = driver.findElement(By.id("save-description"));
+
+        descInput.clear();
+
+        descInput.sendKeys(DESCRIPTION_TEST);
+        saveDescButton.click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.tagName("header")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("description")));
+        WebElement descElement = driver.findElement(By.id("description"));
+        wait.until(ExpectedConditions.visibilityOf(descElement));
+
+        assertTrue(descElement.getText().equals(DESCRIPTION_TEST));
     }
 
     private void goToBookPage() {
