@@ -71,6 +71,17 @@
         </div>
     </div>
 
+    <div id="change-password-section" class="w3-content">
+        <br>
+        <br>
+        <h2>Password Edition</h2>
+        <div class="w3-section">
+            <p>
+                <a id="change-password-button" href="#" onclick="$('#modal-password-edit').show();" class="w3-btn w3-white w3-border w3-border-green w3-round">CHANGE MY PASSWORD</a>
+            </p>
+        </div>
+    </div>
+
     <div id="delete-account-section" class="w3-content">
         <br>
         <br>
@@ -128,6 +139,41 @@
         </div>
     </div>
 
+    <div id="modal-password-edit" class="w3-modal">
+        <div class="w3-modal-content w3-card-8 w3-animate-top">
+            <header class="w3-container w3-indigo">
+        <span onclick="document.getElementById('modal-password-edit').style.display='none'"
+              class="w3-closebtn">&times;</span>
+                <h2>Edit Password</h2>
+            </header>
+            <div class="w3-container">
+                <p>
+                    Previous password
+                    <br>
+                    <input name="previous_password" title="previous_password" class="w3-input w3-border w3-round-large w3-margin-top"
+                           type="password" required>
+                    <br>
+                    New password
+                    <br>
+                    <input name="new_password" title="new_password" class="w3-input w3-border w3-round-large w3-margin-top"
+                           type="password" required>
+                    <br>
+                    Confirm new password
+                    <br>
+                    <input name="confirmation_new_password" title="confirmation_new_password" class="w3-input w3-border w3-round-large w3-margin-top"
+                           type="password" required>
+                </p>
+            </div>
+            <footer class="w3-container w3-indigo">
+                <span class="w3-right w3-padding-8">
+                    <button id="cancel-password" class="w3-btn w3-red"
+                            onclick="document.getElementById('modal-password-edit').style.display='none'">CANCEL</button>
+                    <button id="save-password" class="w3-btn w3-green" onclick="changePassword()">CHANGE MY PASSWORD</button>
+                </span>
+            </footer>
+        </div>
+    </div>
+
     <div id="modal-account-deletion-confirmation" class="w3-modal">
         <div class="w3-modal-content w3-card-8 w3-animate-top">
             <header class="w3-container w3-indigo">
@@ -161,6 +207,7 @@
                 $('#about-me-edit').hide();
                 $('#email-edit').hide();
                 $('#delete-account-section').hide();
+                $('#change-password-section').hide();
             } else {
                 $('#rate_me').hide();
             }
@@ -169,6 +216,7 @@
             $('#about-me-edit').hide();
             $('#email-edit').hide();
             $('#delete-account-section').hide();
+            $('#change-password-section').hide();
         }
         $.get("/api/profile/get_seller_profile_by_user_id/" + userId, function (data) {
             data = JSON.parse(data);
@@ -230,9 +278,26 @@
 
         function deleteAccount() {
             $.get('/api/user/delete/' + myId, function (data) {
+                alert(data);
+                sessionStorage.clear();
+                window.location.href = "/";
+            });
+        }
+
+        function changePassword(){
+            var oldPassword = $('input[title="previous_password"]').val();
+            var newPassword = $('input[title="new_password"]').val();
+            var confirmationNewPassword = $('input[title="confirmation_new_password"]').val();
+            $.get('/api/user/changePassword/' + myId + '/' + oldPassword + '/' + newPassword, function(data) {
+                if(confirmationNewPassword === newPassword){
                     alert(data);
-                    sessionStorage.clear();
-                    window.location.href = "/";
+                    $('input[title="previous_password"]').val('');
+                    $('input[title="new_password"]').val('');
+                    $('input[title="confirmation_new_password"]').val('');
+                    document.getElementById('modal-password-edit').style.display='none';
+                }else{
+                    alert("The confirmation password doesn't correspond");
+                }
             });
         }
     </script>

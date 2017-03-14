@@ -210,4 +210,21 @@ public class UserApi {
             return Constant.FAIL;
         }
     }
+
+    @Path("/changePassword/{user_id}/{old_password}/{new_password}")
+    @GET
+    public String changePassword(@PathParam("user_id") String userId, @PathParam("old_password") String old_password, @PathParam("new_password") String new_password) {
+        try {
+            User user = userDao.getUserById(userId);
+            if (!user.getPassword().equals(old_password)) {
+                return Constant.FAIL;
+            }else{
+                userDao.updatePassword(userId, new_password);
+            }
+            return Constant.SUCCESS;
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+    }
 }

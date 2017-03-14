@@ -34,4 +34,7 @@ public interface UserDao {
 
     @SqlUpdate("update user set status = 1, activation_code = 'null' where id = :id")
     void activate(@Bind("id") String id);
+
+    @SqlUpdate("update user set password = :password where id = :id")
+    void updatePassword(@Bind("id") String id, @Bind("password") String password);
 }
