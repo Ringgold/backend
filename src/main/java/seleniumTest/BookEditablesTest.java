@@ -22,8 +22,8 @@ public class BookEditablesTest {
     private static WebDriverWait wait;
 
     private static String TEST_EMAIL;
+    private static String BOOK_TITLE;
 
-    private final static String BOOK_TITLE = "Learn Java in 21 Days";
     private final static String[] PRICE_TESTS_NORMAL = {"1.00", "1", "3.50", "199.99", "200", "200.01"};
     private final static String[] PRICE_TESTS_ERROR = {"-10", "-0.5", "-0", "abc", "5.5.5", ""};
 
@@ -50,6 +50,7 @@ public class BookEditablesTest {
         WebElement registerForm = driver.findElement(By.id("register_form"));
 
         TEST_EMAIL = Constant.generateUUID() + "@test.test";
+        BOOK_TITLE = Constant.generateUUID();
         List<WebElement> registerInputs = registerForm.findElements(By.xpath("*"));
         registerInputs.get(0).sendKeys(TEST_EMAIL);
         registerInputs.get(1).sendKeys(Constant.generateUUID());
@@ -99,6 +100,20 @@ public class BookEditablesTest {
 
     @AfterClass
     public static void tearDownAfterClass() {
+        // Delete account
+        driver.navigate().to("http://localhost:9000");
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("welcome")));
+        driver.findElement(By.id("welcome")).click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("delete-account-confirmation-button")));
+        driver.findElement(By.id("delete-account-confirmation-button")).click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("delete-account-button")));
+        driver.findElement(By.id("delete-account-button")).click();
+
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+        alert.accept();
+
         driver.quit();
     }
 
@@ -123,7 +138,6 @@ public class BookEditablesTest {
             wait.until(ExpectedConditions.elementToBeClickable(By.tagName("header")));
             wait.until(ExpectedConditions.elementToBeClickable(By.id("price")));
             WebElement priceElement = driver.findElement(By.id("price"));
-            wait.until(ExpectedConditions.visibilityOf(priceElement));
 
             String expectedPrice = testPrice.length() < 4 ? testPrice + ".00" : testPrice.charAt(testPrice.length() - 3) == '.' ? testPrice : testPrice + ".00";
 
