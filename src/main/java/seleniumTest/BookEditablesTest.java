@@ -8,7 +8,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import template.Constant;
@@ -31,8 +31,8 @@ public class BookEditablesTest {
 
     @BeforeClass
     public static void setUpBeforeClass() {
-        System.setProperty("webdriver.gecko.driver", "C:\\geckodriver-v0.14.0-win32\\geckodriver.exe");
-        driver = new FirefoxDriver();
+        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+        driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 5);
 
         // Register an account
