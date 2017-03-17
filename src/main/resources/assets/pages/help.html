@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Help Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/w3.css">
+
+    <!--library-->
+    <script src="js/template/templates.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/underscore.js"></script>
+</head>
+
+</head>
+<body class="w3-theme-l5">
+<header>
+    <ul class="w3-navbar w3-border w3-indigo w3-padding-4">
+        <li><a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/">BookTrader</a></li>
+        <li id="logout" class="w3-right">
+            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href ="" onclick="sessionStorage.clear(); window.location.reload();">Logout</a>
+        </li>
+        <li id="post" class="w3-right">
+            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/post">Post</a>
+        </li>
+        <li id="welcome_pre" class="w3-right">
+            <a id="welcome" class="w3-hover-indigo w3-text-white" style="display: inline-block" href="/profile" onclick="sessionStorage.setItem('seller_id', sessionStorage.getItem('id'))"></a>
+        </li>
+        <li id="sign_up" class="w3-right">
+            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/sign_up">Sign Up</a>
+        </li>
+        <li id="sign_in" class="w3-right">
+            <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/login">Sign In</a>
+        </li>
+    </ul>
+
+    <script>
+        if (sessionStorage.getItem('id')) {
+            $('#sign_in').hide();
+            $('#sign_up').hide();
+            var welcomeBoard = $('#welcome');
+            welcomeBoard.html(sessionStorage.getItem('name'));
+            welcomeBoard.attr("href", "/profile/?user_id=" + sessionStorage.getItem('id'));
+        } else {
+            $('#welcome').hide();
+            $('#welcome_pre').hide();
+            $('#post').hide();
+            $('#logout').hide();
+        }
+    </script>
+</header>
+<div class="w3-container">
+    <div class="w3-container">
+        <h2>Need help?</h2>
+        <p>Click on the question that concerns you</p>
+    </div>
+    <ul>
+        <li onclick="showSection('howToRegister')" class="w3-block w3-left-align">How to register?</li>
+        <div id="howToRegister" class="w3-container w3-hide">
+            <h4>Registration</h4>
+            <p>Have access to all the features!</p>
+            <ul>
+                <li>To register, you need to have a valid email address. This email will be used to confirm the registration. </li>
+                <li>Click on the button "Sign up" on the upper right of the page.</li>
+                <li>Fill in the registration form and click on "Create Account". The system will send a confirmation email to the given email address.</li>
+                <li>Open the confirmation email in your mailbox and click on the given link. This will activate your account.</li>
+                <li>Log in with your account and access to all the features of Book Trader!</li>
+            </ul>
+        </div>
+        <li onclick="showSection('howToBuyABook')" class="w3-block w3-left-align">How to buy a book?</li>
+        <div id="howToBuyABook" class="w3-container w3-hide">
+            <h4>Buy a book</h4>
+            <ul>
+                <li>Unless the seller left his/her contact information in the book post, the buyer needs to contact the seller using the our Contact Seller feature (Note: you need to be logged in).</li>
+                <li>There are two ways to access the Contact Seller feature: <br>
+                    On the list of all the book posts, click on the "Contact Seller" button of the corresponding book post.<br>
+                    Or<br>
+                    On detailed information page of a book post, click on the "Contact Seller" button.
+                </li>
+                <li>Enter a message for the seller and click on "Send"</li>
+                <li>Wait for the seller to contact you.</li>
+            </ul>
+        </div>
+        <li onclick="showSection('howToFindBook')" class="w3-block w3-left-align">How to find a book?</li>
+        <div id="howToFindBook" class="w3-container w3-hide">
+            <h4>Find a book</h4>
+            <ul>
+                <li>To quickly find a book, use the Search feature on top of the main page.</li>
+                <li>Enter keywords or the price range of the book that you are looking for, and click on the "Search" button.</li>
+                <li>If there are books that satisfy your requirements, they will be displayed.</li>
+            </ul>
+        </div>
+        <li onclick="showSection('howToPost')" class="w3-block w3-left-align">How to sell my book?</li>
+        <div id="howToPost" class="w3-container w3-hide">
+            <h4>Make a book post</h4>
+            <ul>
+                <li>You need to be logged in.</li>
+                <li>Click on the "Post" button.</li>
+                <li>Enter information about your book and click on "Post" button.</li>
+                <li>Your book post will appear on the main page and we will contact you if a buyer sends you a message.
+                    Note that we do not disclose seller's email on our website.
+                    Your email will only be available to the buyer if you choose to respond to his/her message or if you enclose the information in the book post or in your profile page.
+                </li>
+            </ul>
+        </div>
+        <li onclick="showSection('howToManagePost')" class="w3-block w3-left-align">How to manage my posts?</li>
+        <div id="howToManagePost" class="w3-container w3-hide">
+            <h4>Manage your book posts</h4>
+            <ul>
+                <li>To see all your book posts, go to your profile page by clicking on your name on the top-right of the main page.</li>
+                <li>Then, click on the "Click me to see the posts" button.</li>
+                <li>You will see all the book posts that you posted.
+                    You can delete a post by clicking on the "Delete" button next to the book title,
+                    or click on the book title to be directed to the page of the book post.</li>
+            </ul>
+        </div>
+        <li onclick="showSection('howToEditPost')" class="w3-block w3-left-align">How to edit my post?</li>
+        <div id="howToEditPost" class="w3-container w3-hide">
+            <h4>Edit a book post</h4>
+            <ul>
+                <li>To edit a book post, go to the page of the book post</li>
+                <li>Click on the edit icon beside the book property that you wish to edit.</li>
+                <li>Enter the updated information and click on the "Save" button. Your post will be updated.</li>
+            </ul>
+        </div>
+        <li onclick="showSection('howToEditProfile')" class="w3-block w3-left-align">How to edit my profile?</li>
+        <div id="howToEditProfile" class="w3-container w3-hide">
+            <h4>Edit my profile</h4>
+            <p>Tip: Having a complete profile has shown to increase the selling rate.</p>
+            <ul>
+                <li>To edit your profile, go to your profile page by clicking on your name on the top-right of the main page.</li>
+                <li>Click on the edit icon beside the field that you wish to edit.</li>
+                <li>Enter the updated information and click on the "Save" button. Your information will be updated.</li>
+            </ul>
+        </div>
+        <li onclick="showSection('howToRate')" class="w3-block w3-left-align">How to rate a seller?</li>
+        <div id="howToRate" class="w3-container w3-hide">
+            <h4>Rate a seller</h4>
+            <p>Rate a seller to promote trust and fairness during the book exchange.</p>
+            <ul>
+                <li>To rate a seller, go to the seller's profile page. To do so, go the page of the book post; click on the name beside "Posted by".</li>
+                <li>In the "Rate me" section, select the rating that you wish to give to the seller and click on the "Submit" button.</li>
+                <li>Confirm your rating.</li>
+                <li>The seller's rating will be updated according to your input.</li>
+            </ul>
+        </div>
+        <li onclick="showSection('howToDeleteAccount')" class="w3-block w3-left-align">How to delete my account?</li>
+        <div id="howToDeleteAccount" class="w3-container w3-hide">
+            <h4>Delete account</h4>
+            <p>Note: We show our deepest regret for loosing you as our user.</p>
+            <ul>
+                <li>To delete your account, go to your profile page by clicking on your name on the top-right of the main page.</li>
+                <li>In the "Account deletion" section, click on the "Delete my account" button.</li>
+                <li>Confirm your account deletion. Your account will be deleted from our database.</li>
+            </ul>
+        </div>
+    </ul>
+    <script>
+        function showSection(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
+</div>
+</body>
+</html>
