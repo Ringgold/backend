@@ -27,7 +27,7 @@ public class ProfileTest{
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 5);
 
-        driver.navigate().to("http://localhost:9000/");
+        driver.navigate().to("https://www.silentdoor.net");
 
         /* Test User Account Registration */
         WebElement signUpButton = driver.findElement(By.id("sign_up"));
