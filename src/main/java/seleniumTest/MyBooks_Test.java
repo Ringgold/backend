@@ -1,4 +1,7 @@
 package seleniumTest;
+import api.BookApi;
+import api.UserApi;
+import com.google.gson.Gson;
 import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +11,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.skife.jdbi.v2.DBI;
+import org.skife.jdbi.v2.Handle;
+import template.Book.BookDao;
 import template.Constant;
+import template.Profile.ProfileDao;
+import template.User.User;
+import template.User.UserDao;
 
 import java.util.List;
 
@@ -22,6 +31,15 @@ public class MyBooks_Test{
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
+        Class.forName("com.mysql.jdbc.Driver");
+        DBI dbi = new DBI("jdbc:mysql://localhost/booktrader?useUnicode=true&characterEncoding=UTF-8&useSSL=false", "root", "delivery");
+        Gson gson = new Gson();
+        Handle handle = dbi.open();
+        handle.execute("DELETE FROM book");
+        handle.execute("DELETE FROM user");
+        handle.execute("DELETE FROM profile");
+        handle.close();
+
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         WebDriver d = new ChromeDriver();
         WebDriverWait w = new WebDriverWait(d, 5);
@@ -71,7 +89,7 @@ public class MyBooks_Test{
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#post_book")));
         formElement = driver.findElement(By.cssSelector("#post_book"));
         List<WebElement> bookFields = formElement.findElements(By.xpath("*"));
-        bookFields.get(0).sendKeys("Test Book1");
+        bookFields.get(0).sendKeys(USER_ID);
         bookFields.get(1).sendKeys("Test Author");
         bookFields.get(2).sendKeys("1234");
         bookFields.get(3).sendKeys("99.99");
@@ -87,9 +105,24 @@ public class MyBooks_Test{
     }
 
     @Test
-    //Need to have the user and profile for test@test.test in the local database to run
-    public void NormalScenario(){
-        //driver.navigate().to("https://silentdoor.net");
+    public void NormalScenario_S1(){
+        loginAndCreatePost();
+        driver.navigate().to(HOSTNAME);
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#bookList")));
+        WebElement bookWrapper = driver.findElement(By.cssSelector("#bookList"));
+        List<WebElement> bookList = bookWrapper.findElements(By.xpath("*"));
+        WebElement firstBook = bookWrapper.findElements(By.xpath("*")).get(0);
+        WebElement bookTitle = firstBook.findElement(By.cssSelector("div > header > ul > li > a"));
+        Assert.assertEquals(USER_ID.toLowerCase(), bookTitle.getText().toLowerCase());
+    }
+    @Test
+    public void AlternateScenario_S1(){
+        driver.navigate().to("https://www.google.ca");
+        NormalScenario_S1();
+    }
+
+    @Test
+    public void NormalScenario_S39(){
         loginAndCreatePost();
         goToProfilePage();
         //go to book list
@@ -99,7 +132,7 @@ public class MyBooks_Test{
         //check the first book to match what is posted
         WebElement firstBook = bookWrapper.findElements(By.xpath("*")).get(0);
         WebElement bookTitle = firstBook.findElement(By.cssSelector("div > header > ul > li > a"));
-        Assert.assertEquals("Test Book1".toLowerCase(), bookTitle.getText().toLowerCase());
+        Assert.assertEquals(USER_ID.toLowerCase(), bookTitle.getText().toLowerCase());
         int curSize = bookList.size();
         WebElement bookHeader = firstBook.findElement(By.cssSelector("div > header > ul"));
         bookHeader.findElement(By.cssSelector("li[id^='delete']")).click();
@@ -118,7 +151,7 @@ public class MyBooks_Test{
     }
 
     @Test
-    public void AlternateScenario0(){
+    public void AlternateScenario_S39(){
         //driver.navigate().to("https://silentdoor.net");
         loginAndCreatePost();
         goToProfilePage();
@@ -129,10 +162,10 @@ public class MyBooks_Test{
         //check the first book to match what is posted
         WebElement firstBook = bookWrapper.findElements(By.xpath("*")).get(0);
         WebElement bookTitle = firstBook.findElement(By.cssSelector("div > header > ul > li > a"));
-        Assert.assertEquals("Test Book1".toLowerCase(), bookTitle.getText().toLowerCase());
+        Assert.assertEquals(USER_ID.toLowerCase(), bookTitle.getText().toLowerCase());
         //see details page of the first book
         bookTitle.click();
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#title")));
-        Assert.assertEquals("Test Book1".toLowerCase(), driver.findElement(By.cssSelector("#title")).getText().toLowerCase());
+        Assert.assertEquals(USER_ID.toLowerCase(), driver.findElement(By.cssSelector("#title")).getText().toLowerCase());
     }
 }
