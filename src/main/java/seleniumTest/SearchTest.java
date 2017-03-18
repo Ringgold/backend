@@ -42,7 +42,7 @@ public class SearchTest{
         driver.navigate().to("http://localhost:9000/");
 
         /* Test User Account Registration */
-        WebElement signUpButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(6) > a"));
+        WebElement signUpButton = driver.findElement(By.id("sign_up"));
         wait.until(ExpectedConditions.visibilityOf(signUpButton));
         signUpButton.click();
         wait.until(ExpectedConditions.titleContains("Sign Up"));
@@ -60,7 +60,7 @@ public class SearchTest{
         wait.until(ExpectedConditions.titleIs("Book Trader"));
 
         /* Login as test user */
-        WebElement signInButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(7) > a"));
+        WebElement signInButton = driver.findElement(By.id("sign_in"));
         wait.until(ExpectedConditions.visibilityOf(signInButton));
         signInButton.click();
         wait.until(ExpectedConditions.titleContains("Sign In"));
