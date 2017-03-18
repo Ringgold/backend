@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import template.Constant;
+import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -85,12 +86,12 @@ public class SearchTest{
     }
 
     @After
-    public void teardown()
+    public void teardown() {
         driver.close();
     }
 
     @Test
-    public void valid_search_all_test() {
+    public void valid_search_by_all_categories_test() {
         /* Add book posts */
         WebElement createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
         wait.until(ExpectedConditions.visibilityOf(createPostButton));
@@ -105,204 +106,16 @@ public class SearchTest{
         wait.until(ExpectedConditions.titleIs("Book Trader"));
 
         /* Enter Search Key input */
-    }
+        WebElement searchInput = driver.findElement(By.id("search_text"));
+        searchInput.sendKeys("dragon tattoo");
+        WebElement searchButton = driver.findElement(By.tagName("button"));
+        wait.until(ExpectedConditions.elementToBeClickable(searchButton));
+        searchButton.click();
+        WebElement searchList = driver.findElement(By.id("searchList"));
+        wait.until(ExpectedConditions.visibilityOf(searchList));
+        List<WebElement> searchResult = searchList.findElements(By.cssSelector("div > header"));
 
-    @Test
-    public void valid_search_title_test() {
-        /* Add book posts */
-        WebElement createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
-        wait.until(ExpectedConditions.visibilityOf(createPostButton));
-        createPostButton.click();
-        wait.until(ExpectedConditions.titleIs("Sign Up"));
-        driver.findElement(By.name("title")).sendKeys(bookTitle_1);
-        driver.findElement(By.name("author")).sendKeys(bookAuthor);
-        driver.findElement(By.name("code")).sendKeys(bookISBN_1);
-        driver.findElement(By.name("price")).sendKeys(bookPrice_1);
-        driver.findElement(By.name("description")).sendKeys(bookDescription_1);
-        driver.findElement(By.id("post_btn")).click();
-        wait.until(ExpectedConditions.titleIs("Book Trader"));
-
-        createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
-        wait.until(ExpectedConditions.visibilityOf(createPostButton));
-        createPostButton.click();
-        wait.until(ExpectedConditions.titleIs("Sign Up"));
-        driver.findElement(By.name("title")).sendKeys(bookTitle_2);
-        driver.findElement(By.name("author")).sendKeys(bookAuthor);
-        driver.findElement(By.name("code")).sendKeys(bookISBN_2);
-        driver.findElement(By.name("price")).sendKeys(bookPrice_2);
-        driver.findElement(By.name("description")).sendKeys(bookDescription_2);
-        driver.findElement(By.id("post_btn")).click();
-        wait.until(ExpectedConditions.titleIs("Book Trader"));
-
-        /* Enter Search Key input */
-    }
-
-    @Test
-    public void valid_search_author_test() {
-        /* Add book posts */
-        WebElement createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
-        wait.until(ExpectedConditions.visibilityOf(createPostButton));
-        createPostButton.click();
-        wait.until(ExpectedConditions.titleIs("Sign Up"));
-        driver.findElement(By.name("title")).sendKeys(bookTitle_1);
-        driver.findElement(By.name("author")).sendKeys(bookAuthor);
-        driver.findElement(By.name("code")).sendKeys(bookISBN_1);
-        driver.findElement(By.name("price")).sendKeys(bookPrice_1);
-        driver.findElement(By.name("description")).sendKeys(bookDescription_1);
-        driver.findElement(By.id("post_btn")).click();
-        wait.until(ExpectedConditions.titleIs("Book Trader"));
-
-        createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
-        wait.until(ExpectedConditions.visibilityOf(createPostButton));
-        createPostButton.click();
-        wait.until(ExpectedConditions.titleIs("Sign Up"));
-        driver.findElement(By.name("title")).sendKeys(bookTitle_2);
-        driver.findElement(By.name("author")).sendKeys(bookAuthor);
-        driver.findElement(By.name("code")).sendKeys(bookISBN_2);
-        driver.findElement(By.name("price")).sendKeys(bookPrice_2);
-        driver.findElement(By.name("description")).sendKeys(bookDescription_2);
-        driver.findElement(By.id("post_btn")).click();
-        wait.until(ExpectedConditions.titleIs("Book Trader"));
-
-        createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
-        wait.until(ExpectedConditions.visibilityOf(createPostButton));
-        createPostButton.click();
-        wait.until(ExpectedConditions.titleIs("Sign Up"));
-        driver.findElement(By.name("title")).sendKeys(bookTitle_3);
-        driver.findElement(By.name("author")).sendKeys(bookAuthor);
-        driver.findElement(By.name("code")).sendKeys(bookISBN_3);
-        driver.findElement(By.name("price")).sendKeys(bookPrice_3);
-        driver.findElement(By.name("description")).sendKeys(bookDescription_3);
-        driver.findElement(By.id("post_btn")).click();
-        wait.until(ExpectedConditions.titleIs("Book Trader"));
-
-        /* Enter Search Key input */
-    }
-
-    @Test
-    public void valid_search_isbn_test() {
-        /* Add book posts */
-        WebElement createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
-        wait.until(ExpectedConditions.visibilityOf(createPostButton));
-        createPostButton.click();
-        wait.until(ExpectedConditions.titleIs("Sign Up"));
-        driver.findElement(By.name("title")).sendKeys(bookTitle_1);
-        driver.findElement(By.name("author")).sendKeys(bookAuthor);
-        driver.findElement(By.name("code")).sendKeys(bookISBN_1);
-        driver.findElement(By.name("price")).sendKeys(bookPrice_1);
-        driver.findElement(By.name("description")).sendKeys(bookDescription_1);
-        driver.findElement(By.id("post_btn")).click();
-        wait.until(ExpectedConditions.titleIs("Book Trader"));
-
-        /* Enter Search Key input */
-    }
-
-    @Test
-    public void invalid_search_all_test() {
-        /* Add book posts */
-        WebElement createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
-        wait.until(ExpectedConditions.visibilityOf(createPostButton));
-        createPostButton.click();
-        wait.until(ExpectedConditions.titleIs("Sign Up"));
-        driver.findElement(By.name("title")).sendKeys(bookTitle_1);
-        driver.findElement(By.name("author")).sendKeys(bookAuthor);
-        driver.findElement(By.name("code")).sendKeys(bookISBN_1);
-        driver.findElement(By.name("price")).sendKeys(bookPrice_1);
-        driver.findElement(By.name("description")).sendKeys(bookDescription_1);
-        driver.findElement(By.id("post_btn")).click();
-        wait.until(ExpectedConditions.titleIs("Book Trader"));
-
-        /* Enter Search Key input */
-    }
-
-    @Test
-    public void invalid_search_title_test() {
-        /* Add book posts */
-        WebElement createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
-        wait.until(ExpectedConditions.visibilityOf(createPostButton));
-        createPostButton.click();
-        wait.until(ExpectedConditions.titleIs("Sign Up"));
-        driver.findElement(By.name("title")).sendKeys(bookTitle_1);
-        driver.findElement(By.name("author")).sendKeys(bookAuthor);
-        driver.findElement(By.name("code")).sendKeys(bookISBN_1);
-        driver.findElement(By.name("price")).sendKeys(bookPrice_1);
-        driver.findElement(By.name("description")).sendKeys(bookDescription_1);
-        driver.findElement(By.id("post_btn")).click();
-        wait.until(ExpectedConditions.titleIs("Book Trader"));
-
-        createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
-        wait.until(ExpectedConditions.visibilityOf(createPostButton));
-        createPostButton.click();
-        wait.until(ExpectedConditions.titleIs("Sign Up"));
-        driver.findElement(By.name("title")).sendKeys(bookTitle_2);
-        driver.findElement(By.name("author")).sendKeys(bookAuthor);
-        driver.findElement(By.name("code")).sendKeys(bookISBN_2);
-        driver.findElement(By.name("price")).sendKeys(bookPrice_2);
-        driver.findElement(By.name("description")).sendKeys(bookDescription_2);
-        driver.findElement(By.id("post_btn")).click();
-        wait.until(ExpectedConditions.titleIs("Book Trader"));
-
-        /* Enter Search Key input */
-    }
-
-    @Test
-    public void invalid_search_author_test() {
-        /* Add book posts */
-        WebElement createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
-        wait.until(ExpectedConditions.visibilityOf(createPostButton));
-        createPostButton.click();
-        wait.until(ExpectedConditions.titleIs("Sign Up"));
-        driver.findElement(By.name("title")).sendKeys(bookTitle_1);
-        driver.findElement(By.name("author")).sendKeys(bookAuthor);
-        driver.findElement(By.name("code")).sendKeys(bookISBN_1);
-        driver.findElement(By.name("price")).sendKeys(bookPrice_1);
-        driver.findElement(By.name("description")).sendKeys(bookDescription_1);
-        driver.findElement(By.id("post_btn")).click();
-        wait.until(ExpectedConditions.titleIs("Book Trader"));
-
-        createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
-        wait.until(ExpectedConditions.visibilityOf(createPostButton));
-        createPostButton.click();
-        wait.until(ExpectedConditions.titleIs("Sign Up"));
-        driver.findElement(By.name("title")).sendKeys(bookTitle_2);
-        driver.findElement(By.name("author")).sendKeys(bookAuthor);
-        driver.findElement(By.name("code")).sendKeys(bookISBN_2);
-        driver.findElement(By.name("price")).sendKeys(bookPrice_2);
-        driver.findElement(By.name("description")).sendKeys(bookDescription_2);
-        driver.findElement(By.id("post_btn")).click();
-        wait.until(ExpectedConditions.titleIs("Book Trader"));
-
-        createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
-        wait.until(ExpectedConditions.visibilityOf(createPostButton));
-        createPostButton.click();
-        wait.until(ExpectedConditions.titleIs("Sign Up"));
-        driver.findElement(By.name("title")).sendKeys(bookTitle_3);
-        driver.findElement(By.name("author")).sendKeys(bookAuthor);
-        driver.findElement(By.name("code")).sendKeys(bookISBN_3);
-        driver.findElement(By.name("price")).sendKeys(bookPrice_3);
-        driver.findElement(By.name("description")).sendKeys(bookDescription_3);
-        driver.findElement(By.id("post_btn")).click();
-        wait.until(ExpectedConditions.titleIs("Book Trader"));
-
-        /* Enter Search Key input */
-    }
-
-    @Test
-    public void invalid_search_isbn_test() {
-        /* Add book posts */
-        WebElement createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
-        wait.until(ExpectedConditions.visibilityOf(createPostButton));
-        createPostButton.click();
-        wait.until(ExpectedConditions.titleIs("Sign Up"));
-        driver.findElement(By.name("title")).sendKeys(bookTitle_1);
-        driver.findElement(By.name("author")).sendKeys(bookAuthor);
-        driver.findElement(By.name("code")).sendKeys(bookISBN_1);
-        driver.findElement(By.name("price")).sendKeys(bookPrice_1);
-        driver.findElement(By.name("description")).sendKeys(bookDescription_1);
-        driver.findElement(By.id("post_btn")).click();
-        wait.until(ExpectedConditions.titleIs("Book Trader"));
-
-        /* Enter Search Key input */
+        assertEquals(1, searchResult.size());
     }
 
 }
