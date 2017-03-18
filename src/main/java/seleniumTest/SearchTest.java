@@ -33,17 +33,6 @@ public class SearchTest{
     private String bookPrice_2 = "9.00";
     private String bookDescription_2 = "Good Condition";
 
-    private String bookTitle_3 = "The Girl Who Kicked the Hornet's Nest";
-    private String bookISBN_3 = "0307742539";
-    private String bookPrice_3 = "10.25";
-    private String bookDescription_3 = "Third volume of the Millennium series";
-
-    private String bookTitle_4 = "The Girl in the Spider's Web";
-    private String bookAuthor_4 = "David Lagercrantz";
-    private String bookISBN_4 = "0385354282";
-    private String bookPrice_4 = "13.75";
-    private String bookDescription_4 = "[On Hold] Brand New";
-
     @Before
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
@@ -53,7 +42,7 @@ public class SearchTest{
         driver.navigate().to("http://localhost:9000/");
 
         /* Test User Account Registration */
-        WebElement signUpButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(5) > a"));
+        WebElement signUpButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(6) > a"));
         wait.until(ExpectedConditions.visibilityOf(signUpButton));
         signUpButton.click();
         wait.until(ExpectedConditions.titleContains("Sign Up"));
@@ -71,7 +60,7 @@ public class SearchTest{
         wait.until(ExpectedConditions.titleIs("Book Trader"));
 
         /* Login as test user */
-        WebElement signInButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(6) > a"));
+        WebElement signInButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(7) > a"));
         wait.until(ExpectedConditions.visibilityOf(signInButton));
         signInButton.click();
         wait.until(ExpectedConditions.titleContains("Sign In"));
@@ -92,7 +81,7 @@ public class SearchTest{
 
     @Test
     public void valid_search_by_all_categories_test() {
-        /* Add book posts */
+        /* Add a book post */
         WebElement createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
         wait.until(ExpectedConditions.visibilityOf(createPostButton));
         createPostButton.click();
@@ -116,6 +105,34 @@ public class SearchTest{
         List<WebElement> searchResult = searchList.findElements(By.cssSelector("div > header"));
 
         assertEquals(1, searchResult.size());
+    }
+
+    @Test
+    public void invalid_search_by_all_categories_test() {
+        /* Add a book post */
+        WebElement createPostButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(3) > a"));
+        wait.until(ExpectedConditions.visibilityOf(createPostButton));
+        createPostButton.click();
+        wait.until(ExpectedConditions.titleIs("Sign Up"));
+        driver.findElement(By.name("title")).sendKeys(bookTitle_2);
+        driver.findElement(By.name("author")).sendKeys(bookAuthor);
+        driver.findElement(By.name("code")).sendKeys(bookISBN_2);
+        driver.findElement(By.name("price")).sendKeys(bookPrice_2);
+        driver.findElement(By.name("description")).sendKeys(bookDescription_2);
+        driver.findElement(By.id("post_btn")).click();
+        wait.until(ExpectedConditions.titleIs("Book Trader"));
+
+        /* Enter Search Key input */
+        WebElement searchInput = driver.findElement(By.id("search_text"));
+        searchInput.sendKeys("0385354282");
+        WebElement searchButton = driver.findElement(By.tagName("button"));
+        wait.until(ExpectedConditions.elementToBeClickable(searchButton));
+        searchButton.click();
+        WebElement searchList = driver.findElement(By.id("searchList"));
+        wait.until(ExpectedConditions.visibilityOf(searchList));
+        List<WebElement> searchResult = searchList.findElements(By.cssSelector("div > header"));
+
+        assertEquals(0, searchResult.size());
     }
 
 }
