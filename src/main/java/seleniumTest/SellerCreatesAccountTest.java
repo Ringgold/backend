@@ -89,7 +89,9 @@ public class SellerCreatesAccountTest {
 	        
 	        String hostName = "https://www.silentdoor.net";
 	        this.username = Constant.generateUUID();
-	      
+	        WebElement message_error2 =  driver.findElement(By.cssSelector("#message_error"));
+	        
+	        Assert.assertTrue(!message_error2.isDisplayed());//Verify error message is not displayed before sign up
 	        
 
 	        driver.navigate().to(hostName + "/sign_up");
@@ -105,7 +107,7 @@ public class SellerCreatesAccountTest {
 	         
 	         
 	  
-	        WebElement message_error =  driver.findElement(By.cssSelector("#message_error"));
+	        WebElement message_error =  driver.findElement(By.cssSelector("#message_error"));//Verify error message is displayed after trying to sign up.
 	        
 	        Assert.assertTrue(message_error.isDisplayed());
 	    }
