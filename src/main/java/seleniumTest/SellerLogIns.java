@@ -30,20 +30,12 @@ public class SellerLogIns {
 	        driver = new ChromeDriver();
 	        wait = new WebDriverWait(driver, 5);
 
-	        String hostName = "https://www.silentdoor.net";
-	        this.username = Constant.generateUUID();
-	        password = "password";
+	       
+	        this.username = "bookTrader428@gmail.com";
+	        this.password = "428bookTrader";
 	        
 
-	        driver.navigate().to(hostName + "/sign_up");
-	        WebElement webElement = driver.findElement(By.name("email"));
-	        webElement.sendKeys(username + "@test.test");
-	        webElement = driver.findElement(By.name("name"));
-	        webElement.sendKeys(username);
-	        webElement = driver.findElement(By.name("password"));
-	        webElement.sendKeys(password);
-	        webElement = driver.findElement(By.id("create-account-button"));
-	        webElement.click();
+	        
 	       
 
 	        
@@ -53,6 +45,27 @@ public class SellerLogIns {
 	    @After
 	    public void teardown() {
 	        driver.close();
+	    }
+	    @Test
+	    public void normal_scenario(){
+	    	    String hostName = "https://www.silentdoor.net";
+		        driver.navigate().to(hostName + "/login");
+		        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		         //sign in
+		         WebElement formElement = driver.findElement(By.cssSelector("#login_form"));
+		         List<WebElement> loginFields = formElement.findElements(By.xpath("*"));
+		         loginFields.get(0).sendKeys(username);
+		         loginFields.get(1).sendKeys(password);
+		         loginFields.get(2).click();
+		         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		         driver.findElement(By.cssSelector("#welcome")).click();
+		         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		         WebElement text_user =  driver.findElement(By.cssSelector("#user_name"));
+		         Assert.assertEquals(text_user.getText(), "I'm "+ "AndresFelipe");
+	    }
+	    @Test
+	    public void error_scenario(){
+	    	    
 	    }
 
 }
