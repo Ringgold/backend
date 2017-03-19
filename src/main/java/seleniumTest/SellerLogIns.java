@@ -65,7 +65,39 @@ public class SellerLogIns {
 	    }
 	    @Test
 	    public void error_scenario(){
-	    	    
+	    	String hostName = "https://www.silentdoor.net";
+	        driver.navigate().to(hostName + "/login");
+	        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+	         //try to sign in with incorrect password.
+            
+	         WebElement formElement = driver.findElement(By.cssSelector("#login_form"));
+	         List<WebElement> loginFields = formElement.findElements(By.xpath("*"));
+	        
+	       
+	         loginFields.get(0).sendKeys(username);
+	         loginFields.get(1).sendKeys("badpassword");
+	         loginFields.get(2).click();
+	         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+	         
+		     Assert.assertEquals(driver.switchTo().alert().getText(), "please try again");
+		    
+		    
+	    }
+	    @Test
+	    public void error_scenario2(){
+	    	 String hostName = "https://www.silentdoor.net"; 
+	    	 driver.navigate().to(hostName + "/login");
+		     driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		         //try to sign in with incorrect email
+		    
+	        
+		     WebElement formElement2 = driver.findElement(By.cssSelector("#login_form"));
+		     List<WebElement> loginFields2 = formElement2.findElements(By.xpath("*"));
+		     loginFields2.get(0).sendKeys("a@hotmail.com");
+		     loginFields2.get(1).sendKeys(password);
+		     loginFields2.get(2).click();
+		     driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		     Assert.assertEquals(driver.switchTo().alert().getText(), "please try again");
 	    }
 
 }
