@@ -81,12 +81,32 @@ public class SellerCreatesAccountTest {
 	         Assert.assertEquals(text_user.getText(), "I'm "+ username);
 	         
 	    }
-	    @Test
-	    public void alternateScenario() {
-	    	
-	    }
+	   
 	    @Test
 	    public void errorlScenario() {
-	       
+           String password = "password";
+           //bookTrader428@gmail.com
+	        
+	        String hostName = "https://www.silentdoor.net";
+	        this.username = Constant.generateUUID();
+	      
+	        
+
+	        driver.navigate().to(hostName + "/sign_up");
+	        WebElement webElement = driver.findElement(By.name("email"));
+	        webElement.sendKeys("bookTrader428@gmail.com");
+	        webElement = driver.findElement(By.name("name"));
+	        webElement.sendKeys(username);
+	        webElement = driver.findElement(By.name("password"));
+	        webElement.sendKeys(password);
+	        webElement = driver.findElement(By.id("create-account-button"));
+	        webElement.click();
+	      
+	         
+	         
+	  
+	        WebElement message_error =  driver.findElement(By.cssSelector("#message_error"));
+	        
+	        Assert.assertTrue(message_error.isDisplayed());
 	    }
 }
