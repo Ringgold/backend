@@ -1,4 +1,5 @@
 import api.BookApi;
+import api.BookPicApi;
 import api.MailApi;
 import api.ProfileApi;
 import api.UserApi;
@@ -11,6 +12,7 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.skife.jdbi.v2.DBI;
 import template.Book.BookDao;
+import template.Book.BookPic.BookPicDao;
 import template.Constant;
 import template.Profile.ProfileDao;
 import template.User.UserDao;
@@ -46,6 +48,7 @@ public class BackendService extends Application<Configuration> {
         final BookApi bookApi = new BookApi();
         final MailApi mailApi = new MailApi();
         final ProfileApi profileApi = new ProfileApi();
+        final BookPicApi bookPicApi = new BookPicApi(Constant.dbi.onDemand(BookPicDao.class));
 
         userApi.setDao(Constant.dbi.onDemand(UserDao.class), Constant.dbi.onDemand(BookDao.class), Constant.dbi.onDemand(ProfileDao.class));
         bookApi.setDao(Constant.dbi.onDemand(BookDao.class), Constant.dbi.onDemand(UserDao.class));
@@ -58,5 +61,6 @@ public class BackendService extends Application<Configuration> {
         environment.jersey().register(bookApi);
         environment.jersey().register(mailApi);
         environment.jersey().register(profileApi);
+        environment.jersey().register(bookPicApi);
     }
 }

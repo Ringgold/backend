@@ -19,183 +19,242 @@
     </ul>
 </header>
 <br>
-<br>
-<div class="w3-row-padding">
-
-    <div class="w3-half">
-        <!-- img src="https://images-na.ssl-images-amazon.com/images/I/51QdG2avTDL._AC_UL320_SR246,320_.jpg" alt="imageofbook" class="w3-image w3-card-4" -->
-        <h1 id="title"><!-- book title --></h1>
-        <br>
-        <table class="w3-table-all w3-hoverable" style="width:auto">
-            <tr>
-                <td>Author</td>
-                <td id="author"><!-- author name --></td>
-            </tr>
-            <tr>
-                <td>Price &nbsp; <a id="price-edit" href="#" onclick="displayEditPrice()" hidden><i
-                        class="fa fa-pencil-square"></i></a></td>
-                <td id="price"><!-- $$$ --></td>
-            </tr>
-            <tr>
-                <td>ISBN</td>
-                <td id="isbn"><!-- ISBN code --></td>
-            </tr>
-        </table>
-        <br>
-        <p>
-            Posted by <a id="seller" href="/profile"> [seller's username] </a>
-        </p>
-    </div>
-
-    <div class="w3-half">
-        <a id="contact" class="w3-button w3-margin-right w3-margin-top w3-btn w3-round w3-green" href="/contact">Contact
-            Seller</a>
-        <br>
-        <br>
-        <h4> Description <a id="desc-edit" href="#" onclick="displayEditDescription()" hidden><i
-                class="fa fa-pencil-square"></i></a></h4>
-        <p id="description">
-            <!-- Description of the book (written by seller) -->
-        </p>
-    </div>
-
-    <div id="modal-price-edit" class="w3-modal">
-        <div class="w3-modal-content w3-card-8 w3-animate-top">
-            <header class="w3-container w3-indigo">
-        <span onclick="document.getElementById('modal-price-edit').style.display='none'"
-              class="w3-closebtn">&times;</span>
-                <h2>Edit Price</h2>
-            </header>
-            <div class="w3-container">
-                <p>
-                    <input name="price" class="w3-input w3-border w3-round-large w3-margin-top" type="text">
-                </p>
+<div class="w3-container">
+    <div>
+        <div class="w3-row-padding">
+            <div class="w3-col w3-third">
+                <label for="book_title" class="w3-xlarge">BOOK TITLE</label>
             </div>
-            <footer class="w3-container w3-indigo">
-                <span class="w3-right w3-padding-8">
-                    <button id="cancel-price" class="w3-btn w3-red" onclick="closeEditPrice()">CANCEL</button>
-                    <button id="save-price" class="w3-btn w3-green" onclick="saveEditPrice()">SAVE</button>
-                </span>
-            </footer>
+            <div class="w3-rest w3-right">
+                <a id="contact_seller" href="" class="w3-button w3-margin-right w3-btn w3-round w3-green">contact
+                    seller</a>
+                <button id="edit_book" class="w3-button w3-margin-right w3-btn w3-round w3-green"
+                        style="display: none">edit book
+                </button>
+            </div>
+            <input id="book_title" class="book_information w3-input w3-round w3-border-0 w3-xxlarge w3-white"
+                   type="text" disabled
+                   style="text-transform:uppercase" required>
+            <p>posted by <a id="seller_name" href=""></a></p>
         </div>
     </div>
-
-    <div id="modal-description-edit" class="w3-modal">
-        <div class="w3-modal-content w3-card-8 w3-animate-top">
-            <header class="w3-container w3-indigo">
-        <span onclick="document.getElementById('modal-description-edit').style.display='none'"
-              class="w3-closebtn">&times;</span>
-                <h2>Edit Description</h2>
-            </header>
-            <div class="w3-container">
-                <p>
-                    <input name="description" class="w3-input w3-border w3-round-large w3-margin-top" type="text">
-                </p>
+    <div id="pictures">
+        <label for="picture_input" class="picture_border w3-center w3-grey w3-border w3-border-black"
+               style="width:202px;height:202px;display:inline-block">
+            <img class="picture" src="../book.png" height="200"
+                 style="max-height: 200px; max-width: 200px; display: inline">
+        </label>
+        <label for="picture_input" class="picture_border w3-center w3-grey w3-border w3-border-black"
+               style="width:202px;height:202px;display:inline-block">
+            <img class="picture" src="../book.png" height="200"
+                 style="max-height: 200px; max-width: 200px; display: inline">
+        </label>
+        <label for="picture_input" class="picture_border w3-center w3-grey w3-border w3-border-black"
+               style="width:202px;height:202px;display:inline-block">
+            <img class="picture" src="../book.png" height="200"
+                 style="max-height: 200px; max-width: 200px; display: inline">
+        </label>
+        <input id="picture_input" type="file" accept="image/*" style="display: none" disabled>
+    </div>
+    <div class="w3-margin-top" style="padding-left: 30px">
+        <div>
+            <div class="w3-border-bottom w3-margin-bottom">
+                <label for="book_author" class="w3-large">Author</label>
+                <input id="book_author" class="book_information w3-input w3-border-0 w3-round w3-white w3-large"
+                       type="text" required
+                       disabled style="text-transform: uppercase">
             </div>
-            <footer class="w3-container w3-indigo">
-                <span class="w3-right w3-padding-8">
-                    <button id="cancel-description" class="w3-btn w3-red"
-                            onclick="closeEditDescription()">CANCEL</button>
-                    <button id="save-description" class="w3-btn w3-green" onclick="saveEditDescription()">SAVE</button>
-                </span>
-            </footer>
+            <div class="w3-border-bottom w3-margin-bottom">
+                <label for="book_price" class="w3-large">Price</label>
+                <input id="book_price" class="book_information w3-input w3-border-0 w3-round w3-white w3-large"
+                       type="number" step="0.01" required
+                       disabled>
+            </div>
+            <div class="w3-border-bottom w3-margin-bottom">
+                <label for="book_ISBN" class="w3-large">ISBN</label>
+                <input id="book_ISBN" class="book_information w3-input w3-border-0 w3-round w3-white w3-large"
+                       type="text" required disabled>
+            </div>
+        </div>
+        <div>
+            <label for="book_description" class="w3-large">Description</label>
+            <br>
+            <br>
+            <textarea cols=80 rows=5 id="book_description" class="w3-large" style="resize: none" disabled required>some description</textarea>
         </div>
     </div>
+</div>
 
-    <script>
-        function saveEditPrice() {
-            var price = $('input[name="price"]').val();
-            if (price && price != $('#price').html()) {
-                updateBook(price, $('#description').html());
+<script>
+    var book_id = getParameterByName("book_id");
+    var book = {};
+    var sellerName;
+    var imageHolders = $('.picture');
+    var labels = $('.picture_border');
+    var currentImageHolder;
+
+    $(labels[0]).on('click', function () {
+        currentImageHolder = 0;
+    });
+    $(labels[1]).on('click', function () {
+        currentImageHolder = 1;
+    });
+    $(labels[2]).on('click', function () {
+        currentImageHolder = 2;
+    });
+
+    $.get('/api/book/get_book/' + book_id, function (data) {
+        book = JSON.parse(data);
+        putValue(book);
+        var contact_seller = $('#contact_seller');
+        var seller_name = $('#seller_name');
+        $.get("/api/user/get_user/" + book.seller, function (seller) {
+            seller = JSON.parse(seller);
+            seller_name.html(seller.name);
+            sellerName = seller.name;
+            seller_name.attr("href", "/profile?user_id=" + seller.id);
+        });
+        contact_seller.attr('href', '/contact/?book_id=' + book.id);
+        var user_id = sessionStorage.getItem("id");
+        if (user_id && book.seller === user_id) {
+            $('#edit_book').css('display', 'inline');
+            contact_seller.hide();
+        } else {
+            $('#edit_book').hide();
+        }
+        $.get("/api/book_pic/get_book_pic/" + book_id, function (data) {
+            var pics = JSON.parse(data);
+            for (var i = 0; i < 3; i++) {
+                if (pics[i]) {
+                    $(imageHolders[i]).attr("src", pics[i].picture);
+                    $(imageHolders[i]).taken = true;
+                } else {
+                    $(labels[i]).hide();
+                    $(imageHolders[i]).taken = false;
+                }
             }
-            closeEditPrice();
-        }
+        })
+    });
 
-        function saveEditDescription() {
-            var desc = $('input[name="description"]').val();
-            if (desc && desc != $('#description').html()) {
-                updateBook($('#price').html(), desc);
+    //$('#edit_book').css('display', 'inline');
+
+    var fileReader = new FileReader();
+    fileReader.onload = function (event) {
+        $(imageHolders[currentImageHolder]).attr("src", event.target.result);
+    };
+
+    $('input[type=file]').on('change', function () {
+        var files = $(this)[0].files;
+        var picture = files[0];
+        fileReader.readAsDataURL(picture);
+    });
+
+    var edit_book = $('#edit_book');
+    edit_book.html("edit book");
+    var inputs = $('.book_information');
+    inputs.on('keyup', checkValidation);
+    inputs.on('blur', checkValidation);
+
+    edit_book.on('click', function () {
+        if ($(this).html() === 'edit book') {
+            toggleEditable();
+            $(this).html('save');
+        } else {
+            var validate = true;
+            for (var i = 0; i < inputs.length; i++) {
+                validate = validate && inputs[i].checkValidity();
             }
-            closeEditDescription();
-        }
-
-        function closeEditDescription() {
-            document.getElementById('modal-description-edit').style.display = 'none';
-        }
-
-        function closeEditPrice() {
-            document.getElementById('modal-price-edit').style.display = 'none';
-        }
-
-        function displayEditDescription() {
-            document.getElementById('modal-description-edit').style.display = 'block';
-            $('input[name="description"]').val($('#description').html());
-        }
-
-        function displayEditPrice() {
-            document.getElementById('modal-price-edit').style.display = 'block';
-            $('input[name="price"]').val($('#price').html());
-        }
-
-        function updateBook(price, description) {
-            if (/^\d*(\.\d{2})?$/.test(price) || !description || description == "") {
-                var userId = sessionStorage.getItem('id');
-                var bookId = getParameterByName("book_id");
-
-                var updatedBook = {
-                    id: bookId,
-                    price: price,
-                    description: description,
-                    seller: userId
-                };
-
-                $.post("/api/book/update", JSON.stringify(updatedBook), function (result) {
-                    if (result == 'SUCCESS') {
-                        window.location.reload();
-                    } else {
-                        alert('Book update failed.');
-                    }
-                })
-
-            } else {
-                alert('Invalid price! Price should be in one of those forms: xx, x, xx.xx, x.xx | Not accepted are: x.x, xx.x');
-            }
-        }
-
-        var bookId = getParameterByName("book_id");
-        $.get("/api/book/get_book/" + bookId, function (response) {
-            if (response === 'FAIL') {
-                alert("failed");
+            if (!validate) {
+                alert("the information is not valid");
                 return;
             }
-            var book = JSON.parse(response);
-
-            if (/^\d*$/.test(book.price)) {
-                book.price = "" + book.price + ".00";
-            } else if (/^\d*\.\d$/.test(book.price)) {
-                book.price = "" + book.price + "0";
+            var price_input = $('input[id=book_price]');
+            var price = price_input.val();
+            price = Number(price).toFixed(2);
+            price_input.val(price);
+            var response = confirm("are you sure you want to update the information?");
+            if (response === true) {
+                getValue(book);
+                $.post('/api/book/update', JSON.stringify(book), function (data) {
+                    if (data === 'SUCCESS') {
+                        var srcList = [];
+                        for (var i=0;i<3;i++) {
+                            var src = $(imageHolders[i]).attr("src");
+                            if (src !== "../book.png") {
+                                var template = {};
+                                template.book_id = book_id;
+                                template.picture = src;
+                                srcList.push(template);
+                            }
+                        }
+                        $.post('/api/book_pic/update', JSON.stringify(srcList), function(data) {
+                            if (data === "SUCCESS") {
+                                alert(data);
+                                location.reload();
+                            } else {
+                                alert("image upload failed");
+                                location.reload();
+                            }
+                        })
+                    } else {
+                        alert(data);
+                        location.reload();
+                    }
+                });
+            } else {
+                location.reload();
             }
+        }
+    });
 
-            // If currently logged in user is the poster of the displayed book,
-            // edit buttons must be visible
-            if (sessionStorage.getItem('id') === book.seller) {
-                $('#price-edit').removeAttr('hidden');
-                $('#desc-edit').removeAttr('hidden');
-                document.getElementById('contact').style.visibility = 'hidden';
+    function checkValidation(e) {
+        var validate = e.target.checkValidity();
+        if (!validate) {
+            $(this).addClass("w3-pale-red");
+            if ($(this).hasClass("w3-pale-green")) {
+                $(this).removeClass("w3-pale-green");
             }
+        } else {
+            if ($(this).hasClass("w3-pale-red")) {
+                $(this).removeClass("w3-pale-red");
+            }
+            $(this).addClass("w3-pale-green");
+        }
+    }
 
-            $('#title').html(book.title);
-            $('#author').html(book.author);
-            $('#price').html(book.price);
-            $('#isbn').html(book.code);
-            $('#description').html(book.description);
-            $('#seller').attr("href", "/profile?user_id=" + book.seller);
-            $.get("/api/user/get_user/" + book.seller, function (response) {
-                var user = JSON.parse(response);
-                $('#seller').html(user.name);
-            })
-        });
-    </script>
-</div>
+    function toggleEditable() {
+        for (var i = 0; i < 3; i++) {
+            $(labels[i]).show();
+        }
+        inputs.removeClass("w3-border-0");
+        inputs.addClass("w3-border");
+        inputs.addClass("w3-border-blue");
+        inputs.attr("disabled", false);
+        $('input[type=file]').attr("disabled", false);
+        labels.removeClass("w3-border-black");
+        labels.addClass("w3-border-blue");
+        inputs.removeClass("w3-white");
+        $('textarea').attr("disabled", false);
+    }
+
+    function putValue(book) {
+        $('input[id=book_title]').val(book.title);
+        $('input[id=book_author]').val(book.author);
+        $('input[id=book_price]').val(book.price.toFixed(2));
+        $('input[id=book_ISBN]').val(book.code);
+        $('#book_description').val(book.description);
+    }
+
+    function getValue(book) {
+        book.title = $('input[id=book_title]').val();
+        book.author = $('input[id=book_author]').val();
+        book.price = $('input[id=book_price]').val();
+        book.code = $('input[id=book_ISBN]').val();
+        book.description = $('#book_description').val();
+        if (book.description === "") {
+            book.description = sellerName + " is lazy and didn't write the description! Don't buy the book!"
+        }
+    }
+</script>
 </body>
 </html>

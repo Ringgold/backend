@@ -35,8 +35,8 @@
                 event.preventDefault();
                 var data = {};
                 data.content = $('#content').val();
-
-                $.get('/api/book/get_book/' + sessionStorage.getItem('book_id'), function (book) {
+                var book_id = getParameterByName("book_id");
+                $.get('/api/book/get_book/' + book_id, function (book) {
                     book = JSON.parse(book);
                     var sellerId = book.seller;
                     $.get('/api/user/get_user/' + sellerId, function(seller) {

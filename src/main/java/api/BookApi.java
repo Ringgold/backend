@@ -187,23 +187,10 @@ public class BookApi {
                 throw new NullPointerException();
             }
 
-            // Verify user
-            if (!oldBook.getSeller().equals(book.getSeller())) {
-                return Constant.FAIL;
-            }
-
-            // Update description if changed
-            if (!book.getDescription().equals(oldBook.getDescription())) {
-                bookDao.setBookDescription(book);
-            }
-
-            // Update price if changed
-            if (book.getPrice() != oldBook.getPrice()) {
-                bookDao.setBookPrice(book);
-            }
+            bookDao.updateBook(book);
         } catch (Exception e) {
             LOG.error(e.getMessage());
-            return Constant.FAIL;
+            return e.getMessage();
         }
 
         return Constant.SUCCESS;
