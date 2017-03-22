@@ -30,7 +30,7 @@ public class ProfileTest{
         driver.navigate().to("http://localhost:9000/");
 
         /* Test User Account Registration */
-        WebElement signUpButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(5) > a"));
+        WebElement signUpButton = driver.findElement(By.id("sign_up"));
         wait.until(ExpectedConditions.visibilityOf(signUpButton));
         signUpButton.click();
         wait.until(ExpectedConditions.titleContains("Sign Up"));
@@ -48,7 +48,7 @@ public class ProfileTest{
         wait.until(ExpectedConditions.titleIs("Book Trader"));
 
         /* Login as test user */
-        WebElement signInButton = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(6) > a"));
+        WebElement signInButton = driver.findElement(By.id("sign_in"));
         wait.until(ExpectedConditions.visibilityOf(signInButton));
         signInButton.click();
         wait.until(ExpectedConditions.titleContains("Sign In"));
@@ -80,8 +80,12 @@ public class ProfileTest{
         driver.findElement(By.name("about_me")).sendKeys("I am a good seller");
         driver.findElement(By.id("save-aboutme")).click();
 
-        WebElement webElement = driver.findElement(By.id("about_me"));
-        String about_me = webElement.getText();
+        wait.until(ExpectedConditions.alertIsPresent());
+        driver.switchTo().alert().accept();
+
+        WebElement aboutMe = driver.findElement(By.id("about_me"));
+        wait.until(ExpectedConditions.visibilityOf(aboutMe));
+        String about_me = aboutMe.getText();
         assertEquals(about_me, "I am a good seller");
     }
 
@@ -108,14 +112,16 @@ public class ProfileTest{
         wait.until(ExpectedConditions.visibilityOf(modalPhoneEdit));
         WebElement phoneInput = driver.findElement(By.name("phone"));
         // New 10-digit phone number as a valid input
-        phoneInput.sendKeys("0987654321");
+        phoneInput.sendKeys("1234567890");
         WebElement saveButton = driver.findElement(By.id("save-phone"));
         wait.until(ExpectedConditions.elementToBeClickable(saveButton));
         saveButton.click();
+        wait.until(ExpectedConditions.alertIsPresent());
+        driver.switchTo().alert().accept();
         WebElement phoneNumber = driver.findElement(By.id("phone_number"));
         wait.until(ExpectedConditions.visibilityOf(phoneNumber));
         String currentPhoneNumber = phoneNumber.getText();
-        assertEquals(currentPhoneNumber, "0987654321");
+        assertEquals("1234567890", currentPhoneNumber);
     }
 
     @Test
@@ -134,6 +140,8 @@ public class ProfileTest{
         WebElement saveButton = driver.findElement(By.id("save-phone"));
         wait.until(ExpectedConditions.elementToBeClickable(saveButton));
         saveButton.click();
+        wait.until(ExpectedConditions.alertIsPresent());
+        driver.switchTo().alert().accept();
         phoneNumber = driver.findElement(By.id("phone_number"));
         wait.until(ExpectedConditions.visibilityOf(phoneNumber));
         String currentPhoneNumber = phoneNumber.getText();
