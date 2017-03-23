@@ -38,6 +38,21 @@ CREATE TABLE `book` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `book_pic`
+--
+
+DROP TABLE IF EXISTS `book_pic`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `book_pic` (
+  `id` varchar(32) NOT NULL,
+  `book_id` varchar(32) NOT NULL,
+  `picture` longblob NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `profile`
 --
 
@@ -85,4 +100,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-11 11:44:28
+-- Dump completed on 2017-03-22 22:37:28
