@@ -96,4 +96,49 @@ public class ReturnToMainPageTest{
         String pageTitle = driver.getTitle();
         assertEquals(webPageTitle, pageTitle);
     }
+
+    @Test
+    public void from_profile_page() {
+        /* Test User Account Registration */
+        WebElement signUpButton = driver.findElement(By.id("sign_up"));
+        wait.until(ExpectedConditions.visibilityOf(signUpButton));
+        signUpButton.click();
+        wait.until(ExpectedConditions.titleContains("Sign Up"));
+        WebElement email = driver.findElement(By.name("email"));
+        email.sendKeys(loginUsername + "@test.test");
+        WebElement name = driver.findElement(By.name("name"));
+        name.sendKeys(loginUsername);
+        WebElement password = driver.findElement(By.name("password"));
+        password.sendKeys(loginPassword);
+        WebElement createAccountButton = driver.findElement(By.cssSelector("body > div > form > button"));
+        createAccountButton.click();
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("message_ok"))));
+        WebElement returnHomePageButton = driver.findElement(By.id("return-home-button"));
+        returnHomePageButton.click();
+        wait.until(ExpectedConditions.titleIs("Book Trader"));
+
+        /* Login as test user */
+        WebElement signInButton = driver.findElement(By.id("sign_in"));
+        wait.until(ExpectedConditions.visibilityOf(signInButton));
+        signInButton.click();
+        wait.until(ExpectedConditions.titleContains("Sign In"));
+        email = driver.findElement(By.name("email"));
+        email.sendKeys(loginUsername + "@test.test");
+        password = driver.findElement(By.name("password"));
+        password.sendKeys(loginPassword);
+        WebElement loginButton = driver.findElement(By.cssSelector("body > div > form > button"));
+        loginButton.click();
+
+        /* Enter Profile Page*/
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("welcome")));
+        WebElement username = driver.findElement(By.id("welcome"));
+        username.click();
+        wait.until(ExpectedConditions.titleIs("User Profile"));
+
+        WebElement mainPageTitle = driver.findElement(By.cssSelector("body > header > ul > li > a"));
+        mainPageTitle.click();
+        wait.until(ExpectedConditions.titleIs(webPageTitle));
+        String pageTitle = driver.getTitle();
+        assertEquals(webPageTitle, pageTitle);
+    }
 }
