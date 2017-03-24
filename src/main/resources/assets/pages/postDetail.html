@@ -28,6 +28,7 @@
             <div class="w3-rest w3-right">
                 <a id="contact_seller" href="" class="w3-button w3-margin-right w3-btn w3-round w3-green">contact
                     seller</a>
+                <a id="print" href="#" onclick="printPost()"><i class="fa fa-print fa-fw w3-text-black w3-xxlarge w3-margin-right"></i></a>
                 <button id="edit_book" class="w3-button w3-margin-right w3-btn w3-round w3-green"
                         style="display: none">edit book
                 </button>
@@ -254,6 +255,10 @@
         if (book.description === "") {
             book.description = sellerName + " is lazy and didn't write the description! Don't buy the book!"
         }
+    }
+
+    function printPost() {
+        window.print();
     }
 </script>
 </body>
