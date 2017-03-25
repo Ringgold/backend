@@ -225,6 +225,41 @@ public class BookApiTest {
         assertTrue(bookChanged.getPrice() == testBook.getPrice());
     }
 
+    @Test
+    public void viewBook() {
+        Book testBook = new Book("test_id", "Views Testing", "Farm Animal", "123123", 10.99, "hi", userID, 0);
+        String ret = api.postBook(gson.toJson(testBook, Book.class));
+        assertTrue(ret.equals(Constant.SUCCESS));
+
+        // Get the test book's ID and set it to previously created book
+        List<Book> list = gson.fromJson(api.getAllBooks(), new TypeToken<List<Book>>() {
+        }.getType());
+        String testBookId = list.get(0).getId();
+        testBook.setId(testBookId);
+
+        Book returnBook = gson.fromJson(api.getBook(testBookId), new TypeToken<Book>(){}.getType());
+        assertEquals(0, returnBook.getViews());
+
+        // View once by seller - no change in view number
+        api.addView(testBook.getId(), userID);
+        returnBook = gson.fromJson(api.getBook(testBook.getId()), new TypeToken<Book>(){}.getType());
+        assertEquals(0, returnBook.getViews());
+
+        // View once by someone else - adds one view
+        api.addView(testBook.getId(), "garbage");
+        returnBook = gson.fromJson(api.getBook(testBook.getId()), new TypeToken<Book>(){}.getType());
+        assertEquals(1, returnBook.getViews());
+
+        // View more times
+        int numberOfViews = 9;
+        for (int i = 0; i < numberOfViews; i++) {
+            api.addView(testBook.getId(), "garbage");
+        }
+
+        returnBook = gson.fromJson(api.getBook(testBook.getId()), new TypeToken<Book>(){}.getType());
+        assertEquals(1 + numberOfViews, returnBook.getViews());
+    }
+
     private void addBooks(int count) {
         for (int i = 0; i < count; i++) {
             Book test = new Book("Test_ID" + i, "Test_Title" + i, "Test_Author" + i, "Test_Code" + i, i + 1, "Test_Desc" + i, userID, 0);
