@@ -312,6 +312,9 @@
     }
 
     function sendReportForm() {
+        document.getElementById('send-report-form').textContent = "SENDING REPORT...";
+        document.getElementById('send-report-form').disabled = true;
+
         var data = {};
         data.content = $('#content-report-form').val();
 
@@ -323,12 +326,14 @@
             data.userEmail = $('#email-report-form').val();
         }
         $.post('/api/mail/report', JSON.stringify(data), function(response) {
+            $('#send-report-form').disabled = false;
             if (response === 'SUCCESS') {
                 document.getElementById('modal-report-form').style.display = 'none';
                 alert("Message successfully sent.");
             } else {
                 alert("please try again");
             }
+            location.reload();
         });
     }
 </script>
