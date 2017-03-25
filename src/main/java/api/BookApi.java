@@ -131,6 +131,9 @@ public class BookApi {
         Gson gson = new Gson();
         try {
             book = gson.fromJson(request, Book.class);
+
+            book.setViews(0);
+
             if (book == null) {
                 throw new NullPointerException();
             }
