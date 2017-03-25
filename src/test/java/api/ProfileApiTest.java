@@ -42,7 +42,7 @@ public class ProfileApiTest {
         handle.execute("DELETE FROM user");
         handle.close();
         User validUser = new User(Constant.generateUUID(), "please@gg", "12345678", "please", Constant.generateUUID(), 0);
-        Book validBook = new Book(Constant.generateUUID(), "somebook", "author_a", "code_a", 10.99, "good", validUser.getId());
+        Book validBook = new Book(Constant.generateUUID(), "somebook", "author_a", "code_a", 10.99, "good", validUser.getId(), 0);
         validProfile = new Profile(Constant.generateUUID(), "testAboutMe", 5.0, "12345", validUser.getId(), 1);
 
         profileDao.insert(validProfile);

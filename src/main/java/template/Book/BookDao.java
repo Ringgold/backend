@@ -11,7 +11,7 @@ import java.util.List;
 @RegisterMapper(BookMapper.class)
 
 public interface BookDao {
-    @SqlUpdate("insert into book values (:id, :title, :author, :code, :price, :description, :seller)")
+    @SqlUpdate("insert into book values (:id, :title, :author, :code, :price, :description, :seller, :views)")
     void insert(@BindBean Book book);
 
     @SqlQuery("select * from book")
@@ -26,6 +26,6 @@ public interface BookDao {
     @SqlUpdate("delete from book where id = :id")
     void deleteBookById(@Bind("id") String id);
 
-    @SqlUpdate("update book set title = :title, author = :author, code = :code, price = :price, description = :description where id = :id")
+    @SqlUpdate("update book set title = :title, author = :author, code = :code, price = :price, description = :description, views = :views where id = :id")
     void updateBook(@BindBean Book book);
 }

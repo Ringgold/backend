@@ -129,8 +129,8 @@ public class UserApiTest {
 
     @Test
     public void getMyBooks() {
-        Book book_a = new Book(Constant.generateUUID(), "title_a", "author_a", "code_a", 10.99, "good", user_a.getId());
-        Book book_b = new Book(Constant.generateUUID(), "title_b", "author_b", "code_b", 9.99, "bad", user_b.getId());
+        Book book_a = new Book(Constant.generateUUID(), "title_a", "author_a", "code_a", 10.99, "good", user_a.getId(), 0);
+        Book book_b = new Book(Constant.generateUUID(), "title_b", "author_b", "code_b", 9.99, "bad", user_b.getId(), 0);
         BookApi bookApi = new BookApi();
         bookApi.setDao(dbi.onDemand(BookDao.class), dbi.onDemand(UserDao.class));
         Gson gson = new Gson();
@@ -141,7 +141,7 @@ public class UserApiTest {
         assertTrue(response.contains("title_a"));
         assertTrue(!response.contains("title_b"));
 
-        Book book_c = new Book(Constant.generateUUID(), "title_c", "author_c", "code_c", 9.99, "bad", user_b.getId());
+        Book book_c = new Book(Constant.generateUUID(), "title_c", "author_c", "code_c", 9.99, "bad", user_b.getId(), 0);
         bookApi.postBook(gson.toJson(book_c));
         response = api.getMyBooks(user_b.getId());
         assertTrue(response.contains("title_b"));

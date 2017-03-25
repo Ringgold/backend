@@ -40,7 +40,10 @@ public class Book {
     @Size(min=32, max=32)
     private String seller;
 
-    public Book(String id, String title, String author, String code, double price, String description, String seller) {
+    @NotNull
+    private int views;
+
+    public Book(String id, String title, String author, String code, double price, String description, String seller, int views) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -48,6 +51,7 @@ public class Book {
         this.price = price;
         this.description = description;
         this.seller = seller;
+        this.views = views;
     }
 
     public String getId() {
@@ -104,6 +108,14 @@ public class Book {
 
     public void setSeller(String seller) {
         this.seller = seller;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
     }
 
     public boolean validate() {

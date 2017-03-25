@@ -14,6 +14,7 @@ public class BookMapper implements ResultSetMapper<Book> {
                 resultSet.getString("code"),
                 resultSet.getDouble("price"),
                 resultSet.getString("description"),
-                resultSet.getString("seller"));
+                resultSet.getString("seller"),
+                resultSet.getInt("views"));
     }
 }

@@ -69,6 +69,7 @@ public class BookApiTest {
         assertEquals(first.getCode(), book.getCode());
         assertEquals(first.getAuthor(), book.getAuthor());
         assertEquals(first.getTitle(), book.getTitle());
+        assertEquals(first.getViews(), book.getViews());
     }
 
     @Test
@@ -104,6 +105,7 @@ public class BookApiTest {
             assertEquals("Test_Desc" + i, test.getDescription());
             assertEquals(i + 1, test.getPrice(), 0.001);
             assertEquals(userID, test.getSeller());
+            assertEquals(0, test.getViews());
             api.deleteBook(test.getSeller(), test.getId());
         }
         testEmpty = api.getAllBooks();
@@ -131,7 +133,7 @@ public class BookApiTest {
 
     @Test
     public void postBook() {
-        Book test = new Book(Constant.generateUUID(), "Test_Title", "Test_Author", "Test_Code", 1, "Test_Desc", userID);
+        Book test = new Book(Constant.generateUUID(), "Test_Title", "Test_Author", "Test_Code", 1, "Test_Desc", userID, 0);
         String jsonString = gson.toJson(test, Book.class);
         System.out.println(jsonString);
         String ret = api.postBook(jsonString);
@@ -145,7 +147,7 @@ public class BookApiTest {
     public void deleteBook() {
         String testEmpty = api.deleteBook("lasfjaslkf", "laskfjlaseee");
         assertEquals(Constant.FAIL, testEmpty);
-        Book test = new Book("Test_ID", "Test_Title", "Test_Author", "Test_Code", 1, "Test_Desc", userID);
+        Book test = new Book("Test_ID", "Test_Title", "Test_Author", "Test_Code", 1, "Test_Desc", userID, 0);
         String jsonString = gson.toJson(test, Book.class);
         String ret = api.postBook(jsonString);
         assertEquals(Constant.SUCCESS, ret);
@@ -164,7 +166,7 @@ public class BookApiTest {
     @Test
     public void updateBookPrice() {
         // Create test book
-        Book testBook = new Book("Test_ID_For_Price", "Test_Title", "Test_Author", "Test_Code", 1, "Test_Desc", userID);
+        Book testBook = new Book("Test_ID_For_Price", "Test_Title", "Test_Author", "Test_Code", 1, "Test_Desc", userID, 0);
         String jsonString = gson.toJson(testBook, Book.class);
         String ret = api.postBook(jsonString);
         assertEquals(ret, Constant.SUCCESS);
@@ -195,7 +197,7 @@ public class BookApiTest {
     @Test
     public void updateBookDescription() {
         // Create test book
-        Book testBook = new Book("Test_ID_For_Price", "Test_Title", "Test_Author", "Test_Code", 1, "Test_Desc", userID);
+        Book testBook = new Book("Test_ID_For_Price", "Test_Title", "Test_Author", "Test_Code", 1, "Test_Desc", userID, 0);
         String jsonString = gson.toJson(testBook, Book.class);
         String ret = api.postBook(jsonString);
         assertEquals(ret, Constant.SUCCESS);
@@ -225,7 +227,7 @@ public class BookApiTest {
 
     private void addBooks(int count) {
         for (int i = 0; i < count; i++) {
-            Book test = new Book("Test_ID" + i, "Test_Title" + i, "Test_Author" + i, "Test_Code" + i, i + 1, "Test_Desc" + i, userID);
+            Book test = new Book("Test_ID" + i, "Test_Title" + i, "Test_Author" + i, "Test_Code" + i, i + 1, "Test_Desc" + i, userID, 0);
             String jsonString = gson.toJson(test, Book.class);
             String ret = api.postBook(jsonString);
             assertTrue(ret.equals(Constant.SUCCESS));

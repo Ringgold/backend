@@ -32,6 +32,7 @@ CREATE TABLE `book` (
   `price` double NOT NULL,
   `description` varchar(255) NOT NULL,
   `seller` varchar(32) NOT NULL,
+  `views` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
