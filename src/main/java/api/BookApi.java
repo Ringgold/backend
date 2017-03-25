@@ -199,6 +199,25 @@ public class BookApi {
         return Constant.SUCCESS;
     }
 
+    @Path("/addview/{book_id}/{user_id}")
+    @GET
+    public String addView(@PathParam("book_id") String bookId, @PathParam("user_id") String userId) {
+        try {
+            Book book = bookDao.getBookById(bookId);
+
+            if (book.getSeller() == userId) {
+                return Constant.FAIL;
+            }
+
+            book.setViews(book.getViews() + 1);
+            bookDao.updateBook(book);
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+        return Constant.SUCCESS;
+    }
+
     public void setDao(BookDao bookDao, UserDao userDao) {
         this.bookDao = bookDao;
         this.userDao = userDao;
