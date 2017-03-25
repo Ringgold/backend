@@ -32,6 +32,8 @@
                 <button id="edit_book" class="w3-button w3-margin-right w3-btn w3-round w3-green"
                         style="display: none">edit book
                 </button>
+                <button id="report" class="w3-button w3-margin-right w3-btn w3-round w3-red" href="#" onclick="openReportForm()"
+                        style="display:inline-block;">Report Post</button>
             </div>
             <input id="book_title" class="book_information w3-input w3-round w3-border-0 w3-xxlarge w3-white"
                    type="text" disabled
@@ -91,12 +93,37 @@
             <textarea cols=80 rows=5 id="book_description" class="w3-large" style="resize: none" disabled required>some description</textarea>
         </div>
     </div>
+
+    <div id="modal-report-form" class="w3-modal">
+        <div class="w3-modal-content w3-card-8 w3-animate-top">
+            <header class="w3-container w3-indigo">
+                <span onclick="document.getElementById('modal-report-form').style.display='none'" class="w3-closebtn">&times;</span>
+            </header>
+            <div class="w3-container">
+                <!-- FORM HERE-->
+                <h2>Report this post</h2>
+                <textarea id="email-report-form" rows="1" cols="51" placeholder="Email. Let blank to stay anonymous"
+                          class="w3-border w3-round-large w3-margin-top" type="email" maxlength="51"></textarea>
+                <i>Let blank to stay anonymous</i>
+                <br>
+                <textarea id="content-report-form" rows="5" cols="51" placeholder="Report content... "
+                          class="w3-border w3-round-large w3-margin-top" type="text" maxlength="255" required></textarea>
+            </div>
+            <footer class="w3-container w3-indigo">
+                <span class="w3-right w3-padding-8">
+                    <button id="cancel-report-form" class="w3-btn w3-red" onclick="document.getElementById('modal-report-form').style.display='none'">CANCEL</button>
+                    <button id="send-report-form" class="w3-btn w3-green" onclick="sendReportForm()">SEND</button>
+                </span>
+            </footer>
+        </div>
+    </div>
 </div>
 
 <script>
     var book_id = getParameterByName("book_id");
     var book = {};
     var sellerName;
+    var sellerEmail;
     var imageHolders = $('.picture');
     var labels = $('.picture_border');
     var currentImageHolder;
@@ -118,18 +145,21 @@
         book = JSON.parse(data);
         putValue(book);
         var contact_seller = $('#contact_seller');
+        var report_button = $('#report');
         var seller_name = $('#seller_name');
         $.get("/api/user/get_user/" + book.seller, function (seller) {
             seller = JSON.parse(seller);
             seller_name.html(seller.name);
             sellerName = seller.name;
             seller_name.attr("href", "/profile?user_id=" + seller.id);
+            sellerEmail = seller.email;
         });
         contact_seller.attr('href', '/contact/?book_id=' + book.id);
         var user_id = sessionStorage.getItem("id");
         if (user_id && book.seller === user_id) {
             $('#edit_book').css('display', 'inline');
             contact_seller.hide();
+            report_button.hide();
         } else {
             $('#edit_book').hide();
         }
@@ -270,6 +300,36 @@
 
     function printPost() {
         window.print();
+    }
+
+    function openReportForm(){
+        if (!sessionStorage.getItem('id')) {
+            alert("Please log in first, you can still report anonymously!");
+        }else{
+            $('#email-report-form').val(sessionStorage.getItem("email"));
+            document.getElementById('modal-report-form').style.display = 'block';
+        }
+    }
+
+    function sendReportForm() {
+        var data = {};
+        data.content = $('#content-report-form').val();
+
+        data.sellerEmail = sellerEmail;
+        data.userName = sellerName;
+        if($('#email-report-form').val() == null){
+            data.userEmail = "null";
+        }else{
+            data.userEmail = $('#email-report-form').val();
+        }
+        $.post('/api/mail/report', JSON.stringify(data), function(response) {
+            if (response === 'SUCCESS') {
+                document.getElementById('modal-report-form').style.display = 'none';
+                alert("Message successfully sent.");
+            } else {
+                alert("please try again");
+            }
+        });
     }
 </script>
 </body>

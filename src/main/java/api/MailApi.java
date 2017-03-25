@@ -22,6 +22,7 @@ public class MailApi {
     private static final String host = "smtp.gmail.com";
     private static final String domain = "bookTrader428";
     private static final String prop = "428bookTrader";
+    private static final String adminEmail = "vivien.traineau@mail.mcgill.ca";
 
     private Session mailSession;
 
@@ -31,6 +32,25 @@ public class MailApi {
         message.setSubject(userName + " wants to buy the book [book trader]");
         message.setText("from: " + userEmail + "\n" + content + "\n" + "name: " + userName);
 
+        Transport transport = mailSession.getTransport("smtp");
+        transport.connect(host, domain, prop);
+        transport.sendMessage(message, message.getAllRecipients());
+        transport.close();
+    }
+
+    private void report(String userEmail, String userName, String sellerEmail, String content, boolean anon) throws Exception {
+        MimeMessage message = new MimeMessage(mailSession);
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(adminEmail));
+        message.setSubject("A post was reported on your website BookTrader");
+        if(anon){
+            message.setText("Hi, someone reported a post on your website. \nThat person didn't give any contact info. Here is the report:\n" +
+                    content + "\nIt came from the seller with email: " + sellerEmail + " and with username: " +
+                    userName + ".\nPlease take the necessary actions to keep the website correct.");
+        }else{
+            message.setText("Hi, someone reported a post on your website. \nThat person gave their email: " + userEmail + ". Here is the report:\n" +
+                    content + "\nIt came from the seller with email: " + sellerEmail + " and with username: " +
+                    userName + ".\nPlease take the necessary actions to keep the website correct.");
+        }
         Transport transport = mailSession.getTransport("smtp");
         transport.connect(host, domain, prop);
         transport.sendMessage(message, message.getAllRecipients());
@@ -82,6 +102,29 @@ public class MailApi {
         transport.connect(host, domain, prop);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
+    }
+
+
+    @POST
+    @Path("/report")
+    public String sendPostReportEmail(String request) {
+        Gson gson = new Gson();
+        boolean anon = false;
+        try {
+            Mail mail = gson.fromJson(request, Mail.class);
+            if (!mail.validate()) {
+                throw new NullPointerException();
+            }
+            if(mail.getUserEmail() == "null"){
+                anon = true;
+            }
+            report(mail.getUserEmail(), mail.getUserName(), mail.getSellerEmail(), mail.getContent(), anon);
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+        return Constant.SUCCESS;
+
     }
 
     public void initMail() {
