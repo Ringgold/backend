@@ -190,17 +190,6 @@ public class BookApiTest {
 
         // Verify description unchanged
         assertTrue(bookChanged.getDescription().equals(testBook.getDescription()));
-
-        // Wrong seller
-        testBook.setSeller("NotTheRightOne");
-        testBook.setPrice(99.0);
-        jsonString = gson.toJson(testBook, Book.class);
-        ret = api.updateBook(jsonString);
-        assertEquals(ret, Constant.FAIL);
-        bookString = api.getBook(testBookId);
-        bookChanged = gson.fromJson(bookString, new TypeToken<Book>() {
-        }.getType());
-        assertTrue(bookChanged.getPrice() == 2.0);
     }
 
     @Test
@@ -232,23 +221,6 @@ public class BookApiTest {
 
         // Verify price unchanged
         assertTrue(bookChanged.getPrice() == testBook.getPrice());
-
-        // Wrong seller
-        testBook.setSeller("NotTheRightOne");
-        jsonString = gson.toJson(testBook, Book.class);
-        ret = api.updateBook(jsonString);
-        assertEquals(ret, Constant.FAIL);
-
-        // Wrong seller
-        testBook.setSeller("NotTheRightOne");
-        testBook.setDescription("Oops");
-        jsonString = gson.toJson(testBook, Book.class);
-        ret = api.updateBook(jsonString);
-        assertEquals(ret, Constant.FAIL);
-        bookString = api.getBook(testBookId);
-        bookChanged = gson.fromJson(bookString, new TypeToken<Book>() {
-        }.getType());
-        assertTrue(bookChanged.getDescription().equals("Description has been changed."));
     }
 
     private void addBooks(int count) {
