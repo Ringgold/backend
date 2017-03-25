@@ -32,6 +32,8 @@ __p += '\r\n<div class="w3-card-4 w3-margin-top">\r\n    <header>\r\n        <ul
 ((__t = (book.author)) == null ? '' : __t) +
 '</p>\r\n        <p>Price: ' +
 ((__t = (book.price)) == null ? '' : __t) +
+'</p>\r\n        <p>' + ((__t = (book.views)) == null ? '' : __t) +
+' views' +
 '</p>\r\n    </div>\r\n</div>\r\n';
 });;
 __p += '\r\n\r\n';

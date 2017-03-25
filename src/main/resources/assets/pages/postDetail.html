@@ -111,6 +111,9 @@
         currentImageHolder = 2;
     });
 
+    var user_id = sessionStorage.getItem("id");
+    $.get('/api/book/addview/' + book_id + '/' + user_id);
+
     $.get('/api/book/get_book/' + book_id, function (data) {
         book = JSON.parse(data);
         putValue(book);
@@ -251,6 +254,7 @@
         $('input[id=book_price]').val(book.price.toFixed(2));
         $('input[id=book_ISBN]').val(book.code);
         $('#book_description').val(book.description);
+        $('#views_number').html(book.views);
     }
 
     function getValue(book) {

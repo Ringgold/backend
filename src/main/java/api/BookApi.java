@@ -205,7 +205,7 @@ public class BookApi {
         try {
             Book book = bookDao.getBookById(bookId);
 
-            if (book.getSeller() == userId) {
+            if (book.getSeller().equals(userId)) {
                 return Constant.FAIL;
             }
 
