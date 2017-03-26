@@ -279,6 +279,7 @@
         function deleteAccount() {
             $.get('/api/user/delete/' + myId, function (data) {
                 alert(data);
+                shareLogout();
                 sessionStorage.clear();
                 window.location.href = "/";
             });

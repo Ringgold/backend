@@ -13,7 +13,12 @@ var sessionStorage_transfer = function(event) {
         for (var key in data) {
             sessionStorage.setItem(key, data[key]);
         }
-        window.location.reload();   //reload page after receiving data to update the content
+        if(sessionStorage.getItem("id")){
+            window.location.reload();
+        }   //reload page after receiving data to update the content
+    } else if (event.key == 'logout'){
+        sessionStorage.clear();
+        window.location.reload();
     }
 };
 
@@ -30,6 +35,11 @@ if (!sessionStorage.length) {
     localStorage.setItem('getSessionStorage', 'foobar');
     localStorage.removeItem('getSessionStorage');
 };
+
+function shareLogout(){
+    localStorage.setItem('logout', true);
+    localStorage.removeItem('logout');
+}
 
 function getFormData(form) {
     var data = {};
