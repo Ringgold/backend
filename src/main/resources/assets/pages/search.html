@@ -21,6 +21,8 @@
     </ul>
 </header>
 
+
+
 <form id="search_Form" class="w3-container w3-animate-left" onsubmit="search(event)">
     <input id="search_text" style="width: 1100px; height: 38px" name="search_Box" placeholder="Search for any book"
            class="  custom w3-left-align w3-border w3-margin-top w3-round-large  label" type="search" required>
@@ -43,6 +45,11 @@
                class=" label  custom w3-left w3-left-align w3-border  " type="search">
 
     </div>
+
+    <div>
+         <span id="book_length"></span> match(es)
+    </div>
+
     <script>
         function search(event) {
             event.preventDefault();
@@ -88,6 +95,7 @@
     var inputs = [localStorage.getItem('search_text'), localStorage.getItem('dropDMenu'), localStorage.getItem('lowerPLimit'), localStorage.getItem('upperPLimit')];
     $.post("/api/book/searched", inputs.toString(), function (bookList) {
         bookList = JSON.parse(bookList);
+        $('#book_length').html(bookList.length);
         var bookListPanel = window.JST.post({
             books: bookList
         });
@@ -96,7 +104,9 @@
         panel.append(bookListPanel);
     });
 
+
 </script>
+
 <div class="w3-container w3-center">
     <a href="/" class="w3-btn w3-white w3-round w3-margin-top w3-animate-left">Back to Main Page ?</a>
 </div>
