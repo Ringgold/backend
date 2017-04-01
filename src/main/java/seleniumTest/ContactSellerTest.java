@@ -22,14 +22,13 @@ public class ContactSellerTest {
     private static WebDriverWait wait;
 
     private String loginUsername = Constant.generateUUID();
-    private String loginUsername2 = Constant.generateUUID();
+    public String loginUsername2 = Constant.generateUUID();
     private String loginPassword = "password";
     private String book_title = Constant.generateUUID();
 
 
     @Before
     public void setup() {
-        //   System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         System.setProperty("webdriver.chrome.driver", "chromedriver");
 
         driver = new ChromeDriver();
@@ -160,6 +159,7 @@ public class ContactSellerTest {
 
     @Test
     public void invalid_contactSeller_test1() {
+        String message = "something";
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("contact")));
         driver.findElement(By.name("contact")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sendButton")));
@@ -171,18 +171,21 @@ public class ContactSellerTest {
             alert.accept();
         }
         catch (Exception e){
-            System.out.print("No alert");
+            message = "alert Present";
         }
+        assertEquals("alert Present", message);
+
     }
 
     @Test
     public void invalid_contactSeller_test2() {
+        String message = "something";
         goToBookPage();
 
         WebElement webElement = driver.findElement(By.id("contact_seller"));
         wait.until(ExpectedConditions.visibilityOf(webElement));
         webElement.click();
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sendButton")));
         driver.findElement(By.id("sendButton")).click();
 
@@ -192,13 +195,27 @@ public class ContactSellerTest {
             alert.accept();
         }
         catch (Exception e){
-            System.out.print("No alert");
+            message = "No alert Present";
         }
+
+        assertEquals("No alert Present", message);
+
     }
 
     private void goToBookPage() {
         // Find the book
         driver.navigate().to("http://localhost:9000");
+
+//        WebElement signInButton = driver.findElement(By.id("sign_in"));
+//        wait.until(ExpectedConditions.visibilityOf(signInButton));
+//        signInButton.click();
+//        wait.until(ExpectedConditions.titleContains("Sign In"));
+//        WebElement emailReLogin = driver.findElement(By.name("email"));
+//        emailReLogin.sendKeys(loginUsername2 + "@test.test");
+//        WebElement passwordRelogin = driver.findElement(By.name("password"));
+//        passwordRelogin.sendKeys("password");
+//        WebElement loginButton2= driver.findElement(By.cssSelector("body > div > form > button"));
+//        loginButton2.click();
 
         WebElement webElement = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(1) > a"));
         wait.until(ExpectedConditions.visibilityOf(webElement));
