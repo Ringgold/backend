@@ -22,7 +22,7 @@ public class ContactSellerTest {
     private static WebDriverWait wait;
 
     private String loginUsername = Constant.generateUUID();
-    public String loginUsername2 = Constant.generateUUID();
+    private String loginUsername2 = Constant.generateUUID();
     private String loginPassword = "password";
     private String book_title = Constant.generateUUID();
 
@@ -206,16 +206,6 @@ public class ContactSellerTest {
         // Find the book
         driver.navigate().to("http://localhost:9000");
 
-//        WebElement signInButton = driver.findElement(By.id("sign_in"));
-//        wait.until(ExpectedConditions.visibilityOf(signInButton));
-//        signInButton.click();
-//        wait.until(ExpectedConditions.titleContains("Sign In"));
-//        WebElement emailReLogin = driver.findElement(By.name("email"));
-//        emailReLogin.sendKeys(loginUsername2 + "@test.test");
-//        WebElement passwordRelogin = driver.findElement(By.name("password"));
-//        passwordRelogin.sendKeys("password");
-//        WebElement loginButton2= driver.findElement(By.cssSelector("body > div > form > button"));
-//        loginButton2.click();
 
         WebElement webElement = driver.findElement(By.cssSelector("body > header > ul > li:nth-child(1) > a"));
         wait.until(ExpectedConditions.visibilityOf(webElement));
