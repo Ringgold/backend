@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+            <title>Terms And Policies</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+                <link rel="stylesheet" href="css/w3.css">
+                    
+                    <!--library-->
+                    <script src="js/template/templates.js"></script>
+                    <script src="js/main.js"></script>
+                    <script src="js/jquery.js"></script>
+                    <script src="js/underscore.js"></script>
+    </head>
+    
+    </head>
+    <body class="w3-theme-l5">
+        <header>
+            <ul class="w3-navbar w3-border w3-indigo w3-padding-4">
+                <li><a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/">BookTrader</a></li>
+                <li id="logout" class="w3-right">
+                    <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href ="" onclick="shareLogout(); sessionStorage.clear(); window.location.reload();">Logout</a>
+                </li>
+                <li id="post" class="w3-right">
+                    <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/post">Post</a>
+                </li>
+                <li id="welcome_pre" class="w3-right">
+                    <a id="welcome" class="w3-hover-indigo w3-text-white" style="display: inline-block" href="/profile" onclick="sessionStorage.setItem('seller_id', sessionStorage.getItem('id'))"></a>
+                </li>
+                <li id="sign_up" class="w3-right">
+                    <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/sign_up">Sign Up</a>
+                </li>
+                <li id="sign_in" class="w3-right">
+                    <a class="w3-hover-indigo w3-text-white w3-hover-text-light-blue" href="/login">Sign In</a>
+                </li>
+            </ul>
+            
+            <script>
+                if (sessionStorage.getItem('id')) {
+                    $('#sign_in').hide();
+                    $('#sign_up').hide();
+                    var welcomeBoard = $('#welcome');
+                    welcomeBoard.html(sessionStorage.getItem('name'));
+                    welcomeBoard.attr("href", "/profile/?user_id=" + sessionStorage.getItem('id'));
+                } else {
+                    $('#welcome').hide();
+                    $('#welcome_pre').hide();
+                    $('#post').hide();
+                    $('#logout').hide();
+                }
+            </script>
+        </header>
+        <div class="w3-container help-list">
+            <div class="w3-container">
+                <h2>Terms And Policies</h2>
+                <p>In order to use the website and mobile application, all users must comply by and agree with all the following policies.</p>
+            </div>
+            <ul>
+                <li onclick="showSection('GeneralUsage')" class="w3-block w3-left-align"><b>Genearal Usage</b></li>
+                <div id="GeneralUsage" class="w3-container w3-hide">
+                    
+                   
+                    <ul>
+                        <li>You must post adds only for books or for items that are closest to the category of “books” i.e. magazines, or other reading articles. Ads for items other than these are prohibited and can be removed by the administration without earlier notification to the seller. </li>
+                        <li>You must respect and not post any content that breaches any law or policy of any entity including our website or stakeholders of the book itself. The Content should not infringe the intellectual property rights i.e. trademark or copyright (i.e. posting fake/pirated/counterfeit books).</li>
+                        <li>You must not copy, reuse or distribute anyone else’s content without their permission.</li>
+                        <li>You must not use a machine or any other automated system to access BookTraders website and collect content without requesting for permission from the administration over an email.</li>
+                        <li>You must not use website to promote any hateful material,discrimination or any other material that is offensive to any entity. Admin will remove such account and do everything legally to avoid such user to re-use our services.</li>
+                        <li>To access some features offered by our website i.e. posting an ad, you would be required to register with us and set up an account with your email address and password.</li>
+                        <li>Use or transfer of an account to some different person without notifying the admin.</li>
+                        <li>If you think or have realized that your account has been compromised, notify the admin by email.</li>
+                        <li>You agree to let Booktraders website to store and use any personal information provided to the website.</li>
+                    </ul>
+                    <br>
+                </div>
+                <li onclick="showSection('AgeRestriction')" class="w3-block w3-left-align"><b>Age Restriction</b></li>
+                <div id="AgeRestriction" class="w3-container w3-hide">
+                    
+                    <ul>
+                        <li>BookTraders is committed to provide a platform that is safe to use by all the family members but we also understand the risks involved including commitments with being made by ananomous individuals and monetary transactions that can be performed online. For any person who is under the age of 15 must accompany their parents or guardians while responding to an ad you are interested or if you want to post an ad.
+</li>
+                                           </ul>
+                    <br>
+                </div>
+                <li onclick="showSection('AdPostingPolicies')" class="w3-block w3-left-align"><b>Ad Posting Policies</b></li>
+                <div id="AdPostingPolicies" class="w3-container w3-hide">
+                                        <ul>
+                        <li>Posting an ad if your not located in Canada is prohibited.</li>
+                        <li>Posting an ad for the sole purpose of increasing traffic to a website i.e. links to other website  is prohibited.</li>
+                        <li>Posting an ad using any language other than English or French is prohibited.</li>
+                        <li>Posting the same ad using different accounts/email addresses is prohibited.</li>
+                        <li>Posting an ad for a book that is illegal to own, buy or sell is prohibited.</li>
+                        <li>Posting an ad for a book with wrong description or wrong title, image or author name is prohibited.</li>
+                        <li>You must not post false, inaccurate, misleading or deceptive content.</li>
+                        <li>Posting an ad for books that contain adult or mature content is not allowed.</li>
+                        <li>Posting ads solley presenting opinions or discussions are not allowed.</li>
+                        <li>Do not post ad for the same book multiple times.</li>
+                        <li>Posting ad for distribution of copyrighted material including e-books is prohibited.</li>
+                        <li>Posting an ad for a book that you are not the owner of, is prohibited.</li>
+                      
+                    </ul>
+                </div>
+                <li onclick="showSection('buyerPolicies')" class="w3-block w3-left-align"><b>Buyer Policies</b></li>
+                <div id="buyerPolicies" class="w3-container w3-hide">
+                                        <ul>
+                        <li>Buyer must not threat for poor rating/feedback in order to get something that was not part of the original post.</li>
+                        <li>Sellers must not demand the buyer to give them a good rating.</li>
+                        <li>As a buyer, it's your responsibility for the legality of the book you are offering for sale on BookTraders.</li>
+                        <li>As a buyer, it's your responsibility to judge the authenticity, credibility and accuracy of an ad or a seller. Book Traders is committed to provide a foolproof and healthy platform where everyone benefits from the service but would not be held responsible if any losses are incurred due to misleading post is added to the website.
+                        </li>
+                        <li>BookTraders highly recommends its users to avoid any online transaction.</li>
+                    </ul>
+                    <br>
+                </div>
+                <li onclick="showSection('safety')" class="w3-block w3-left-align"><b>Safety</b></li>
+                <div id="safety" class="w3-container w3-hide">
+                    
+                    <ul>
+                        <li>It is the responsibility of users to ensure their safety while making a deal with the buyer. Book Traders is not responsible for any deliberate or non-deliberate loss or damage done to any users; financial, physical or of any form; before, during or after a transaction is made between a buyer and the seller.</li>
+                        <li>BookTraders admin has all the rights to delete a post or an account at any point of time without the consent of its users !</li>
+
+                    </ul>
+                    <br>
+                </div>
+                           <script>
+                function showSection(id) {
+                    var x = document.getElementById(id);
+                    if (x.className.indexOf("w3-show") == -1) {
+                        x.className += " w3-show";
+                    } else {
+                        x.className = x.className.replace(" w3-show", "");
+                    }
+                }
+            </script>
+        </div>
+    </body>
+</html>
