@@ -206,7 +206,13 @@
     $('input[type=file]').on('change', function () {
         var files = $(this)[0].files;
         var picture = files[0];
-        fileReader.readAsDataURL(picture);
+        var fileName = picture.name;
+        fileName = fileName.toLowerCase();
+        if (!fileName.includes(".jpg") && !fileName.includes(".png")) {
+            alert("the input files should be images");
+        } else {
+            fileReader.readAsDataURL(picture);
+        }
     });
 
     var edit_book = $('#edit_book');
