@@ -40,6 +40,7 @@ public class BackendService extends Application<Configuration> {
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/my_books", "myBooks.html", "myBooks"));
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/profile", "profile.html", "profile"));
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/help", "help.html", "help"));
+        bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/policiesTerms", "policiesTerms.html", "policiesTerms"));
     }
 
     @Override
