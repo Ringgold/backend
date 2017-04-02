@@ -22,7 +22,7 @@ public class MailApi {
     private static final String host = "smtp.gmail.com";
     private static final String domain = "bookTrader428";
     private static final String prop = "428bookTrader";
-    private static final String adminEmail = "vivien.traineau@mail.mcgill.ca";
+    private static final String adminEmail = "danial.almani@mail.mcgill.ca";
 
     private Session mailSession;
 
